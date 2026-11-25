@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: #111111;
+    color: #FFFFFF;
+    max-width: 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Standard natural text wrapping: prevents overflow without breaking words mid-character */
+  p, li, label, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  /* Table cell alignments and protection for IDs, codes, and badges */
+  th, td {
+    vertical-align: middle;
+  }
+
+  /* Protect numbers, codes, dates, and mono tags from character-by-character wrapping */
+  .font-mono, [class*="font-mono"], .whitespace-nowrap {
+    white-space: nowrap;
+  }
+
+  /* Ensure inputs and textareas respect container boundary */
+  input,
+  textarea,
+  select {
+    max-width: 100%;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #171717;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2E2E33;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C8102E;
+}
+
+/* RealCred Custom Utility Classes */
+.glass-panel {
+  background: rgba(23, 23, 23, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: #18181B;
+  border: 1px solid #27272A;
+  transition: all 0.25s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(200, 16, 46, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(200, 16, 46, 0.15);
+}
+
+.gradient-text-red {
+  background: linear-gradient(135deg, #EF3340 0%, #C8102E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Reusable text overflow & table container utilities */
+.break-word-safe {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.table-responsive-container {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
