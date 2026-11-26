@@ -282,19 +282,19 @@ export default function LoanCategoryManagement() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-red/10 text-brand-red border border-brand-red/20 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-2">
             <Layers className="w-3.5 h-3.5" />
             <span>Product Architecture & Categories Desk</span>
           </div>
-          <h2 className="text-2xl font-black text-white">Loan Categories Management</h2>
-          <p className="text-xs text-brand-grey">
+          <h2 className="text-2xl font-black text-brand-textPrimary">Loan Categories Management</h2>
+          <p className="text-xs text-brand-textSecondary">
             Configure institutional credit offerings, interest rate limits, loan limits, features, eligibility, and active public visibility.
           </p>
         </div>
 
         <button
           onClick={openCreateModal}
-          className="px-4 py-2.5 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold transition shadow-lg shadow-brand-red/20 flex items-center gap-2 w-fit"
+          className="px-4 py-2.5 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-lg shadow-brand-red/20 flex items-center gap-2 w-fit"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Category</span>
@@ -303,47 +303,47 @@ export default function LoanCategoryManagement() {
 
       {/* Notifications */}
       {error && (
-        <div className="p-4 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-between text-xs text-white">
+        <div className="p-4 rounded-2xl bg-brand-redLight border border-brand-red/30 flex items-center justify-between text-xs text-brand-red">
           <div className="flex items-center gap-3">
             <AlertCircle className="w-4 h-4 text-brand-red shrink-0" />
             <span>{error}</span>
           </div>
-          <button onClick={() => setError('')} className="text-brand-grey hover:text-white">
+          <button onClick={() => setError('')} className="text-brand-textSecondary hover:text-brand-textPrimary">
             <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs text-emerald-400">
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between text-xs text-emerald-800">
           <div className="flex items-center gap-3">
-            <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>{success}</span>
           </div>
-          <button onClick={() => setSuccess('')} className="text-brand-grey hover:text-white">
+          <button onClick={() => setSuccess('')} className="text-brand-textSecondary hover:text-brand-textPrimary">
             <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
       {/* Search, Filter & Stats Bar */}
-      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-brand-dark p-4 rounded-2xl border border-brand-border/60">
+      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-white p-4 rounded-2xl border border-brand-border shadow-sm">
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto flex-1 max-w-xl">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-brand-grey absolute left-3.5 top-3" />
+            <Search className="w-4 h-4 text-brand-textSecondary absolute left-3.5 top-3" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search category by name, slug or description..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red"
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+            className="px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
           >
             <option value="all">All Statuses</option>
             <option value="active">Active (Visible on Website)</option>
@@ -351,16 +351,16 @@ export default function LoanCategoryManagement() {
           </select>
         </div>
 
-        <div className="text-xs text-brand-grey self-end sm:self-center">
-          Total Categories: <span className="text-white font-bold">{categories.length}</span>
+        <div className="text-xs text-brand-textSecondary self-end sm:self-center">
+          Total Categories: <span className="text-brand-textPrimary font-bold">{categories.length}</span>
         </div>
       </div>
 
       {/* Categories Table */}
-      <div className="bg-brand-dark rounded-3xl border border-brand-border/60 overflow-hidden shadow-xl min-w-0 max-w-full">
+      <div className="bg-white rounded-3xl border border-brand-border overflow-hidden shadow-sm min-w-0 max-w-full">
         <div className="overflow-x-auto min-w-0 max-w-full">
           <table className="w-full text-left text-xs min-w-[760px]">
-            <thead className="bg-brand-black/60 text-brand-grey uppercase tracking-wider font-semibold border-b border-brand-border/50">
+            <thead className="bg-brand-bg text-brand-textSecondary uppercase tracking-wider font-semibold border-b border-brand-border">
               <tr>
                 <th className="py-3.5 px-4 w-[220px]">Category & Slug</th>
                 <th className="py-3.5 px-4 max-w-xs">Tagline / Short Desc</th>
@@ -371,17 +371,17 @@ export default function LoanCategoryManagement() {
                 <th className="py-3.5 px-4 text-right whitespace-nowrap">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-border/40 text-brand-lightGrey">
+            <tbody className="divide-y divide-brand-border text-brand-textSecondary">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-brand-grey">
+                  <td colSpan={7} className="py-8 text-center text-brand-textSecondary">
                     <div className="w-6 h-6 border-2 border-brand-red border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                     Loading loan categories...
                   </td>
                 </tr>
               ) : categories.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-brand-grey">
+                  <td colSpan={7} className="py-8 text-center text-brand-textSecondary">
                     No loan categories found matching criteria.
                   </td>
                 </tr>
@@ -393,15 +393,15 @@ export default function LoanCategoryManagement() {
                   const maxRate = cat.maxInterestRate ?? (cat.interestRateRange?.max ?? 15.0);
 
                   return (
-                    <tr key={cat._id} className="hover:bg-white/5 transition-colors">
+                    <tr key={cat._id} className="hover:bg-brand-redLight/20 transition-colors">
                       <td className="py-3.5 px-4 max-w-[220px]">
                         <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-9 h-9 rounded-xl bg-brand-red/10 border border-brand-red/20 text-brand-red flex items-center justify-center shrink-0">
+                          <div className="w-9 h-9 rounded-xl bg-brand-redLight border border-brand-red/20 text-brand-red flex items-center justify-center shrink-0">
                             <IconComp className="w-4 h-4" />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <span className="font-bold text-white block break-words [overflow-wrap:anywhere]">{cat.name}</span>
-                            <span className="text-[10px] text-brand-grey font-mono block break-all">
+                            <span className="font-bold text-brand-textPrimary block break-words [overflow-wrap:anywhere]">{cat.name}</span>
+                            <span className="text-[10px] text-brand-textSecondary font-mono block break-all">
                               /products/{cat.slug}
                             </span>
                           </div>
@@ -412,13 +412,13 @@ export default function LoanCategoryManagement() {
                           {cat.tagline || cat.description}
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 font-mono text-white whitespace-nowrap">
+                      <td className="py-3.5 px-4 font-mono text-brand-textPrimary whitespace-nowrap">
                         {formatCurrency(cat.minAmount)} - {formatCurrency(cat.maxAmount)}
                       </td>
-                      <td className="py-3.5 px-4 font-mono text-white whitespace-nowrap">
+                      <td className="py-3.5 px-4 font-mono text-brand-textPrimary whitespace-nowrap">
                         {minRate}% - {maxRate}%
                       </td>
-                      <td className="py-3.5 px-4 font-mono text-white whitespace-nowrap">
+                      <td className="py-3.5 px-4 font-mono text-brand-textPrimary whitespace-nowrap">
                         {Math.round((cat.minTenureMonths || 12) / 12)} - {Math.round((cat.maxTenureMonths || 360) / 12)} Yrs
                       </td>
                       <td className="py-3.5 px-4 whitespace-nowrap">
@@ -427,8 +427,8 @@ export default function LoanCategoryManagement() {
                           title="Click to toggle Active / Inactive"
                           className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition ${
                             isCatActive
-                              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
-                              : 'bg-rose-500/10 text-rose-400 border-rose-500/20 hover:bg-rose-500/20'
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                              : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
                           }`}
                         >
                           {isCatActive ? (
@@ -451,8 +451,8 @@ export default function LoanCategoryManagement() {
                             title={isCatActive ? 'Hide from public website' : 'Make live on public website'}
                             className={`p-1.5 rounded-lg border transition ${
                               isCatActive
-                                ? 'bg-white/5 border-white/10 text-brand-grey hover:text-white hover:border-brand-red'
-                                : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20'
+                                ? 'bg-white border-brand-border text-brand-textSecondary hover:text-brand-red hover:bg-brand-redLight'
+                                : 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
                             }`}
                           >
                             {isCatActive ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
@@ -460,14 +460,14 @@ export default function LoanCategoryManagement() {
                           <button
                             onClick={() => openEditModal(cat)}
                             title="Edit Category"
-                            className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-brand-grey hover:text-white hover:border-brand-red transition"
+                            className="p-1.5 rounded-lg bg-white border border-brand-border text-brand-textSecondary hover:text-brand-red hover:bg-brand-redLight transition"
                           >
                             <Edit3 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => openDeleteModal(cat)}
                             title="Delete Category"
-                            className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-brand-grey hover:text-rose-400 hover:border-rose-400/40 transition"
+                            className="p-1.5 rounded-lg bg-white border border-brand-border text-brand-textSecondary hover:text-rose-600 hover:bg-rose-50 hover:border-rose-200 transition"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -484,21 +484,21 @@ export default function LoanCategoryManagement() {
 
       {/* CREATE / EDIT MODAL */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="relative w-full max-w-3xl my-8 bg-brand-dark rounded-3xl border border-brand-border/80 shadow-2xl overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-textPrimary/40 backdrop-blur-sm overflow-y-auto">
+          <div className="relative w-full max-w-3xl my-8 bg-white rounded-3xl border border-brand-border shadow-2xl overflow-hidden">
             {/* Modal Header */}
-            <div className="px-6 py-5 bg-brand-black/60 border-b border-brand-border flex items-center justify-between">
+            <div className="px-6 py-5 bg-brand-bg border-b border-brand-border flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-black text-white">
+                <h3 className="text-lg font-black text-brand-textPrimary">
                   {editingCategory ? `Edit Category: ${editingCategory.name}` : 'Create New Loan Category'}
                 </h3>
-                <p className="text-xs text-brand-grey mt-0.5">
+                <p className="text-xs text-brand-textSecondary mt-0.5">
                   Define loan specifications, eligibility rules, and public catalog visibility.
                 </p>
               </div>
               <button
                 onClick={() => setModalOpen(false)}
-                className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-brand-grey hover:text-white transition"
+                className="p-1.5 rounded-xl bg-white hover:bg-brand-border text-brand-textSecondary hover:text-brand-textPrimary transition border border-brand-border"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -509,7 +509,7 @@ export default function LoanCategoryManagement() {
               {/* Category Name & Slug */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1.5">
+                  <label className="block text-xs font-bold text-brand-textPrimary mb-1.5">
                     Category Name <span className="text-brand-red">*</span>
                   </label>
                   <input
@@ -518,27 +518,27 @@ export default function LoanCategoryManagement() {
                     value={formData.name}
                     onChange={handleNameChange}
                     placeholder="e.g. Home Loan"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1.5">
-                    URL Slug <span className="text-brand-grey font-normal">(Auto-generated or custom)</span>
+                  <label className="block text-xs font-bold text-brand-textPrimary mb-1.5">
+                    URL Slug <span className="text-brand-textSecondary font-normal">(Auto-generated or custom)</span>
                   </label>
                   <input
                     type="text"
                     value={formData.slug}
                     onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
                     placeholder="e.g. home-loan"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red font-mono"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red font-mono"
                   />
                 </div>
               </div>
 
               {/* Tagline / Short Description */}
               <div>
-                <label className="block text-xs font-bold text-white mb-1.5">
+                <label className="block text-xs font-bold text-brand-textPrimary mb-1.5">
                   Tagline / One-Line Description
                 </label>
                 <input
@@ -546,13 +546,13 @@ export default function LoanCategoryManagement() {
                   value={formData.tagline}
                   onChange={(e) => setFormData(prev => ({ ...prev, tagline: e.target.value }))}
                   placeholder="e.g. Competitive interest rates and flexible tenures for your dream residential property."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                 />
               </div>
 
               {/* Full Description */}
               <div>
-                <label className="block text-xs font-bold text-white mb-1.5">
+                <label className="block text-xs font-bold text-brand-textPrimary mb-1.5">
                   Full Detailed Description <span className="text-brand-red">*</span>
                 </label>
                 <textarea
@@ -561,20 +561,20 @@ export default function LoanCategoryManagement() {
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Provide comprehensive details about this credit product, coverage, and bank syndicate terms..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                 />
               </div>
 
               {/* Icon Selector & Status */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1.5">
+                  <label className="block text-xs font-bold text-brand-textPrimary mb-1.5">
                     Visual Icon
                   </label>
                   <select
                     value={formData.iconName}
                     onChange={(e) => setFormData(prev => ({ ...prev, iconName: e.target.value }))}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                   >
                     {ICON_OPTIONS.map((opt) => (
                       <option key={opt.id} value={opt.id}>
@@ -585,13 +585,13 @@ export default function LoanCategoryManagement() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-white mb-1.5">
+                  <label className="block text-xs font-bold text-brand-textPrimary mb-1.5">
                     Catalog Status
                   </label>
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                   >
                     <option value="active">Active (Visible on Website)</option>
                     <option value="inactive">Inactive (Hidden from Public)</option>
@@ -600,35 +600,35 @@ export default function LoanCategoryManagement() {
               </div>
 
               {/* Loan Amounts & Interest Rates */}
-              <div className="p-4 rounded-2xl bg-brand-black/50 border border-brand-border/60 space-y-4">
+              <div className="p-4 rounded-2xl bg-brand-bg border border-brand-border space-y-4">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-brand-red">
                   Loan Sizing & Pricing Parameters
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-grey mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-textSecondary mb-1">
                       Min Loan (₹)
                     </label>
                     <input
                       type="number"
                       value={formData.minAmount}
                       onChange={(e) => setFormData(prev => ({ ...prev, minAmount: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-grey mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-textSecondary mb-1">
                       Max Loan (₹)
                     </label>
                     <input
                       type="number"
                       value={formData.maxAmount}
                       onChange={(e) => setFormData(prev => ({ ...prev, maxAmount: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-grey mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-textSecondary mb-1">
                       Min ROI (%)
                     </label>
                     <input
@@ -636,11 +636,11 @@ export default function LoanCategoryManagement() {
                       step="0.05"
                       value={formData.minInterestRate}
                       onChange={(e) => setFormData(prev => ({ ...prev, minInterestRate: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-grey mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-textSecondary mb-1">
                       Max ROI (%)
                     </label>
                     <input
@@ -648,43 +648,43 @@ export default function LoanCategoryManagement() {
                       step="0.05"
                       value={formData.maxInterestRate}
                       onChange={(e) => setFormData(prev => ({ ...prev, maxInterestRate: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 border-t border-brand-border/40">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 border-t border-brand-border">
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-grey mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-textSecondary mb-1">
                       Min Tenure (Months)
                     </label>
                     <input
                       type="number"
                       value={formData.minTenureMonths}
                       onChange={(e) => setFormData(prev => ({ ...prev, minTenureMonths: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-grey mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-textSecondary mb-1">
                       Max Tenure (Months)
                     </label>
                     <input
                       type="number"
                       value={formData.maxTenureMonths}
                       onChange={(e) => setFormData(prev => ({ ...prev, maxTenureMonths: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-brand-grey mb-1">
+                    <label className="block text-[11px] font-semibold text-brand-textSecondary mb-1">
                       Display Order Priority
                     </label>
                     <input
                       type="number"
                       value={formData.displayOrder}
                       onChange={(e) => setFormData(prev => ({ ...prev, displayOrder: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                     />
                   </div>
                 </div>
@@ -692,43 +692,43 @@ export default function LoanCategoryManagement() {
 
               {/* Dynamic Features & Benefits */}
               <div>
-                <label className="block text-xs font-bold text-white mb-1">
-                  Features & Key Highlights <span className="text-brand-grey font-normal">(One bullet per line)</span>
+                <label className="block text-xs font-bold text-brand-textPrimary mb-1">
+                  Features & Key Highlights <span className="text-brand-textSecondary font-normal">(One bullet per line)</span>
                 </label>
                 <textarea
                   rows={3}
                   value={formData.features}
                   onChange={(e) => setFormData(prev => ({ ...prev, features: e.target.value }))}
                   placeholder="Competitive interest rates from 8.5%&#10;Up to 90% property value financing&#10;Minimal documentation & prompt sanctioning"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red font-mono text-[11px]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red font-mono text-[11px]"
                 />
               </div>
 
               {/* Eligibility Criteria */}
               <div>
-                <label className="block text-xs font-bold text-white mb-1">
-                  Eligibility Criteria <span className="text-brand-grey font-normal">(One criterion per line)</span>
+                <label className="block text-xs font-bold text-brand-textPrimary mb-1">
+                  Eligibility Criteria <span className="text-brand-textSecondary font-normal">(One criterion per line)</span>
                 </label>
                 <textarea
                   rows={3}
                   value={formData.eligibility}
                   onChange={(e) => setFormData(prev => ({ ...prev, eligibility: e.target.value }))}
                   placeholder="Salaried individuals with min monthly income ₹25,000&#10;Self-employed professionals with min 2 yrs business vintage&#10;Minimum credit score of 650+"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red font-mono text-[11px]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red font-mono text-[11px]"
                 />
               </div>
 
               {/* Required Documents */}
               <div>
-                <label className="block text-xs font-bold text-white mb-1">
-                  Required Documentation <span className="text-brand-grey font-normal">(One document per line)</span>
+                <label className="block text-xs font-bold text-brand-textPrimary mb-1">
+                  Required Documentation <span className="text-brand-textSecondary font-normal">(One document per line)</span>
                 </label>
                 <textarea
                   rows={3}
                   value={formData.requiredDocuments}
                   onChange={(e) => setFormData(prev => ({ ...prev, requiredDocuments: e.target.value }))}
                   placeholder="PAN Card & Aadhaar Card&#10;Last 6 months bank account statements&#10;Latest 3 months salary slips or 2 years ITR"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red font-mono text-[11px]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red font-mono text-[11px]"
                 />
               </div>
 
@@ -737,14 +737,14 @@ export default function LoanCategoryManagement() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-brand-grey hover:text-white text-xs font-semibold transition"
+                  className="px-4 py-2.5 rounded-xl bg-white hover:bg-brand-bg text-brand-textSecondary hover:text-brand-textPrimary text-xs font-semibold transition border border-brand-border"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-5 py-2.5 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold transition shadow-lg shadow-brand-red/20 disabled:opacity-50 flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-lg shadow-brand-red/20 disabled:opacity-50 flex items-center gap-2"
                 >
                   {saving && <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />}
                   <span>{editingCategory ? 'Save Changes' : 'Create Category'}</span>
@@ -757,18 +757,18 @@ export default function LoanCategoryManagement() {
 
       {/* DELETE CONFIRMATION MODAL */}
       {deleteModalOpen && categoryToDelete && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="relative w-full max-w-md bg-brand-dark rounded-3xl border border-brand-border/80 shadow-2xl p-6 space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-textPrimary/40 backdrop-blur-sm">
+          <div className="relative w-full max-w-md bg-white rounded-3xl border border-brand-border shadow-2xl p-6 space-y-4">
+            <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center mx-auto">
               <AlertTriangle className="w-6 h-6" />
             </div>
 
             <div className="text-center space-y-1.5">
-              <h3 className="text-lg font-black text-white">Delete Loan Category?</h3>
-              <p className="text-xs text-brand-grey leading-relaxed">
-                Are you sure you want to delete <span className="text-white font-bold">"{categoryToDelete.name}"</span>?
+              <h3 className="text-lg font-black text-brand-textPrimary">Delete Loan Category?</h3>
+              <p className="text-xs text-brand-textSecondary leading-relaxed">
+                Are you sure you want to delete <span className="text-brand-textPrimary font-bold">"{categoryToDelete.name}"</span>?
               </p>
-              <div className="p-3 mt-2 rounded-xl bg-brand-black/60 border border-brand-border/60 text-left text-[11px] text-brand-lightGrey space-y-1">
+              <div className="p-3 mt-2 rounded-xl bg-brand-bg border border-brand-border text-left text-[11px] text-brand-textSecondary space-y-1">
                 <p>• The category will immediately be removed from the public website.</p>
                 <p>• Historical loan applications and leads linked to this category will remain safe.</p>
               </div>
@@ -782,7 +782,7 @@ export default function LoanCategoryManagement() {
                   setCategoryToDelete(null);
                 }}
                 disabled={isDeleting}
-                className="flex-1 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-brand-grey hover:text-white text-xs font-semibold transition"
+                className="flex-1 py-2.5 rounded-xl bg-white hover:bg-brand-bg text-brand-textSecondary hover:text-brand-textPrimary text-xs font-semibold transition border border-brand-border"
               >
                 Cancel
               </button>

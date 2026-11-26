@@ -22,6 +22,7 @@ import {
   User as UserIcon
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
+import Logo from '../components/common/Logo.jsx';
 
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -57,39 +58,27 @@ export default function AdminLayout() {
   };
 
   return (
-    <div className="h-screen w-full bg-brand-black text-white flex min-w-0 max-w-full overflow-hidden relative">
+    <div className="h-screen w-full bg-brand-bg text-brand-textPrimary flex min-w-0 max-w-full overflow-hidden relative">
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/80 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-screen w-64 bg-brand-dark border-r border-brand-border/40 flex flex-col justify-between overflow-hidden transition-transform duration-300 ${
+        className={`fixed top-0 left-0 z-50 h-screen w-64 bg-white border-r border-brand-border flex flex-col justify-between overflow-hidden shadow-sm transition-transform duration-300 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Brand Logo Header */}
-        <div className="h-20 px-6 flex items-center justify-between border-b border-white/5 shrink-0">
-          <Link to="/admin/dashboard" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-brand-red flex items-center justify-center font-bold text-lg text-white shadow-lg shadow-brand-red/20">
-              RC
-            </div>
-            <div>
-              <div className="text-base font-extrabold tracking-tight text-white flex items-center gap-1">
-                REAL<span className="text-brand-red">CRED</span>
-              </div>
-              <div className="text-[9px] font-bold tracking-wider text-brand-red uppercase">
-                ADMIN CONTROL
-              </div>
-            </div>
-          </Link>
+        <div className="h-20 px-6 flex items-center justify-between border-b border-brand-border shrink-0 bg-white">
+          <Logo to="/admin/dashboard" subtitle="ADMIN CONTROL" size="md" />
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden text-brand-grey hover:text-white"
+            className="lg:hidden text-brand-textSecondary hover:text-brand-textPrimary"
           >
             <X className="w-5 h-5" />
           </button>
@@ -107,12 +96,12 @@ export default function AdminLayout() {
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
                   active
-                    ? 'bg-brand-red text-white shadow-md shadow-brand-red/20'
-                    : 'text-brand-lightGrey hover:bg-white/5 hover:text-white'
+                    ? 'bg-brand-red text-white shadow-sm shadow-brand-red/20'
+                    : 'text-brand-textSecondary hover:bg-brand-redLight hover:text-brand-red'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className={`w-4 h-4 ${active ? 'text-white' : 'text-brand-grey'}`} />
+                  <Icon className={`w-4 h-4 ${active ? 'text-white' : 'text-brand-textSecondary'}`} />
                   <span>{item.label}</span>
                 </div>
                 {active && <ChevronRight className="w-3.5 h-3.5 text-white/80" />}
@@ -122,22 +111,22 @@ export default function AdminLayout() {
         </nav>
 
         {/* User Card & Logout */}
-        <div className="p-4 border-t border-white/5 bg-brand-black/40 shrink-0">
+        <div className="p-4 border-t border-brand-border bg-brand-bg shrink-0">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="w-8 h-8 rounded-lg bg-brand-red/20 text-brand-red border border-brand-red/30 flex items-center justify-center font-bold text-xs shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-brand-redLight text-brand-red border border-brand-red/20 flex items-center justify-center font-bold text-xs shrink-0">
                 A
               </div>
               <div className="truncate">
-                <div className="text-xs font-bold text-white truncate">{user?.name || 'Admin'}</div>
-                <div className="text-[10px] text-brand-grey truncate">{user?.email || 'admin@realcred.in'}</div>
+                <div className="text-xs font-bold text-brand-textPrimary truncate">{user?.name || 'Admin'}</div>
+                <div className="text-[10px] text-brand-textSecondary truncate">{user?.email || 'admin@realcred.in'}</div>
               </div>
             </div>
           </div>
 
           <button
             onClick={handleLogout}
-            className="w-full py-2 px-3 rounded-lg bg-white/5 hover:bg-brand-red/10 text-brand-grey hover:text-brand-red border border-white/5 hover:border-brand-red/30 text-xs font-semibold transition flex items-center justify-center gap-2"
+            className="w-full py-2 px-3 rounded-lg bg-white hover:bg-brand-redLight text-brand-textSecondary hover:text-brand-red border border-brand-border hover:border-brand-red/30 text-xs font-semibold transition flex items-center justify-center gap-2 shadow-sm"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>
@@ -148,22 +137,22 @@ export default function AdminLayout() {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 max-w-full h-screen lg:ml-64 overflow-hidden">
         {/* Top Header Bar */}
-        <header className="h-20 bg-brand-dark/60 backdrop-blur-md border-b border-brand-border/40 px-3 sm:px-6 lg:px-8 flex items-center justify-between shrink-0 z-30">
+        <header className="h-20 bg-white border-b border-brand-border px-3 sm:px-6 lg:px-8 flex items-center justify-between shrink-0 z-30 shadow-sm">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-lg bg-brand-card text-brand-grey hover:text-white"
+              className="lg:hidden p-2 rounded-lg bg-brand-bg text-brand-textSecondary hover:text-brand-textPrimary border border-brand-border"
             >
               <Menu className="w-5 h-5" />
             </button>
             <div className="hidden sm:block">
-              <h1 className="text-base font-bold text-white">RealCred Executive Administration</h1>
-              <p className="text-xs text-brand-grey">Multi-bank distribution & channel management</p>
+              <h1 className="text-base font-bold text-brand-textPrimary">RealCred Executive Administration</h1>
+              <p className="text-xs text-brand-textSecondary">Multi-bank distribution & channel management</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-semibold bg-brand-red/10 text-brand-redAccent border border-brand-red/30">
+            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Super Admin Session</span>
               <span className="sm:hidden">Super Admin</span>
@@ -172,7 +161,7 @@ export default function AdminLayout() {
             <Link
               to="/"
               target="_blank"
-              className="text-xs text-brand-grey hover:text-white px-3 py-1.5 rounded-lg border border-white/10 hidden sm:flex items-center gap-1.5"
+              className="text-xs text-brand-textSecondary hover:text-brand-red px-3 py-1.5 rounded-lg border border-brand-border bg-white hover:border-brand-red/30 hidden sm:flex items-center gap-1.5 shadow-sm transition"
             >
               <Globe className="w-3.5 h-3.5" />
               <span>View Website</span>
@@ -181,7 +170,7 @@ export default function AdminLayout() {
         </header>
 
         {/* Dashboard Viewport */}
-        <main className="flex-1 p-3 sm:p-6 lg:p-8 min-w-0 max-w-full overflow-y-auto">
+        <main className="flex-1 p-3 sm:p-6 lg:p-8 min-w-0 max-w-full overflow-y-auto bg-brand-bg">
           <Outlet />
         </main>
       </div>

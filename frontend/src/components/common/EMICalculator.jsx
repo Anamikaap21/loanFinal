@@ -180,33 +180,32 @@ export default function EMICalculator() {
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10" id="emi-calculator">
       {/* Section Header */}
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/25 text-xs text-brand-red font-semibold mb-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-redLight border border-brand-red/25 text-xs text-brand-red font-semibold mb-3">
           <Calculator className="w-3.5 h-3.5" />
           <span>RealCred Financial Tools</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Loan EMI Calculator</h2>
-        <p className="text-xs sm:text-sm text-brand-grey mt-2">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-textPrimary">Loan EMI Calculator</h2>
+        <p className="text-xs sm:text-sm text-brand-textSecondary mt-2">
           Calculate your estimated monthly installment with zero guesswork. Enter loan parameters manually below.
         </p>
       </div>
 
       {/* Main Calculator Card */}
-      <div className="bg-[#19191B] rounded-3xl border border-white/10 p-5 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden min-w-0 max-w-full">
+      <div className="bg-white rounded-3xl border border-brand-border p-5 sm:p-8 lg:p-10 shadow-lg relative overflow-hidden min-w-0 max-w-full">
         {/* Subtle background glow */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-brand-red/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-brand-redLight/40 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start min-w-0">
           {/* LEFT COLUMN: MANUAL INPUT FIELDS (NO SLIDERS) */}
           <div className="lg:col-span-7 space-y-6 min-w-0 w-full">
-            <div className="flex items-center justify-between border-b border-white/5 pb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-grey">
+            <div className="flex items-center justify-between border-b border-brand-border pb-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-textSecondary">
                 Manual Loan Parameters
               </span>
               <button
                 type="button"
                 onClick={handleReset}
-                className="inline-flex items-center gap-1.5 text-xs text-brand-grey hover:text-white transition px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5"
+                className="inline-flex items-center gap-1.5 text-xs text-brand-textSecondary hover:text-brand-red transition px-3 py-1.5 rounded-lg bg-brand-bg hover:bg-brand-redLight border border-brand-border shadow-sm"
                 title="Restore default calculator values"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
@@ -217,19 +216,19 @@ export default function EMICalculator() {
             {/* FIELD 1: LOAN AMOUNT */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-white flex items-center gap-1.5">
+                <label className="text-xs font-bold text-brand-textPrimary flex items-center gap-1.5">
                   <IndianRupee className="w-3.5 h-3.5 text-brand-red" />
                   <span>Loan Amount (₹)</span>
                 </label>
                 {calculation.principal > 0 && (
-                  <span className="text-xs font-mono font-bold text-brand-redAccent">
+                  <span className="text-xs font-mono font-bold text-brand-red">
                     ₹{calculation.principal.toLocaleString('en-IN')}
                   </span>
                 )}
               </div>
 
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-bold text-brand-grey select-none">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-bold text-brand-textSecondary select-none">
                   ₹
                 </span>
                 <input
@@ -238,10 +237,10 @@ export default function EMICalculator() {
                   value={loanAmount}
                   onChange={handleAmountChange}
                   placeholder="e.g. 2500000"
-                  className={`w-full pl-9 pr-4 py-3 rounded-2xl bg-[#111111] border text-white text-sm font-mono placeholder:text-brand-grey focus:outline-none focus:ring-2 transition ${
+                  className={`w-full pl-9 pr-4 py-3 rounded-2xl bg-white border text-brand-textPrimary text-sm font-mono placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-2 transition shadow-sm ${
                     validationErrors.loanAmount
-                      ? 'border-brand-red focus:ring-brand-red/50'
-                      : 'border-white/10 focus:ring-brand-red/50 focus:border-brand-red'
+                      ? 'border-brand-red focus:ring-brand-red/30'
+                      : 'border-brand-border focus:ring-brand-red/30 focus:border-brand-red'
                   }`}
                 />
               </div>
@@ -254,7 +253,7 @@ export default function EMICalculator() {
                 </p>
               ) : (
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                  <span className="text-[10px] text-brand-grey uppercase tracking-wider mr-1">Presets:</span>
+                  <span className="text-[10px] text-brand-textSecondary uppercase tracking-wider mr-1">Presets:</span>
                   {amountPresets.map((preset) => (
                     <button
                       key={preset.value}
@@ -262,8 +261,8 @@ export default function EMICalculator() {
                       onClick={() => setLoanAmount(String(preset.value))}
                       className={`text-[10px] font-medium px-2.5 py-1 rounded-lg border transition ${
                         calculation.principal === preset.value
-                          ? 'bg-brand-red text-white border-brand-red font-bold'
-                          : 'bg-white/5 text-brand-grey hover:text-white border-white/5 hover:bg-white/10'
+                          ? 'bg-brand-red text-white border-brand-red font-bold shadow-sm'
+                          : 'bg-brand-bg text-brand-textSecondary hover:text-brand-red border-brand-border hover:bg-brand-redLight'
                       }`}
                     >
                       {preset.label}
@@ -276,12 +275,12 @@ export default function EMICalculator() {
             {/* FIELD 2: INTEREST RATE */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-white flex items-center gap-1.5">
-                  <Percent className="w-3.5 h-3.5 text-blue-400" />
+                <label className="text-xs font-bold text-brand-textPrimary flex items-center gap-1.5">
+                  <Percent className="w-3.5 h-3.5 text-brand-red" />
                   <span>Annual Interest Rate (% p.a.)</span>
                 </label>
                 {calculation.annualRate >= 0 && (
-                  <span className="text-xs font-mono font-bold text-blue-400">
+                  <span className="text-xs font-mono font-bold text-brand-red">
                     {calculation.annualRate}% p.a.
                   </span>
                 )}
@@ -294,13 +293,13 @@ export default function EMICalculator() {
                   value={interestRate}
                   onChange={handleRateChange}
                   placeholder="e.g. 8.75"
-                  className={`w-full pl-4 pr-12 py-3 rounded-2xl bg-[#111111] border text-white text-sm font-mono placeholder:text-brand-grey focus:outline-none focus:ring-2 transition ${
+                  className={`w-full pl-4 pr-12 py-3 rounded-2xl bg-white border text-brand-textPrimary text-sm font-mono placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-2 transition shadow-sm ${
                     validationErrors.interestRate
-                      ? 'border-brand-red focus:ring-brand-red/50'
-                      : 'border-white/10 focus:ring-blue-500/50 focus:border-blue-500'
+                      ? 'border-brand-red focus:ring-brand-red/30'
+                      : 'border-brand-border focus:ring-brand-red/30 focus:border-brand-red'
                   }`}
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-brand-grey select-none">
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-brand-textSecondary select-none">
                   % p.a.
                 </span>
               </div>
@@ -316,12 +315,12 @@ export default function EMICalculator() {
             {/* FIELD 3: LOAN TENURE (MANUAL INPUT + YEARS/MONTHS TOGGLE) */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-white flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                <label className="text-xs font-bold text-brand-textPrimary flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-brand-red" />
                   <span>Loan Tenure ({tenureUnit})</span>
                 </label>
                 {calculation.months > 0 && (
-                  <span className="text-xs font-mono font-bold text-emerald-400">
+                  <span className="text-xs font-mono font-bold text-brand-red">
                     {tenureUnit === 'Years'
                       ? `${tenure} Yrs = ${calculation.months} Mos`
                       : `${tenure} Mos = ${(calculation.months / 12).toFixed(1)} Yrs`}
@@ -338,23 +337,23 @@ export default function EMICalculator() {
                     value={tenure}
                     onChange={handleTenureChange}
                     placeholder={tenureUnit === 'Years' ? 'e.g. 15' : 'e.g. 180'}
-                    className={`w-full px-4 py-3 rounded-2xl bg-[#111111] border text-white text-sm font-mono placeholder:text-brand-grey focus:outline-none focus:ring-2 transition ${
+                    className={`w-full px-4 py-3 rounded-2xl bg-white border text-brand-textPrimary text-sm font-mono placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-2 transition shadow-sm ${
                       validationErrors.tenure
-                        ? 'border-brand-red focus:ring-brand-red/50'
-                        : 'border-white/10 focus:ring-emerald-500/50 focus:border-emerald-500'
+                        ? 'border-brand-red focus:ring-brand-red/30'
+                        : 'border-brand-border focus:ring-brand-red/30 focus:border-brand-red'
                     }`}
                   />
                 </div>
 
                 {/* Years / Months Unit Switcher */}
-                <div className="sm:col-span-5 grid grid-cols-2 p-1 bg-[#111111] rounded-2xl border border-white/10">
+                <div className="sm:col-span-5 grid grid-cols-2 p-1 bg-brand-bg rounded-2xl border border-brand-border">
                   <button
                     type="button"
                     onClick={() => handleUnitToggle('Years')}
                     className={`py-2 rounded-xl text-xs font-bold transition ${
                       tenureUnit === 'Years'
-                        ? 'bg-emerald-600 text-white shadow-sm'
-                        : 'text-brand-grey hover:text-white'
+                        ? 'bg-brand-red text-white shadow-sm'
+                        : 'text-brand-textSecondary hover:text-brand-red'
                     }`}
                   >
                     Years
@@ -364,8 +363,8 @@ export default function EMICalculator() {
                     onClick={() => handleUnitToggle('Months')}
                     className={`py-2 rounded-xl text-xs font-bold transition ${
                       tenureUnit === 'Months'
-                        ? 'bg-emerald-600 text-white shadow-sm'
-                        : 'text-brand-grey hover:text-white'
+                        ? 'bg-brand-red text-white shadow-sm'
+                        : 'text-brand-textSecondary hover:text-brand-red'
                     }`}
                   >
                     Months
@@ -381,7 +380,7 @@ export default function EMICalculator() {
                 </p>
               ) : (
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                  <span className="text-[10px] text-brand-grey uppercase tracking-wider mr-1">Presets:</span>
+                  <span className="text-[10px] text-brand-textSecondary uppercase tracking-wider mr-1">Presets:</span>
                   {tenurePresets.map((preset) => (
                     <button
                       key={preset.label}
@@ -392,8 +391,8 @@ export default function EMICalculator() {
                       }}
                       className={`text-[10px] font-medium px-2.5 py-1 rounded-lg border transition ${
                         tenureUnit === preset.unit && parseFloat(tenure) === preset.value
-                          ? 'bg-emerald-600 text-white border-emerald-600 font-bold'
-                          : 'bg-white/5 text-brand-grey hover:text-white border-white/5 hover:bg-white/10'
+                          ? 'bg-brand-red text-white border-brand-red font-bold shadow-sm'
+                          : 'bg-brand-bg text-brand-textSecondary hover:text-brand-red border-brand-border hover:bg-brand-redLight'
                       }`}
                     >
                       {preset.label}
@@ -405,16 +404,16 @@ export default function EMICalculator() {
           </div>
 
           {/* RIGHT COLUMN: CALCULATION RESULTS CARD */}
-          <div className="lg:col-span-5 bg-[#111111] p-5 sm:p-8 rounded-3xl border border-white/10 shadow-xl space-y-6 min-w-0 w-full">
+          <div className="lg:col-span-5 bg-brand-redLight/30 p-5 sm:p-8 rounded-3xl border border-brand-border shadow-md space-y-6 min-w-0 w-full">
             {/* Primary Result: Monthly EMI */}
-            <div className="text-center pb-6 border-b border-white/10 min-w-0">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-grey block mb-1">
+            <div className="text-center pb-6 border-b border-brand-border min-w-0">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-textSecondary block mb-1">
                 Estimated Monthly EMI
               </span>
-              <div className="text-2xl sm:text-4xl lg:text-5xl font-black text-brand-redAccent font-mono tracking-tight break-words [overflow-wrap:anywhere]">
+              <div className="text-2xl sm:text-4xl lg:text-5xl font-black text-brand-red font-mono tracking-tight break-words [overflow-wrap:anywhere]">
                 ₹{calculation.emi.toLocaleString('en-IN')}
               </div>
-              <p className="text-[11px] text-brand-grey mt-2">
+              <p className="text-[11px] text-brand-textSecondary mt-2">
                 For {calculation.months} monthly instalments @ {calculation.annualRate}% p.a.
               </p>
             </div>
@@ -422,34 +421,34 @@ export default function EMICalculator() {
             {/* Breakdown Cards */}
             <div className="space-y-3">
               {/* 1. Principal Loan Amount */}
-              <div className="p-3.5 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between">
+              <div className="p-3.5 rounded-2xl bg-white border border-brand-border flex items-center justify-between shadow-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
-                  <span className="text-xs text-brand-lightGrey font-medium">Principal Loan Amount</span>
+                  <div className="w-2.5 h-2.5 rounded-full bg-brand-red" />
+                  <span className="text-xs text-brand-textSecondary font-medium">Principal Loan Amount</span>
                 </div>
-                <span className="text-xs sm:text-sm font-bold text-white font-mono">
+                <span className="text-xs sm:text-sm font-bold text-brand-textPrimary font-mono">
                   ₹{calculation.principal.toLocaleString('en-IN')}
                 </span>
               </div>
 
               {/* 2. Total Interest Payable */}
-              <div className="p-3.5 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between">
+              <div className="p-3.5 rounded-2xl bg-white border border-brand-border flex items-center justify-between shadow-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                  <span className="text-xs text-brand-lightGrey font-medium">Total Interest Payable</span>
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                  <span className="text-xs text-brand-textSecondary font-medium">Total Interest Payable</span>
                 </div>
-                <span className="text-xs sm:text-sm font-bold text-amber-400 font-mono">
+                <span className="text-xs sm:text-sm font-bold text-amber-600 font-mono">
                   ₹{calculation.totalInterest.toLocaleString('en-IN')}
                 </span>
               </div>
 
               {/* 3. Total Amount Payable */}
-              <div className="p-3.5 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between">
+              <div className="p-3.5 rounded-2xl bg-white border border-brand-border flex items-center justify-between shadow-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                  <span className="text-xs text-white font-bold">Total Amount Payable</span>
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                  <span className="text-xs text-brand-textPrimary font-bold">Total Amount Payable</span>
                 </div>
-                <span className="text-xs sm:text-sm font-black text-white font-mono">
+                <span className="text-xs sm:text-sm font-black text-brand-textPrimary font-mono">
                   ₹{calculation.totalPayable.toLocaleString('en-IN')}
                 </span>
               </div>
@@ -458,21 +457,21 @@ export default function EMICalculator() {
             {/* Visual ratio bar: Principal vs Interest */}
             {calculation.totalPayable > 0 && (
               <div className="space-y-1.5 pt-1">
-                <div className="h-2 rounded-full overflow-hidden flex bg-white/5">
+                <div className="h-2 rounded-full overflow-hidden flex bg-gray-200">
                   <div
                     style={{ width: `${calculation.principalPercent}%` }}
-                    className="bg-blue-500 h-full transition-all duration-300"
+                    className="bg-brand-red h-full transition-all duration-300"
                     title={`Principal: ${calculation.principalPercent}%`}
                   />
                   <div
                     style={{ width: `${calculation.interestPercent}%` }}
-                    className="bg-amber-400 h-full transition-all duration-300"
+                    className="bg-amber-500 h-full transition-all duration-300"
                     title={`Interest: ${calculation.interestPercent}%`}
                   />
                 </div>
-                <div className="flex justify-between text-[10px] text-brand-grey font-medium">
-                  <span className="text-blue-400 font-mono">Principal: {calculation.principalPercent}%</span>
-                  <span className="text-amber-400 font-mono">Interest: {calculation.interestPercent}%</span>
+                <div className="flex justify-between text-[10px] text-brand-textSecondary font-medium">
+                  <span className="text-brand-red font-mono font-semibold">Principal: {calculation.principalPercent}%</span>
+                  <span className="text-amber-600 font-mono font-semibold">Interest: {calculation.interestPercent}%</span>
                 </div>
               </div>
             )}
@@ -481,12 +480,12 @@ export default function EMICalculator() {
             <div className="pt-2">
               <Link
                 to={`/apply-loan?amount=${calculation.principal}&tenure=${tenure}%20${tenureUnit}&rate=${calculation.annualRate}`}
-                className="w-full py-4 rounded-2xl bg-brand-red hover:bg-brand-redAccent text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg shadow-brand-red/30 transition flex items-center justify-center gap-2 group"
+                className="w-full py-4 rounded-2xl bg-brand-red hover:bg-brand-deepRed text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md shadow-brand-red/30 transition flex items-center justify-center gap-2 group"
               >
                 <span>APPLY FOR LOAN</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <p className="text-[10px] text-center text-brand-grey mt-2">
+              <p className="text-[10px] text-center text-brand-textSecondary mt-2">
                 Clicking will prefill this loan amount on your application form.
               </p>
             </div>

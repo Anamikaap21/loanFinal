@@ -116,39 +116,39 @@ export default function RequestCallback() {
   // SUCCESS STATE
   if (successData) {
     return (
-      <div className="min-h-screen bg-brand-black text-brand-lightGrey py-12 sm:py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center min-w-0 max-w-full">
-        <div className="max-w-md w-full bg-brand-dark rounded-3xl border border-brand-border p-6 sm:p-8 text-center shadow-2xl relative overflow-hidden min-w-0">
+      <div className="min-h-screen bg-brand-bg text-brand-textSecondary py-12 sm:py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center min-w-0 max-w-full">
+        <div className="max-w-md w-full bg-white rounded-3xl border border-brand-border p-6 sm:p-8 text-center shadow-xl relative overflow-hidden min-w-0">
           <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-red" />
-          <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
+          <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center shadow-sm">
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
-          <h2 className="text-2xl font-black text-white mb-2">Callback Registered!</h2>
-          <p className="text-xs text-brand-grey mb-6">
-            Thank you, <span className="text-white font-semibold">{successData.customerName}</span>. Our loan advisory desk will call you during your preferred time window.
+          <h2 className="text-2xl font-black text-brand-textPrimary mb-2">Callback Registered!</h2>
+          <p className="text-xs text-brand-textSecondary mb-6">
+            Thank you, <span className="text-brand-textPrimary font-semibold">{successData.customerName}</span>. Our loan advisory desk will call you during your preferred time window.
           </p>
 
-          <div className="p-4 rounded-xl bg-brand-black/70 border border-brand-border/80 text-left mb-6 space-y-2.5 text-xs">
-            <div className="flex justify-between items-center border-b border-brand-border/50 pb-2">
-              <span className="text-brand-grey">Request Reference</span>
+          <div className="p-4 rounded-xl bg-brand-bg border border-brand-border text-left mb-6 space-y-2.5 text-xs">
+            <div className="flex justify-between items-center border-b border-brand-border pb-2">
+              <span className="text-brand-textSecondary">Request Reference</span>
               <span className="font-mono font-bold text-brand-red">{successData.requestNumber}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-brand-grey">Preferred Window</span>
-              <span className="font-semibold text-white">{successData.preferredContactTime}</span>
+              <span className="text-brand-textSecondary">Preferred Window</span>
+              <span className="font-semibold text-brand-textPrimary">{successData.preferredContactTime}</span>
             </div>
           </div>
 
           <div className="flex gap-3">
             <button
               onClick={handleReset}
-              className="flex-1 py-2.5 px-4 rounded-xl bg-brand-card border border-brand-border text-xs font-semibold text-white hover:bg-white/5 transition-colors"
+              className="flex-1 py-2.5 px-4 rounded-xl bg-white border border-brand-border text-xs font-semibold text-brand-textPrimary hover:bg-brand-redLight hover:text-brand-red transition-colors shadow-sm"
             >
               New Request
             </button>
             <Link
               to="/"
-              className="flex-1 py-2.5 px-4 rounded-xl bg-brand-red text-xs font-bold text-white hover:bg-brand-redHover transition-colors flex items-center justify-center gap-1.5"
+              className="flex-1 py-2.5 px-4 rounded-xl bg-brand-red text-xs font-bold text-white hover:bg-brand-deepRed transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-brand-red/25"
             >
               Go to Home
             </Link>
@@ -160,35 +160,35 @@ export default function RequestCallback() {
 
   // FORM VIEW
   return (
-    <div className="min-h-screen bg-brand-black text-brand-lightGrey py-8 sm:py-12 px-4 sm:px-6 lg:px-8 min-w-0 max-w-full">
+    <div className="min-h-screen bg-brand-bg text-brand-textSecondary py-8 sm:py-12 px-4 sm:px-6 lg:px-8 min-w-0 max-w-full">
       <div className="max-w-4xl mx-auto min-w-0">
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/20 text-brand-red text-xs font-semibold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-redLight border border-brand-red/20 text-brand-red text-xs font-semibold uppercase tracking-wider mb-4">
             <PhoneCall className="w-4 h-4" />
             <span>Direct Advisory Desk</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-brand-textPrimary tracking-tight">
             Request a Free Advisory Callback
           </h1>
-          <p className="mt-3 text-base sm:text-lg text-brand-grey max-w-2xl mx-auto">
+          <p className="mt-3 text-base sm:text-lg text-brand-textSecondary max-w-2xl mx-auto">
             Have questions about loan eligibility, interest rates, or documentation? Leave your contact details and our senior loan specialist will call you.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form */}
-          <div className="lg:col-span-2 bg-brand-dark rounded-3xl border border-brand-border p-6 sm:p-8 shadow-xl">
+          <div className="lg:col-span-2 bg-white rounded-3xl border border-brand-border p-6 sm:p-8 shadow-md">
             {submitError && (
-              <div className="mb-6 p-4 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-start gap-3">
+              <div className="mb-6 p-4 rounded-xl bg-red-50 border border-brand-red/30 flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-brand-red shrink-0 mt-0.5" />
-                <p className="text-xs text-white">{submitError}</p>
+                <p className="text-xs text-brand-red">{submitError}</p>
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                   Your Full Name <span className="text-brand-red">*</span>
                 </label>
                 <input
@@ -197,8 +197,8 @@ export default function RequestCallback() {
                   value={formData.customerName}
                   onChange={handleChange}
                   placeholder="e.g. Alok Verma"
-                  className={`w-full px-4 py-2.5 rounded-xl bg-brand-black border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 ${
-                    formErrors.customerName ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red'
+                  className={`w-full px-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${
+                    formErrors.customerName ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
                   }`}
                 />
                 {formErrors.customerName && <p className="mt-1 text-[11px] text-brand-red">{formErrors.customerName}</p>}
@@ -206,11 +206,11 @@ export default function RequestCallback() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Mobile Number <span className="text-brand-red">*</span>
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-grey font-semibold">+91</span>
+                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-textSecondary font-semibold">+91</span>
                     <input
                       type="tel"
                       name="mobileNumber"
@@ -218,8 +218,8 @@ export default function RequestCallback() {
                       value={formData.mobileNumber}
                       onChange={handleChange}
                       placeholder="98765 43210"
-                      className={`w-full pl-12 pr-4 py-2.5 rounded-xl bg-brand-black border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 ${
-                        formErrors.mobileNumber ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red'
+                      className={`w-full pl-12 pr-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${
+                        formErrors.mobileNumber ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
                       }`}
                     />
                   </div>
@@ -227,8 +227,8 @@ export default function RequestCallback() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
-                    Email Address <span className="text-brand-grey font-normal">(Optional)</span>
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
+                    Email Address <span className="text-brand-textSecondary font-normal">(Optional)</span>
                   </label>
                   <input
                     type="email"
@@ -236,8 +236,8 @@ export default function RequestCallback() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="alok.verma@example.com"
-                    className={`w-full px-4 py-2.5 rounded-xl bg-brand-black border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 ${
-                      formErrors.email ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red'
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${
+                      formErrors.email ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
                     }`}
                   />
                   {formErrors.email && <p className="mt-1 text-[11px] text-brand-red">{formErrors.email}</p>}
@@ -245,14 +245,14 @@ export default function RequestCallback() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                   Interested Loan Facility
                 </label>
                 <select
                   name="loanType"
                   value={formData.loanType}
                   onChange={handleChange}
-                  className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red shadow-sm"
                 >
                   {loanOptions.map((opt) => (
                     <option key={opt} value={opt}>
@@ -263,7 +263,7 @@ export default function RequestCallback() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-brand-lightGrey mb-2 flex items-center gap-1.5">
+                <label className="block text-xs font-semibold text-brand-textPrimary mb-2 flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-brand-red" />
                   Preferred Callback Time Window
                 </label>
@@ -271,10 +271,10 @@ export default function RequestCallback() {
                   {timeSlots.map((slot) => (
                     <label
                       key={slot.value}
-                      className={`flex items-center gap-2.5 p-3 rounded-xl border cursor-pointer text-xs transition-colors ${
+                      className={`flex items-center gap-2.5 p-3 rounded-xl border cursor-pointer text-xs transition-colors shadow-sm ${
                         formData.preferredContactTime === slot.value
-                          ? 'bg-brand-red/10 border-brand-red text-white'
-                          : 'bg-brand-black border-brand-border text-brand-grey hover:text-white'
+                          ? 'bg-brand-redLight border-brand-red text-brand-textPrimary font-semibold'
+                          : 'bg-white border-brand-border text-brand-textSecondary hover:text-brand-red hover:bg-brand-bg'
                       }`}
                     >
                       <input
@@ -292,8 +292,8 @@ export default function RequestCallback() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
-                  Specific Query or Requirement <span className="text-brand-grey font-normal">(Optional)</span>
+                <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
+                  Specific Query or Requirement <span className="text-brand-textSecondary font-normal">(Optional)</span>
                 </label>
                 <textarea
                   name="message"
@@ -301,14 +301,14 @@ export default function RequestCallback() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Share details such as loan amount needed, preferred bank, or property location..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red resize-none"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 focus:ring-brand-red resize-none shadow-sm"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 px-6 rounded-xl bg-brand-red hover:bg-brand-redHover text-white font-bold text-xs tracking-wide transition-colors shadow-lg shadow-brand-red/20 disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-6 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white font-bold text-xs tracking-wide transition-colors shadow-md shadow-brand-red/25 disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -327,67 +327,67 @@ export default function RequestCallback() {
 
           {/* Direct Contact Side Info */}
           <div className="space-y-6">
-            <div className="bg-brand-dark rounded-3xl border border-brand-border p-6 space-y-4">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <div className="bg-white rounded-3xl border border-brand-border p-6 space-y-4 shadow-sm">
+              <h3 className="text-xs font-bold text-brand-textPrimary uppercase tracking-wider flex items-center gap-2">
                 <Headphones className="w-4 h-4 text-brand-red" />
                 Prefer Instant Calling?
               </h3>
-              <p className="text-xs text-brand-grey leading-relaxed">
+              <p className="text-xs text-brand-textSecondary leading-relaxed">
                 Connect directly with our loan advisory managers right now:
               </p>
               <div className="space-y-3 pt-2">
                 <a
                   href="tel:+919289223377"
-                  className="flex items-center gap-3 p-3 rounded-xl bg-brand-black border border-brand-border hover:border-brand-red/50 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-brand-bg border border-brand-border hover:border-brand-red/50 transition-colors shadow-sm"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-brand-red/10 text-brand-red flex items-center justify-center shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-brand-redLight text-brand-red border border-brand-red/20 flex items-center justify-center shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] text-brand-grey">Primary Desk</div>
-                    <div className="text-xs font-bold text-white">+91 92892 23377</div>
+                    <div className="text-[10px] text-brand-textSecondary">Primary Desk</div>
+                    <div className="text-xs font-bold text-brand-textPrimary">+91 92892 23377</div>
                   </div>
                 </a>
 
                 <a
                   href="tel:+919289223378"
-                  className="flex items-center gap-3 p-3 rounded-xl bg-brand-black border border-brand-border hover:border-brand-red/50 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-brand-bg border border-brand-border hover:border-brand-red/50 transition-colors shadow-sm"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-brand-red/10 text-brand-red flex items-center justify-center shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-brand-redLight text-brand-red border border-brand-red/20 flex items-center justify-center shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] text-brand-grey">Secondary Desk</div>
-                    <div className="text-xs font-bold text-white">+91 92892 23378</div>
+                    <div className="text-[10px] text-brand-textSecondary">Secondary Desk</div>
+                    <div className="text-xs font-bold text-brand-textPrimary">+91 92892 23378</div>
                   </div>
                 </a>
 
                 <a
                   href="mailto:contact@realcred.in"
-                  className="flex items-center gap-3 p-3 rounded-xl bg-brand-black border border-brand-border hover:border-brand-red/50 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-brand-bg border border-brand-border hover:border-brand-red/50 transition-colors shadow-sm"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-brand-red/10 text-brand-red flex items-center justify-center shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-brand-redLight text-brand-red border border-brand-red/20 flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] text-brand-grey">Email Inquiry</div>
-                    <div className="text-xs font-bold text-white">contact@realcred.in</div>
+                    <div className="text-[10px] text-brand-textSecondary">Email Inquiry</div>
+                    <div className="text-xs font-bold text-brand-textPrimary">contact@realcred.in</div>
                   </div>
                 </a>
               </div>
             </div>
 
-            <div className="bg-brand-dark rounded-3xl border border-brand-border p-6 space-y-3">
-              <h4 className="text-xs font-bold text-white flex items-center gap-2">
+            <div className="bg-white rounded-3xl border border-brand-border p-6 space-y-3 shadow-sm">
+              <h4 className="text-xs font-bold text-brand-textPrimary flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-brand-red" />
                 Corporate Office
               </h4>
-              <p className="text-xs text-brand-grey leading-relaxed">
+              <p className="text-xs text-brand-textSecondary leading-relaxed">
                 RealCred Technology Private Limited<br />
                 D-9, Ground Floor, Workshala, Vyapar Marg,<br />
                 Block D, Noida Sector 3, Noida, UP 201301
               </p>
-              <div className="pt-2 text-[11px] text-zinc-400">
+              <div className="pt-2 text-[11px] text-brand-textSecondary">
                 Operating Hours: Monday – Saturday (9:30 AM – 6:30 PM IST)
               </div>
             </div>

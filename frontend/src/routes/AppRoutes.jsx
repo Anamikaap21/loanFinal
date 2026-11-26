@@ -25,6 +25,7 @@ import PrivacyPolicy from '../pages/public/PrivacyPolicy.jsx';
 import ApplyLoan from '../pages/public/ApplyLoan.jsx';
 import RequestCallback from '../pages/public/RequestCallback.jsx';
 import PartnerRegistration from '../pages/public/PartnerRegistration.jsx';
+import CheckEligibility from '../pages/public/CheckEligibility.jsx';
 
 // Admin Module Pages (Phase 5)
 import AdminDashboard from '../pages/admin/Dashboard.jsx';
@@ -78,6 +79,8 @@ export default function AppRoutes() {
         <Route path="/apply-loan" element={<ApplyLoan />} />
         <Route path="/request-callback" element={<RequestCallback />} />
         <Route path="/partner-registration" element={<PartnerRegistration />} />
+        <Route path="/eligibility" element={<CheckEligibility />} />
+        <Route path="/check-eligibility" element={<Navigate to="/eligibility" replace />} />
       </Route>
 
       {/* Centralized Authentication Routes */}

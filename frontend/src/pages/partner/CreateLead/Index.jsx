@@ -141,103 +141,103 @@ export default function PartnerCreateLead() {
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-2">
           <PlusCircle className="w-3.5 h-3.5" />
           <span>Channel Partner Lead Generation</span>
         </div>
-        <h2 className="text-2xl font-black text-white">Submit New Loan Referral</h2>
-        <p className="text-xs text-brand-grey">
+        <h2 className="text-2xl font-black text-brand-textPrimary">Submit New Loan Referral</h2>
+        <p className="text-xs text-brand-textSecondary">
           Directly submit your customer's loan requirement into RealCred's centralized banking pipeline.
         </p>
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center gap-3 text-xs text-white">
+        <div className="p-4 rounded-2xl bg-brand-redLight border border-brand-red/20 flex items-center gap-3 text-xs text-brand-red">
           <AlertCircle className="w-4 h-4 text-brand-red shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3 text-xs text-emerald-400">
-          <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-3 text-xs text-emerald-800">
+          <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="p-6 sm:p-8 rounded-3xl bg-brand-dark border border-brand-border/60 shadow-xl space-y-6">
+      <form onSubmit={handleSubmit} className="p-6 sm:p-8 rounded-3xl bg-white border border-brand-border shadow-sm space-y-6">
         {/* Section 1: Customer Personal Details */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-white/5 text-xs font-bold text-emerald-400">
+          <div className="flex items-center gap-2 pb-2 border-b border-brand-border text-xs font-bold text-brand-red">
             <User className="w-4 h-4" />
             <span>Customer / Applicant Profile</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Applicant Full Name *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Applicant Full Name *</label>
               <input
                 type="text"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="e.g. Ramesh Kumar"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Mobile Number *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Mobile Number *</label>
               <input
                 type="text"
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 placeholder="10-digit mobile number"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Email Address (Optional)</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Email Address (Optional)</label>
               <input
                 type="email"
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 placeholder="customer@example.com"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">PAN Card Number (Optional)</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">PAN Card Number (Optional)</label>
               <input
                 type="text"
                 value={panNumber}
                 onChange={(e) => setPanNumber(e.target.value)}
                 placeholder="e.g. ABCDE1234F"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs uppercase placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs uppercase placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">City / Location *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">City / Location *</label>
               <input
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="e.g. Noida, Delhi, Mumbai"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Employment Type *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Employment Type *</label>
               <select
                 value={employmentType}
                 onChange={(e) => setEmploymentType(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               >
                 <option value="Salaried">Salaried</option>
                 <option value="Self-Employed Professional">Self-Employed Professional</option>
@@ -249,25 +249,25 @@ export default function PartnerCreateLead() {
 
             {['Other', 'other'].includes(employmentType) && (
               <div className="sm:col-span-2">
-                <label className="block text-brand-lightGrey mb-1 font-semibold">Employment Details (Required for 'Other') *</label>
+                <label className="block text-brand-textSecondary mb-1 font-semibold">Employment Details (Required for 'Other') *</label>
                 <input
                   type="text"
                   value={otherEmploymentDetails}
                   onChange={(e) => setOtherEmploymentDetails(e.target.value)}
                   placeholder="Specify employment / profession details (e.g. Freelancer, Consultant, Agriculturist)"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Monthly In-Hand Income (₹)</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Monthly In-Hand Income (₹)</label>
               <input
                 type="number"
                 value={monthlyIncome}
                 onChange={(e) => setMonthlyIncome(e.target.value)}
                 placeholder="e.g. 75000"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
           </div>
@@ -275,18 +275,18 @@ export default function PartnerCreateLead() {
 
         {/* Section 2: Loan Facility Requirement */}
         <div className="space-y-4 pt-2">
-          <div className="flex items-center gap-2 pb-2 border-b border-white/5 text-xs font-bold text-emerald-400">
+          <div className="flex items-center gap-2 pb-2 border-b border-brand-border text-xs font-bold text-brand-red">
             <IndianRupee className="w-4 h-4" />
             <span>Loan Facility Coordinates</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Loan Product Category *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Loan Product Category *</label>
               <select
                 value={loanCategory}
                 onChange={(e) => setLoanCategory(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               >
                 {categories.map((cat) => (
@@ -298,24 +298,24 @@ export default function PartnerCreateLead() {
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Required Loan Amount (₹) *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Required Loan Amount (₹) *</label>
               <input
                 type="number"
                 value={requiredLoanAmount}
                 onChange={(e) => setRequiredLoanAmount(e.target.value)}
                 placeholder="e.g. 2500000"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
                 min={10000}
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Preferred Bank / NBFC (Optional)</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Preferred Bank / NBFC (Optional)</label>
               <select
                 value={preferredBank}
                 onChange={(e) => setPreferredBank(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               >
                 <option value="">Any / Best Bank Match Selected by RealCred</option>
                 {banks.map((b) => (
@@ -327,20 +327,20 @@ export default function PartnerCreateLead() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Partner Remarks / Special Case Details</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Partner Remarks / Special Case Details</label>
               <textarea
                 rows={3}
                 value={remarks}
                 onChange={(e) => setRemarks(e.target.value)}
                 placeholder="Enter client's CIBIL score if known, existing obligations, property status, or preferred bank officer..."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
           </div>
         </div>
 
         {/* Section 4: Mandatory KYC Verification Documents */}
-        <div className="pt-4 border-t border-white/5">
+        <div className="pt-4 border-t border-brand-border">
           <KycDocumentUploadFields
             aadhaarFile={aadhaarFile}
             setAadhaarFile={setAadhaarFile}
@@ -348,20 +348,20 @@ export default function PartnerCreateLead() {
             setPanFile={setPanFile}
             bankProofFile={bankProofFile}
             setBankProofFile={setBankProofFile}
-            accentColor="emerald"
+            accentColor="red"
             isOptional={false}
           />
         </div>
 
-        <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-          <p className="text-[11px] text-brand-grey">
+        <div className="pt-4 border-t border-brand-border flex items-center justify-between">
+          <p className="text-[11px] text-brand-textSecondary">
             Submitting this referral automatically links your Partner ID and preserves payout eligibility upon bank disbursement.
           </p>
 
           <button
             type="submit"
             disabled={submitting}
-            className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/20 disabled:opacity-50 flex items-center gap-2"
+            className="px-6 py-3 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm disabled:opacity-50 flex items-center gap-2"
           >
             {submitting ? (
               <>

@@ -124,8 +124,8 @@ export default function EmployeeProfile() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center space-y-3">
-          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-xs text-brand-grey font-medium">Loading profile credentials...</p>
+          <div className="w-8 h-8 border-2 border-brand-red border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-xs text-brand-textSecondary font-medium">Loading profile credentials...</p>
         </div>
       </div>
     );
@@ -135,61 +135,61 @@ export default function EmployeeProfile() {
     <div className="space-y-6 max-w-4xl">
       {/* Top Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-2">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-2">
           <User className="w-3.5 h-3.5" />
           <span>Employee Profile & Credentials</span>
         </div>
-        <h2 className="text-2xl font-black text-white">My Officer Profile</h2>
-        <p className="text-xs text-brand-grey">
+        <h2 className="text-2xl font-black text-brand-textPrimary">My Officer Profile</h2>
+        <p className="text-xs text-brand-textSecondary">
           View your designation, department, and update your personal contact details or password.
         </p>
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center gap-3 text-xs text-white">
+        <div className="p-4 rounded-2xl bg-brand-redLight border border-brand-red/30 flex items-center gap-3 text-xs text-brand-red">
           <AlertCircle className="w-4 h-4 text-brand-red shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3 text-xs text-emerald-400">
-          <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-3 text-xs text-emerald-700">
+          <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
       {/* Official Credentials Banner */}
-      <div className="bg-brand-dark p-6 rounded-3xl border border-brand-border/60 grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
-        <div className="p-3 rounded-2xl bg-brand-black/60 border border-brand-border/50">
-          <span className="text-brand-grey text-[10px] uppercase font-bold tracking-wider">Employee ID</span>
-          <div className="font-mono font-bold text-blue-400 mt-1 text-sm">{profile?.employeeId}</div>
+      <div className="bg-white p-6 rounded-3xl border border-brand-border shadow-sm grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
+        <div className="p-3 rounded-2xl bg-brand-bg border border-brand-border">
+          <span className="text-brand-textSecondary text-[10px] uppercase font-bold tracking-wider">Employee ID</span>
+          <div className="font-mono font-bold text-brand-red mt-1 text-sm">{profile?.employeeId}</div>
         </div>
-        <div className="p-3 rounded-2xl bg-brand-black/60 border border-brand-border/50">
-          <span className="text-brand-grey text-[10px] uppercase font-bold tracking-wider">Designation</span>
-          <div className="font-bold text-white mt-1 text-sm">{profile?.designation}</div>
+        <div className="p-3 rounded-2xl bg-brand-bg border border-brand-border">
+          <span className="text-brand-textSecondary text-[10px] uppercase font-bold tracking-wider">Designation</span>
+          <div className="font-bold text-brand-textPrimary mt-1 text-sm">{profile?.designation}</div>
         </div>
-        <div className="p-3 rounded-2xl bg-brand-black/60 border border-brand-border/50">
-          <span className="text-brand-grey text-[10px] uppercase font-bold tracking-wider">Department</span>
-          <div className="font-bold text-white mt-1 text-sm">{profile?.department}</div>
+        <div className="p-3 rounded-2xl bg-brand-bg border border-brand-border">
+          <span className="text-brand-textSecondary text-[10px] uppercase font-bold tracking-wider">Department</span>
+          <div className="font-bold text-brand-textPrimary mt-1 text-sm">{profile?.department}</div>
         </div>
-        <div className="p-3 rounded-2xl bg-brand-black/60 border border-brand-border/50">
-          <span className="text-brand-grey text-[10px] uppercase font-bold tracking-wider">Assigned Files</span>
-          <div className="font-bold text-emerald-400 mt-1 text-sm">{profile?.assignedLeadsCount || 0} Active Files</div>
+        <div className="p-3 rounded-2xl bg-brand-bg border border-brand-border">
+          <span className="text-brand-textSecondary text-[10px] uppercase font-bold tracking-wider">Assigned Files</span>
+          <div className="font-bold text-emerald-600 mt-1 text-sm">{profile?.assignedLeadsCount || 0} Active Files</div>
         </div>
       </div>
 
       {/* Edit Form */}
       <form onSubmit={handleSave} className="space-y-6">
-        <div className="bg-brand-dark p-6 rounded-3xl border border-brand-border/60 space-y-4">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2">
-            <User className="w-4 h-4 text-blue-400" />
+        <div className="bg-white p-6 rounded-3xl border border-brand-border shadow-sm space-y-4">
+          <h3 className="text-sm font-bold text-brand-textPrimary flex items-center gap-2">
+            <User className="w-4 h-4 text-brand-red" />
             Personal Contact Details
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Full Name
               </label>
               <input
@@ -197,12 +197,12 @@ export default function EmployeeProfile() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Mobile Number
               </label>
               <input
@@ -211,24 +211,24 @@ export default function EmployeeProfile() {
                 maxLength={10}
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Official Email (Read-Only)
               </label>
               <input
                 type="email"
                 disabled
                 value={profile?.user?.email || ''}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black/50 border border-brand-border text-brand-grey text-xs cursor-not-allowed"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg/60 border border-brand-border text-brand-textSecondary text-xs cursor-not-allowed"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 City / Location
               </label>
               <input
@@ -237,25 +237,25 @@ export default function EmployeeProfile() {
                 value={formData.city}
                 onChange={handleChange}
                 placeholder="e.g. Noida / Delhi NCR"
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
           </div>
         </div>
 
         {/* Password Security */}
-        <div className="bg-brand-dark p-6 rounded-3xl border border-brand-border/60 space-y-4">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2">
-            <Lock className="w-4 h-4 text-blue-400" />
+        <div className="bg-white p-6 rounded-3xl border border-brand-border shadow-sm space-y-4">
+          <h3 className="text-sm font-bold text-brand-textPrimary flex items-center gap-2">
+            <Lock className="w-4 h-4 text-brand-red" />
             Change Password
           </h3>
-          <p className="text-xs text-brand-grey">
+          <p className="text-xs text-brand-textSecondary">
             Leave blank if you do not wish to update your login password.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Current Password
               </label>
               <input
@@ -264,12 +264,12 @@ export default function EmployeeProfile() {
                 value={formData.currentPassword}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 New Password
               </label>
               <input
@@ -279,12 +279,12 @@ export default function EmployeeProfile() {
                 value={formData.newPassword}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Confirm New Password
               </label>
               <input
@@ -294,7 +294,7 @@ export default function EmployeeProfile() {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
           </div>
@@ -304,7 +304,7 @@ export default function EmployeeProfile() {
           <button
             type="submit"
             disabled={saving}
-            className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-lg shadow-blue-600/20 flex items-center gap-2 disabled:opacity-50"
+            className="px-6 py-3 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm flex items-center gap-2 disabled:opacity-50"
           >
             {saving ? (
               <>

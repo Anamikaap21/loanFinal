@@ -109,6 +109,21 @@ export default function ApplyLoan() {
           }
         }
 
+        // Prefill income and employment type if passed from Check Eligibility
+        const incomeParam = searchParams.get('income') || location.state?.income;
+        const employmentTypeParam = searchParams.get('employmentType') || location.state?.employmentType;
+
+        if (incomeParam) {
+          const parsedIncome = Number(incomeParam);
+          if (!isNaN(parsedIncome) && parsedIncome > 0) {
+            setFormData((prev) => ({ ...prev, monthlyIncome: String(parsedIncome) }));
+          }
+        }
+
+        if (employmentTypeParam) {
+          setFormData((prev) => ({ ...prev, employmentType: employmentTypeParam }));
+        }
+
         if (tenureParam || rateParam) {
           setFormData((prev) => {
             if (!prev.additionalDetails) {
@@ -227,43 +242,43 @@ export default function ApplyLoan() {
   // SUCCESS VIEW
   if (submissionSuccess) {
     return (
-      <div className="min-h-screen bg-brand-black text-brand-lightGrey py-12 sm:py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center min-w-0 max-w-full">
-        <div className="max-w-xl w-full bg-brand-dark rounded-3xl border border-brand-border p-6 sm:p-10 shadow-2xl relative overflow-hidden text-center min-w-0">
+      <div className="min-h-screen bg-brand-bg text-brand-textSecondary py-12 sm:py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center min-w-0 max-w-full">
+        <div className="max-w-xl w-full bg-white rounded-3xl border border-brand-border p-6 sm:p-10 shadow-xl relative overflow-hidden text-center min-w-0">
           {/* Subtle Top Red Accent Line */}
-          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-red via-brand-accent to-brand-red" />
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-red" />
 
-          <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shadow-lg">
+          <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center shadow-sm">
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-brand-textPrimary mb-2">
             Application Submitted Successfully!
           </h2>
-          <p className="text-sm text-brand-grey mb-8">
-            Thank you, <span className="text-white font-semibold">{submissionSuccess.customerName}</span>. Your direct loan inquiry has been logged into the RealCred distribution desk.
+          <p className="text-sm text-brand-textSecondary mb-8">
+            Thank you, <span className="text-brand-textPrimary font-semibold">{submissionSuccess.customerName}</span>. Your direct loan inquiry has been logged into the RealCred distribution desk.
           </p>
 
           {/* Reference Badges Card */}
-          <div className="p-5 rounded-2xl bg-brand-black/70 border border-brand-border/80 text-left mb-8 space-y-3">
-            <div className="flex items-center justify-between border-b border-brand-border/50 pb-2.5">
-              <span className="text-xs text-brand-grey">Application Number</span>
-              <span className="text-sm font-mono font-bold text-white bg-white/5 px-2.5 py-1 rounded-md">
+          <div className="p-5 rounded-2xl bg-brand-bg border border-brand-border text-left mb-8 space-y-3">
+            <div className="flex items-center justify-between border-b border-brand-border pb-2.5">
+              <span className="text-xs text-brand-textSecondary">Application Number</span>
+              <span className="text-sm font-mono font-bold text-brand-textPrimary bg-white px-2.5 py-1 rounded-md border border-brand-border shadow-sm">
                 {submissionSuccess.applicationNumber}
               </span>
             </div>
-            <div className="flex items-center justify-between border-b border-brand-border/50 pb-2.5">
-              <span className="text-xs text-brand-grey">Lead Tracking ID</span>
-              <span className="text-sm font-mono font-bold text-brand-red bg-brand-red/10 px-2.5 py-1 rounded-md">
+            <div className="flex items-center justify-between border-b border-brand-border pb-2.5">
+              <span className="text-xs text-brand-textSecondary">Lead Tracking ID</span>
+              <span className="text-sm font-mono font-bold text-brand-red bg-brand-redLight px-2.5 py-1 rounded-md border border-brand-red/20 shadow-sm">
                 {submissionSuccess.leadId}
               </span>
             </div>
-            <div className="flex items-center justify-between border-b border-brand-border/50 pb-2.5">
-              <span className="text-xs text-brand-grey">Loan Facility</span>
-              <span className="text-xs font-semibold text-white">{submissionSuccess.category}</span>
+            <div className="flex items-center justify-between border-b border-brand-border pb-2.5">
+              <span className="text-xs text-brand-textSecondary">Loan Facility</span>
+              <span className="text-xs font-semibold text-brand-textPrimary">{submissionSuccess.category}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-xs text-brand-grey">Required Amount</span>
-              <span className="text-sm font-bold text-emerald-400">
+              <span className="text-xs text-brand-textSecondary">Required Amount</span>
+              <span className="text-sm font-bold text-emerald-600 font-mono">
                 ₹{Number(submissionSuccess.loanAmount || 0).toLocaleString('en-IN')}
               </span>
             </div>
@@ -271,21 +286,21 @@ export default function ApplyLoan() {
 
           {/* What Happens Next Steps */}
           <div className="text-left mb-8">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-brand-grey mb-3 flex items-center gap-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-brand-textPrimary mb-3 flex items-center gap-2">
               <Clock className="w-3.5 h-3.5 text-brand-red" />
               What Happens Next?
             </h4>
-            <div className="space-y-3 text-xs text-brand-lightGrey">
+            <div className="space-y-3 text-xs text-brand-textSecondary">
               <div className="flex items-start gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-brand-red/10 border border-brand-red/20 text-brand-red flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</div>
+                <div className="w-5 h-5 rounded-full bg-brand-redLight border border-brand-red/20 text-brand-red flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</div>
                 <div>A RealCred Loan Manager reviews your profile within 30 minutes.</div>
               </div>
               <div className="flex items-start gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-brand-red/10 border border-brand-red/20 text-brand-red flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</div>
+                <div className="w-5 h-5 rounded-full bg-brand-redLight border border-brand-red/20 text-brand-red flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</div>
                 <div>We verify KYC documents and match interest rates across 25+ partner banks.</div>
               </div>
               <div className="flex items-start gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-brand-red/10 border border-brand-red/20 text-brand-red flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</div>
+                <div className="w-5 h-5 rounded-full bg-brand-redLight border border-brand-red/20 text-brand-red flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</div>
                 <div>Direct bank login, property evaluation, formal sanction letter, and disbursal.</div>
               </div>
             </div>
@@ -294,13 +309,13 @@ export default function ApplyLoan() {
           <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={resetForm}
-              className="flex-1 py-3 px-4 rounded-xl bg-brand-card border border-brand-border text-xs font-semibold text-white hover:bg-white/5 transition-colors"
+              className="flex-1 py-3 px-4 rounded-xl bg-white border border-brand-border text-xs font-semibold text-brand-textPrimary hover:bg-brand-redLight hover:text-brand-red transition-colors shadow-sm"
             >
               Apply for Another Loan
             </button>
             <Link
               to="/"
-              className="flex-1 py-3 px-4 rounded-xl bg-brand-red text-xs font-bold text-white hover:bg-brand-redHover transition-colors flex items-center justify-center gap-1.5"
+              className="flex-1 py-3 px-4 rounded-xl bg-brand-red text-xs font-bold text-white hover:bg-brand-deepRed transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-brand-red/25"
             >
               Back to Home
               <ArrowRight className="w-3.5 h-3.5" />
@@ -313,28 +328,28 @@ export default function ApplyLoan() {
 
   // MAIN FORM VIEW
   return (
-    <div className="min-h-screen bg-brand-black text-brand-lightGrey py-8 sm:py-12 px-4 sm:px-6 lg:px-8 min-w-0 max-w-full">
+    <div className="min-h-screen bg-brand-bg text-brand-textSecondary py-8 sm:py-12 px-4 sm:px-6 lg:px-8 min-w-0 max-w-full">
       <div className="max-w-4xl mx-auto min-w-0">
         {/* Header Section */}
         <div className="text-center mb-8 sm:mb-10 min-w-0">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/20 text-brand-red text-xs font-semibold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-redLight border border-brand-red/20 text-brand-red text-xs font-semibold uppercase tracking-wider mb-4">
             <Building2 className="w-4 h-4 shrink-0" />
             <span>Direct Digital Application</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight break-words">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-brand-textPrimary tracking-tight break-words">
             Apply for Your Loan with RealCred
           </h1>
-          <p className="mt-3 text-sm sm:text-base lg:text-lg text-brand-grey max-w-2xl mx-auto break-words">
+          <p className="mt-3 text-sm sm:text-base lg:text-lg text-brand-textSecondary max-w-2xl mx-auto break-words">
             Your Loan. One Guided Route. Fill in your requirements to receive doorstep advisory and multi-bank sanction support.
           </p>
         </div>
 
         {/* Form Container Card */}
-        <div className="bg-brand-dark rounded-3xl border border-brand-border p-5 sm:p-8 lg:p-10 shadow-2xl relative min-w-0">
+        <div className="bg-white rounded-3xl border border-brand-border p-5 sm:p-8 lg:p-10 shadow-md relative min-w-0">
           {submitError && (
-            <div className="mb-6 p-4 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-start gap-3">
+            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-brand-red/30 flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-brand-red shrink-0 mt-0.5" />
-              <div className="text-xs text-white">
+              <div className="text-xs text-brand-red">
                 <span className="font-bold">Error submitting application:</span> {submitError}
               </div>
             </div>
@@ -343,13 +358,13 @@ export default function ApplyLoan() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* 1. Applicant Personal Details */}
             <div>
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+              <h3 className="text-xs font-bold text-brand-textPrimary uppercase tracking-wider mb-4 flex items-center gap-2">
                 <UserCheck className="w-4 h-4 text-brand-red" />
                 1. Applicant Personal Details
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Full Name <span className="text-brand-red">*</span>
                   </label>
                   <input
@@ -358,18 +373,18 @@ export default function ApplyLoan() {
                     value={formData.fullName}
                     onChange={handleChange}
                     placeholder="e.g. Ramesh Kumar Sharma"
-                    className={`w-full px-4 py-2.5 rounded-xl bg-brand-black border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 ${formErrors.fullName ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red'
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${formErrors.fullName ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
                       }`}
                   />
                   {formErrors.fullName && <p className="mt-1 text-[11px] text-brand-red">{formErrors.fullName}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Mobile Number <span className="text-brand-red">*</span>
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-grey font-semibold">+91</span>
+                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-textSecondary font-semibold">+91</span>
                     <input
                       type="tel"
                       name="mobileNumber"
@@ -377,7 +392,7 @@ export default function ApplyLoan() {
                       value={formData.mobileNumber}
                       onChange={handleChange}
                       placeholder="98765 43210"
-                      className={`w-full pl-12 pr-4 py-2.5 rounded-xl bg-brand-black border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 ${formErrors.mobileNumber ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red'
+                      className={`w-full pl-12 pr-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${formErrors.mobileNumber ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
                         }`}
                     />
                   </div>
@@ -385,8 +400,8 @@ export default function ApplyLoan() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
-                    Email Address <span className="text-brand-grey font-normal">(Optional)</span>
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
+                    Email Address <span className="text-brand-textSecondary font-normal">(Optional)</span>
                   </label>
                   <input
                     type="email"
@@ -394,14 +409,14 @@ export default function ApplyLoan() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="ramesh.sharma@example.com"
-                    className={`w-full px-4 py-2.5 rounded-xl bg-brand-black border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 ${formErrors.email ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red'
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${formErrors.email ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
                       }`}
                   />
                   {formErrors.email && <p className="mt-1 text-[11px] text-brand-red">{formErrors.email}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Current City / Location <span className="text-brand-red">*</span>
                   </label>
                   <input
@@ -410,7 +425,7 @@ export default function ApplyLoan() {
                     value={formData.city}
                     onChange={handleChange}
                     placeholder="e.g. Noida, Delhi NCR, Lucknow"
-                    className={`w-full px-4 py-2.5 rounded-xl bg-brand-black border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 ${formErrors.city ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red'
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${formErrors.city ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
                       }`}
                   />
                   {formErrors.city && <p className="mt-1 text-[11px] text-brand-red">{formErrors.city}</p>}
@@ -420,13 +435,13 @@ export default function ApplyLoan() {
 
             {/* 2. Loan Requirement & Preferences */}
             <div className="pt-4 border-t border-brand-border">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+              <h3 className="text-xs font-bold text-brand-textPrimary uppercase tracking-wider mb-4 flex items-center gap-2">
                 <IndianRupee className="w-4 h-4 text-brand-red" />
                 2. Loan Requirement & Banking Preference
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Loan Category <span className="text-brand-red">*</span>
                   </label>
                   <select
@@ -434,7 +449,7 @@ export default function ApplyLoan() {
                     value={formData.loanCategoryId}
                     onChange={handleChange}
                     disabled={isLoadingDropdowns}
-                    className={`w-full px-4 py-2.5 rounded-xl bg-brand-black border text-white text-xs focus:outline-none focus:ring-1 ${formErrors.loanCategoryId ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red'
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 shadow-sm ${formErrors.loanCategoryId ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
                       }`}
                   >
                     {isLoadingDropdowns ? (
@@ -451,15 +466,15 @@ export default function ApplyLoan() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
-                    Preferred Bank <span className="text-brand-grey font-normal">(Optional)</span>
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
+                    Preferred Bank <span className="text-brand-textSecondary font-normal">(Optional)</span>
                   </label>
                   <select
                     name="preferredBankId"
                     value={formData.preferredBankId}
                     onChange={handleChange}
                     disabled={isLoadingDropdowns}
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red shadow-sm"
                   >
                     <option value="">Any Suitable Bank (Best RealCred ROI Match)</option>
                     {banks.map((bank) => (
@@ -471,32 +486,32 @@ export default function ApplyLoan() {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Required Loan Amount (INR) <span className="text-brand-red">*</span>
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-grey font-bold">₹</span>
+                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-textSecondary font-bold">₹</span>
                     <input
                       type="number"
                       name="requiredLoanAmount"
                       value={formData.requiredLoanAmount}
                       onChange={handleChange}
                       placeholder="e.g. 2500000"
-                      className={`w-full pl-9 pr-4 py-2.5 rounded-xl bg-brand-black border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 ${formErrors.requiredLoanAmount ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red'
+                      className={`w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${formErrors.requiredLoanAmount ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
                         }`}
                     />
                   </div>
                   {/* Preset Amount Pills */}
                   <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <span className="text-[11px] text-brand-grey">Quick select:</span>
+                    <span className="text-[11px] text-brand-textSecondary">Quick select:</span>
                     {amountPresets.map((amt) => (
                       <button
                         type="button"
                         key={amt}
                         onClick={() => setFormData((prev) => ({ ...prev, requiredLoanAmount: amt }))}
                         className={`text-[11px] px-2.5 py-1 rounded-md border transition-colors ${Number(formData.requiredLoanAmount) === amt
-                          ? 'bg-brand-red border-brand-red text-white'
-                          : 'bg-brand-card border-brand-border text-brand-grey hover:text-white'
+                          ? 'bg-brand-red border-brand-red text-white shadow-sm'
+                          : 'bg-brand-bg border-brand-border text-brand-textSecondary hover:text-brand-red hover:bg-brand-redLight'
                           }`}
                       >
                         ₹{(amt / 100000).toLocaleString('en-IN')} Lakhs
@@ -510,20 +525,20 @@ export default function ApplyLoan() {
 
             {/* 3. Professional & Income Profile */}
             <div className="pt-4 border-t border-brand-border">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+              <h3 className="text-xs font-bold text-brand-textPrimary uppercase tracking-wider mb-4 flex items-center gap-2">
                 <Briefcase className="w-4 h-4 text-brand-red" />
                 3. Professional & Income Details
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Employment Type <span className="text-brand-red">*</span>
                   </label>
                   <select
                     name="employmentType"
                     value={formData.employmentType}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red shadow-sm"
                   >
                     <option value="Salaried">Salaried (Private / MNC / Govt)</option>
                     <option value="Self-Employed Professional">Self-Employed Professional (Doctor, CA, Architect)</option>
@@ -534,8 +549,8 @@ export default function ApplyLoan() {
 
                   {['Other', 'other'].includes(formData.employmentType) && (
                     <div className="mt-3">
-                      <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
-                        Specify Employment Details <span className="text-brand-grey font-normal">(Optional)</span>
+                      <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
+                        Specify Employment Details <span className="text-brand-textSecondary font-normal">(Optional)</span>
                       </label>
                       <input
                         type="text"
@@ -543,32 +558,32 @@ export default function ApplyLoan() {
                         value={formData.otherEmploymentDetails}
                         onChange={handleChange}
                         placeholder="e.g. Freelancer, Consultant, Agriculturist"
-                        className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 focus:ring-brand-red shadow-sm"
                       />
                     </div>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Monthly Net Income / Turnover (INR)
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-grey font-bold">₹</span>
+                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-textSecondary font-bold">₹</span>
                     <input
                       type="number"
                       name="monthlyIncome"
                       value={formData.monthlyIncome}
                       onChange={handleChange}
                       placeholder="e.g. 85000"
-                      className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 focus:ring-brand-red shadow-sm"
                     />
                   </div>
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
-                    Additional Requirement or Note <span className="text-brand-grey font-normal">(Optional)</span>
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
+                    Additional Requirement or Note <span className="text-brand-textSecondary font-normal">(Optional)</span>
                   </label>
                   <textarea
                     name="additionalDetails"
@@ -576,7 +591,7 @@ export default function ApplyLoan() {
                     value={formData.additionalDetails}
                     onChange={handleChange}
                     placeholder="Mention any specific tenure preference, co-applicant details, property location, or existing running EMIs..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red resize-none"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 focus:ring-brand-red resize-none shadow-sm"
                   />
                 </div>
               </div>
@@ -598,7 +613,7 @@ export default function ApplyLoan() {
 
             {/* Terms and Submit */}
             <div className="pt-4 border-t border-brand-border">
-              <div className="flex items-start gap-2.5 mb-6 text-xs text-brand-grey">
+              <div className="flex items-start gap-2.5 mb-6 text-xs text-brand-textSecondary">
                 <ShieldCheck className="w-4 h-4 text-brand-red shrink-0 mt-0.5" />
                 <p>
                   By submitting this application, you authorize RealCred Technology Private Limited and its verified banking partners to contact you via Phone/SMS/Email regarding your loan requirement per our{' '}
@@ -611,7 +626,7 @@ export default function ApplyLoan() {
               <button
                 type="submit"
                 disabled={isSubmitting || isLoadingDropdowns}
-                className="w-full py-3.5 px-6 rounded-xl bg-brand-red hover:bg-brand-redHover text-white font-bold text-sm tracking-wide transition-all shadow-lg shadow-brand-red/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-6 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white font-bold text-sm tracking-wide transition-all shadow-md shadow-brand-red/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -631,20 +646,20 @@ export default function ApplyLoan() {
 
         {/* Feature Badges Below Form */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-          <div className="p-4 rounded-xl bg-brand-dark/50 border border-brand-border/60">
+          <div className="p-4 rounded-xl bg-white border border-brand-border shadow-sm">
             <ShieldCheck className="w-5 h-5 text-brand-red mx-auto mb-2" />
-            <h4 className="text-xs font-bold text-white mb-0.5">100% Data Confidentiality</h4>
-            <p className="text-[11px] text-brand-grey">Your information is strictly encrypted and never sold to third parties.</p>
+            <h4 className="text-xs font-bold text-brand-textPrimary mb-0.5">100% Data Confidentiality</h4>
+            <p className="text-[11px] text-brand-textSecondary">Your information is strictly encrypted and never sold to third parties.</p>
           </div>
-          <div className="p-4 rounded-xl bg-brand-dark/50 border border-brand-border/60">
+          <div className="p-4 rounded-xl bg-white border border-brand-border shadow-sm">
             <Clock className="w-5 h-5 text-brand-red mx-auto mb-2" />
-            <h4 className="text-xs font-bold text-white mb-0.5">Fastest Sanctions</h4>
-            <p className="text-[11px] text-brand-grey">Pre-approved sanctions within 24-48 business hours with partner banks.</p>
+            <h4 className="text-xs font-bold text-brand-textPrimary mb-0.5">Fastest Sanctions</h4>
+            <p className="text-[11px] text-brand-textSecondary">Pre-approved sanctions within 24-48 business hours with partner banks.</p>
           </div>
-          <div className="p-4 rounded-xl bg-brand-dark/50 border border-brand-border/60">
+          <div className="p-4 rounded-xl bg-white border border-brand-border shadow-sm">
             <FileCheck className="w-5 h-5 text-brand-red mx-auto mb-2" />
-            <h4 className="text-xs font-bold text-white mb-0.5">Doorstep Documentation</h4>
-            <p className="text-[11px] text-brand-grey">Dedicated loan manager handles bank paperwork and physical verification.</p>
+            <h4 className="text-xs font-bold text-brand-textPrimary mb-0.5">Doorstep Documentation</h4>
+            <p className="text-[11px] text-brand-textSecondary">Dedicated loan manager handles bank paperwork and physical verification.</p>
           </div>
         </div>
       </div>

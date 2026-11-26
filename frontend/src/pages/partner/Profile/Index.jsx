@@ -177,7 +177,7 @@ export default function PartnerProfile() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-brand-red border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -186,63 +186,63 @@ export default function PartnerProfile() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-2">
           <Briefcase className="w-3.5 h-3.5" />
           <span>Channel Partner Settings</span>
         </div>
-        <h2 className="text-2xl font-black text-white">Partner Profile & Payout Banking</h2>
-        <p className="text-xs text-brand-grey">
+        <h2 className="text-2xl font-black text-brand-textPrimary">Partner Profile & Payout Banking</h2>
+        <p className="text-xs text-brand-textSecondary">
           Manage your business information, PAN, contact numbers, and bank account for commission payouts.
         </p>
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center gap-3 text-xs text-white">
+        <div className="p-4 rounded-2xl bg-brand-redLight border border-brand-red/20 flex items-center gap-3 text-xs text-brand-red">
           <AlertCircle className="w-4 h-4 text-brand-red shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3 text-xs text-emerald-400">
-          <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-3 text-xs text-emerald-800">
+          <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
       {/* Identity Summary Card */}
-      <div className="p-6 rounded-3xl bg-brand-dark border border-brand-border/60 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="p-6 rounded-3xl bg-white border border-brand-border shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-black text-xl shrink-0">
+          <div className="w-14 h-14 rounded-2xl bg-brand-redLight border border-brand-red/20 text-brand-red flex items-center justify-center font-black text-xl shrink-0">
             {partner?.partnerCode?.slice(-3) || 'RCP'}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-emerald-400">{partner?.partnerCode}</span>
-              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 uppercase">
+              <span className="font-mono text-xs font-bold text-brand-red">{partner?.partnerCode}</span>
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase">
                 {partner?.accountStatus || 'Active'}
               </span>
             </div>
-            <h3 className="text-lg font-black text-white mt-0.5">{partner?.businessName || user?.name}</h3>
-            <p className="text-xs text-brand-grey">{partner?.user?.email} • {partner?.user?.phone}</p>
+            <h3 className="text-lg font-black text-brand-textPrimary mt-0.5">{partner?.businessName || user?.name}</h3>
+            <p className="text-xs text-brand-textSecondary">{partner?.user?.email} • {partner?.user?.phone}</p>
           </div>
         </div>
 
-        <div className="text-right sm:border-l sm:border-white/5 sm:pl-6">
-          <div className="text-[10px] uppercase font-bold text-brand-grey">Default Commission Rate</div>
-          <div className="text-2xl font-black text-emerald-400">{partner?.defaultCommissionRate || 1.5}%</div>
-          <div className="text-[10px] text-brand-grey">Calculated on Disbursed Amount</div>
+        <div className="text-right sm:border-l sm:border-brand-border sm:pl-6">
+          <div className="text-[10px] uppercase font-bold text-brand-textSecondary">Default Commission Rate</div>
+          <div className="text-2xl font-black text-brand-red">{partner?.defaultCommissionRate || 1.5}%</div>
+          <div className="text-[10px] text-brand-textSecondary">Calculated on Disbursed Amount</div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex gap-2 border-b border-white/5 pb-2">
+      <div className="flex gap-2 border-b border-brand-border pb-2">
         <button
           onClick={() => setActiveTab('profile')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
             activeTab === 'profile'
-              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20'
-              : 'text-brand-grey hover:bg-white/5 hover:text-white'
+              ? 'bg-brand-red text-white shadow-sm'
+              : 'text-brand-textSecondary hover:bg-brand-bg hover:text-brand-textPrimary'
           }`}
         >
           <User className="w-3.5 h-3.5" />
@@ -253,8 +253,8 @@ export default function PartnerProfile() {
           onClick={() => setActiveTab('banking')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
             activeTab === 'banking'
-              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20'
-              : 'text-brand-grey hover:bg-white/5 hover:text-white'
+              ? 'bg-brand-red text-white shadow-sm'
+              : 'text-brand-textSecondary hover:bg-brand-bg hover:text-brand-textPrimary'
           }`}
         >
           <CreditCard className="w-3.5 h-3.5" />
@@ -265,8 +265,8 @@ export default function PartnerProfile() {
           onClick={() => setActiveTab('security')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
             activeTab === 'security'
-              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20'
-              : 'text-brand-grey hover:bg-white/5 hover:text-white'
+              ? 'bg-brand-red text-white shadow-sm'
+              : 'text-brand-textSecondary hover:bg-brand-bg hover:text-brand-textPrimary'
           }`}
         >
           <Lock className="w-3.5 h-3.5" />
@@ -276,82 +276,82 @@ export default function PartnerProfile() {
 
       {/* TAB 1: Business Profile */}
       {activeTab === 'profile' && (
-        <form onSubmit={handleSaveProfile} className="p-6 rounded-3xl bg-brand-dark border border-brand-border/60 shadow-xl space-y-4">
-          <h4 className="text-sm font-bold text-white mb-2">Business & Personal Information</h4>
+        <form onSubmit={handleSaveProfile} className="p-6 rounded-3xl bg-white border border-brand-border shadow-sm space-y-4">
+          <h4 className="text-sm font-bold text-brand-textPrimary mb-2">Business & Personal Information</h4>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Contact Person Name *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Contact Person Name *</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Mobile Number *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Mobile Number *</label>
               <input
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Business / Firm / Agency Name</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Business / Firm / Agency Name</label>
               <input
                 type="text"
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
                 placeholder="e.g. Apex Financial Consultants"
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">PAN Card Number</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">PAN Card Number</label>
               <input
                 type="text"
                 value={panNumber}
                 onChange={(e) => setPanNumber(e.target.value)}
                 placeholder="e.g. ABCDE1234F"
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs uppercase focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs uppercase focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">City</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">City</label>
               <input
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">State</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">State</label>
               <input
                 type="text"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Complete Office / Residential Address</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Complete Office / Residential Address</label>
               <textarea
                 rows={2}
                 value={fullAddress}
                 onChange={(e) => setFullAddress(e.target.value)}
                 placeholder="Street address, building, landmark..."
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
           </div>
@@ -360,7 +360,7 @@ export default function PartnerProfile() {
             <button
               type="submit"
               disabled={saving}
-              className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/20 disabled:opacity-50 flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm disabled:opacity-50 flex items-center gap-2"
             >
               <Save className="w-3.5 h-3.5" />
               <span>{saving ? 'Saving...' : 'Save Profile Details'}</span>
@@ -371,60 +371,60 @@ export default function PartnerProfile() {
 
       {/* TAB 2: Settlement Banking */}
       {activeTab === 'banking' && (
-        <form onSubmit={handleSaveBanking} className="p-6 rounded-3xl bg-brand-dark border border-brand-border/60 shadow-xl space-y-4">
-          <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold">
+        <form onSubmit={handleSaveBanking} className="p-6 rounded-3xl bg-white border border-brand-border shadow-sm space-y-4">
+          <div className="flex items-center gap-2 text-brand-red text-xs font-bold">
             <ShieldCheck className="w-4 h-4" />
             <span>Bank Account Coordinates for Direct Commission Transfers</span>
           </div>
-          <p className="text-xs text-brand-grey">
+          <p className="text-xs text-brand-textSecondary">
             All disbursement commissions will be settled to this verified bank account after mandatory 5% TDS deduction.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Account Holder Name *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Account Holder Name *</label>
               <input
                 type="text"
                 value={accountHolderName}
                 onChange={(e) => setAccountHolderName(e.target.value)}
                 placeholder="As per bank passbook"
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Bank Name *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Bank Name *</label>
               <input
                 type="text"
                 value={bankName}
                 onChange={(e) => setBankName(e.target.value)}
                 placeholder="e.g. HDFC Bank, ICICI Bank"
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Account Number *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Account Number *</label>
               <input
                 type="text"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
                 placeholder="e.g. 50100291827364"
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs font-mono focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs font-mono focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">IFSC Code *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">IFSC Code *</label>
               <input
                 type="text"
                 value={ifscCode}
                 onChange={(e) => setIfscCode(e.target.value)}
                 placeholder="e.g. HDFC0001234"
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs font-mono uppercase focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs font-mono uppercase focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
@@ -434,7 +434,7 @@ export default function PartnerProfile() {
             <button
               type="submit"
               disabled={saving}
-              className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/20 disabled:opacity-50 flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm disabled:opacity-50 flex items-center gap-2"
             >
               <Save className="w-3.5 h-3.5" />
               <span>{saving ? 'Saving...' : 'Save Bank Coordinates'}</span>
@@ -445,40 +445,40 @@ export default function PartnerProfile() {
 
       {/* TAB 3: Security */}
       {activeTab === 'security' && (
-        <form onSubmit={handlePasswordChange} className="p-6 rounded-3xl bg-brand-dark border border-brand-border/60 shadow-xl space-y-4 max-w-lg">
-          <h4 className="text-sm font-bold text-white mb-2">Change Password</h4>
+        <form onSubmit={handlePasswordChange} className="p-6 rounded-3xl bg-white border border-brand-border shadow-sm space-y-4 max-w-lg">
+          <h4 className="text-sm font-bold text-brand-textPrimary mb-2">Change Password</h4>
 
           <div className="space-y-3 text-xs">
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Current Password *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Current Password *</label>
               <input
                 type="password"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">New Password *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">New Password *</label>
               <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Minimum 6 characters"
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-brand-lightGrey mb-1 font-semibold">Confirm New Password *</label>
+              <label className="block text-brand-textSecondary mb-1 font-semibold">Confirm New Password *</label>
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 required
               />
             </div>
@@ -488,7 +488,7 @@ export default function PartnerProfile() {
             <button
               type="submit"
               disabled={saving}
-              className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-600/20 disabled:opacity-50 flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm disabled:opacity-50 flex items-center gap-2"
             >
               <Lock className="w-3.5 h-3.5" />
               <span>{saving ? 'Updating...' : 'Update Password'}</span>

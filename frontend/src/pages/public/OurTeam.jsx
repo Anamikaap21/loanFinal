@@ -46,14 +46,14 @@ export default function OurTeam() {
     <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12 sm:space-y-16 min-w-0 max-w-full">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-card border border-brand-border/60 text-xs text-brand-grey mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-brand-border text-xs text-brand-textSecondary mb-6 shadow-sm">
           <Users className="w-4 h-4 text-brand-red" />
           <span>RealCred Leadership</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-          Our Leadership <span className="gradient-text-red">Team</span>
+        <h1 className="text-4xl sm:text-5xl font-black text-brand-textPrimary tracking-tight leading-tight">
+          Our Leadership <span className="text-brand-red">Team</span>
         </h1>
-        <p className="mt-3 text-sm sm:text-base text-brand-grey max-w-xl mx-auto">
+        <p className="mt-3 text-sm sm:text-base text-brand-textSecondary max-w-xl mx-auto">
           Combining seasoned banking operations, risk verification, corporate
           finance, and channel management expertise.
         </p>
@@ -64,11 +64,11 @@ export default function OurTeam() {
         {teamMembers.map((member, i) => (
           <div
             key={i}
-            className="glass-card p-6 sm:p-7 rounded-3xl border border-brand-cardBorder flex flex-col sm:flex-row gap-6 hover:border-brand-red/40 transition-all duration-300 group shadow-lg min-w-0 max-w-full"
+            className="bg-white p-6 sm:p-7 rounded-3xl border border-brand-border flex flex-col sm:flex-row gap-6 hover:border-brand-red/50 hover:shadow-lg transition-all duration-300 group shadow-sm min-w-0 max-w-full"
           >
             {/* Portrait Frame & Designation Badge */}
             <div className="shrink-0 flex flex-col items-center sm:items-start w-full sm:w-44 md:w-48">
-              <div className="relative w-44 sm:w-full aspect-[3/4] rounded-2xl overflow-hidden bg-brand-black/90 border border-brand-cardBorder group-hover:border-brand-red/50 transition-all duration-300 shadow-xl flex items-center justify-center p-1.5">
+              <div className="relative w-44 sm:w-full aspect-[3/4] rounded-2xl overflow-hidden bg-brand-bg border border-brand-border group-hover:border-brand-red/40 transition-all duration-300 shadow-sm flex items-center justify-center p-1.5">
                 <img
                   src={member.image}
                   alt={member.name}
@@ -80,7 +80,7 @@ export default function OurTeam() {
                   }}
                 />
               </div>
-              <span className="mt-3 w-44 sm:w-full text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/25 text-brand-redAccent text-center">
+              <span className="mt-3 w-44 sm:w-full text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-brand-redLight border border-brand-red/25 text-brand-red text-center">
                 {member.designation}
               </span>
             </div>
@@ -88,33 +88,33 @@ export default function OurTeam() {
             {/* Profile Content */}
             <div className="space-y-3.5 flex-1 min-w-0">
               <div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-brand-redAccent transition-colors">
+                <h3 className="text-xl sm:text-2xl font-bold text-brand-textPrimary group-hover:text-brand-red transition-colors">
                   {member.name}
                 </h3>
                 <div className="flex flex-wrap items-center gap-2 mt-2">
                   {member.education && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-xs text-brand-lightGrey">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-brand-bg border border-brand-border text-xs text-brand-textSecondary">
                       <GraduationCap className="w-3.5 h-3.5 text-brand-red shrink-0" />
                       <span>{member.education}</span>
                     </div>
                   )}
                   {member.experience && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-xs text-brand-lightGrey">
-                      <Briefcase className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-brand-bg border border-brand-border text-xs text-brand-textSecondary">
+                      <Briefcase className="w-3.5 h-3.5 text-brand-red shrink-0" />
                       <span>{member.experience} Exp.</span>
                     </div>
                   )}
                   {member.department && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-xs text-brand-lightGrey">
-                      <Award className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-brand-bg border border-brand-border text-xs text-brand-textSecondary">
+                      <Award className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                       <span>{member.department}</span>
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-white/5">
-                <p className="text-xs sm:text-sm text-brand-grey leading-relaxed break-words [overflow-wrap:anywhere]">
+              <div className="pt-3 border-t border-brand-border">
+                <p className="text-xs sm:text-sm text-brand-textSecondary leading-relaxed break-words [overflow-wrap:anywhere]">
                   {member.bio}
                 </p>
               </div>

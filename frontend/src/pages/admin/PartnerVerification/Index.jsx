@@ -246,12 +246,12 @@ export default function PartnerVerification() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-2">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>Admin Partner Approval & Compliance Desk</span>
           </div>
-          <h2 className="text-2xl font-black text-white">Partner Verification Desk</h2>
-          <p className="text-xs text-brand-grey mt-0.5">
+          <h2 className="text-2xl font-black text-brand-textPrimary">Partner Verification Desk</h2>
+          <p className="text-xs text-brand-textSecondary mt-0.5">
             Review channel partner registration requests, verify PAN, Aadhaar, and Bank Proof credentials, and grant Partner CRM access.
           </p>
         </div>
@@ -259,34 +259,34 @@ export default function PartnerVerification() {
         <button
           onClick={() => fetchPartners(true)}
           disabled={refreshing}
-          className="self-start sm:self-auto p-2.5 rounded-xl bg-brand-dark border border-brand-border/60 hover:bg-white/5 text-brand-lightGrey hover:text-white transition flex items-center gap-2 text-xs font-semibold"
+          className="self-start sm:self-auto p-2.5 rounded-xl bg-white border border-brand-border hover:bg-brand-bg text-brand-textSecondary hover:text-brand-textPrimary transition flex items-center gap-2 text-xs font-semibold shadow-sm"
           title="Refresh Queue"
         >
-          <RefreshCw className={`w-4 h-4 text-emerald-400 ${refreshing ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-4 h-4 text-brand-red ${refreshing ? 'animate-spin' : ''}`} />
           <span className="hidden sm:inline">Refresh Requests</span>
         </button>
       </div>
 
       {/* Global Alerts */}
       {error && (
-        <div className="p-4 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-between gap-3 text-xs text-white">
+        <div className="p-4 rounded-2xl bg-brand-redLight border border-brand-red/30 flex items-center justify-between gap-3 text-xs text-brand-red">
           <div className="flex items-center gap-2">
             <AlertCircle className="w-4 h-4 text-brand-red shrink-0" />
             <span>{error}</span>
           </div>
-          <button onClick={() => setError('')} className="text-brand-grey hover:text-white">
+          <button onClick={() => setError('')} className="text-brand-textSecondary hover:text-brand-textPrimary">
             <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between gap-3 text-xs text-emerald-400">
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between gap-3 text-xs text-emerald-800">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 shrink-0" />
             <span>{success}</span>
           </div>
-          <button onClick={() => setSuccess('')} className="hover:text-white">
+          <button onClick={() => setSuccess('')} className="hover:text-brand-textPrimary">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -295,69 +295,69 @@ export default function PartnerVerification() {
       {/* 4 Metric Counter Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Pending Verification */}
-        <div className="p-4 rounded-2xl bg-brand-dark border border-amber-500/30 space-y-1">
+        <div className="p-4 rounded-2xl bg-white border border-amber-200 shadow-sm space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wider">
+            <span className="text-[11px] font-bold text-amber-700 uppercase tracking-wider">
               Pending Admin Review
             </span>
-            <Clock className="w-4 h-4 text-amber-400" />
+            <Clock className="w-4 h-4 text-amber-600" />
           </div>
-          <div className="text-2xl font-black text-white font-mono">{metrics.pendingCount}</div>
-          <p className="text-[10px] text-brand-grey">Awaiting KYC document approval</p>
+          <div className="text-2xl font-black text-brand-textPrimary font-mono">{metrics.pendingCount}</div>
+          <p className="text-[10px] text-brand-textSecondary">Awaiting KYC document approval</p>
         </div>
 
         {/* Fully Approved */}
-        <div className="p-4 rounded-2xl bg-brand-dark border border-emerald-500/30 space-y-1">
+        <div className="p-4 rounded-2xl bg-white border border-emerald-200 shadow-sm space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">
+            <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">
               Approved & Active
             </span>
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
           </div>
-          <div className="text-2xl font-black text-white font-mono">{metrics.approvedCount}</div>
-          <p className="text-[10px] text-brand-grey">Active in Partner CRM</p>
+          <div className="text-2xl font-black text-brand-textPrimary font-mono">{metrics.approvedCount}</div>
+          <p className="text-[10px] text-brand-textSecondary">Active in Partner CRM</p>
         </div>
 
         {/* Resubmission Required */}
-        <div className="p-4 rounded-2xl bg-brand-dark border border-blue-500/30 space-y-1">
+        <div className="p-4 rounded-2xl bg-white border border-blue-200 shadow-sm space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-blue-400 uppercase tracking-wider">
+            <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wider">
               Resubmission Required
             </span>
-            <RotateCcw className="w-4 h-4 text-blue-400" />
+            <RotateCcw className="w-4 h-4 text-blue-600" />
           </div>
-          <div className="text-2xl font-black text-white font-mono">{metrics.resubmissionCount}</div>
-          <p className="text-[10px] text-brand-grey">Partner action requested</p>
+          <div className="text-2xl font-black text-brand-textPrimary font-mono">{metrics.resubmissionCount}</div>
+          <p className="text-[10px] text-brand-textSecondary">Partner action requested</p>
         </div>
 
         {/* Rejected */}
-        <div className="p-4 rounded-2xl bg-brand-dark border border-brand-red/30 space-y-1">
+        <div className="p-4 rounded-2xl bg-white border border-brand-red/20 shadow-sm space-y-1">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold text-brand-red uppercase tracking-wider">
               Rejected Requests
             </span>
             <XCircle className="w-4 h-4 text-brand-red" />
           </div>
-          <div className="text-2xl font-black text-white font-mono">{metrics.rejectedCount}</div>
-          <p className="text-[10px] text-brand-grey">Access strictly blocked</p>
+          <div className="text-2xl font-black text-brand-textPrimary font-mono">{metrics.rejectedCount}</div>
+          <p className="text-[10px] text-brand-textSecondary">Access strictly blocked</p>
         </div>
       </div>
 
       {/* Search and Filters */}
       <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 text-brand-grey absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-brand-textSecondary absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by Registration ID, Partner Code, Name, Phone, PAN..."
-            className="w-full bg-brand-dark border border-brand-border/60 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-brand-grey/60 focus:outline-none focus:border-emerald-500"
+            className="w-full bg-white border border-brand-border rounded-xl pl-10 pr-4 py-2 text-xs text-brand-textPrimary placeholder-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
           />
         </form>
 
         {/* Status Filter Tabs */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-brand-dark rounded-xl border border-white/5 text-xs">
+        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-white rounded-xl border border-brand-border text-xs shadow-sm">
           {[
             { id: 'all', label: 'All Requests' },
             { id: 'PENDING', label: 'Pending' },
@@ -370,8 +370,8 @@ export default function PartnerVerification() {
               onClick={() => setStatusFilter(tab.id)}
               className={`px-3 py-1.5 rounded-lg font-semibold transition ${
                 statusFilter === tab.id
-                  ? 'bg-emerald-600 text-white shadow-md'
-                  : 'text-brand-grey hover:text-white hover:bg-white/5'
+                  ? 'bg-brand-red text-white shadow-md'
+                  : 'text-brand-textSecondary hover:text-brand-textPrimary hover:bg-brand-bg'
               }`}
             >
               {tab.label}
@@ -381,10 +381,10 @@ export default function PartnerVerification() {
       </div>
 
       {/* Partner Requests Table */}
-      <div className="bg-brand-dark rounded-2xl border border-brand-border/60 overflow-hidden">
+      <div className="bg-white rounded-2xl border border-brand-border overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs min-w-[900px]">
-            <thead className="bg-brand-black/60 border-b border-white/5 text-brand-grey font-bold uppercase tracking-wider text-[10px]">
+            <thead className="bg-brand-bg border-b border-brand-border text-brand-textSecondary font-bold uppercase tracking-wider text-[10px]">
               <tr>
                 <th className="py-3 px-4">Registration & Partner ID</th>
                 <th className="py-3 px-4">Partner Details</th>
@@ -395,20 +395,20 @@ export default function PartnerVerification() {
                 <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-brand-border">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-brand-grey">
-                    <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                  <td colSpan={7} className="py-12 text-center text-brand-textSecondary">
+                    <div className="w-6 h-6 border-2 border-brand-red border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                     <span>Loading verification requests...</span>
                   </td>
                 </tr>
               ) : partners.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-brand-grey">
-                    <ShieldCheck className="w-8 h-8 text-brand-grey/40 mx-auto mb-2" />
-                    <p className="font-semibold text-white">No partner verification requests found</p>
-                    <p className="text-[11px] text-brand-grey mt-0.5">
+                  <td colSpan={7} className="py-12 text-center text-brand-textSecondary">
+                    <ShieldCheck className="w-8 h-8 text-brand-textSecondary/40 mx-auto mb-2" />
+                    <p className="font-semibold text-brand-textPrimary">No partner verification requests found</p>
+                    <p className="text-[11px] text-brand-textSecondary mt-0.5">
                       New partner registrations requiring Admin approval will appear here.
                     </p>
                   </td>
@@ -428,30 +428,30 @@ export default function PartnerVerification() {
                   return (
                     <tr
                       key={partner._id}
-                      className="hover:bg-white/[0.02] transition-colors"
+                      className="hover:bg-brand-redLight/20 transition-colors"
                     >
                       {/* IDs */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
-                        <div className="font-mono font-bold text-white text-xs">
+                        <div className="font-mono font-bold text-brand-textPrimary text-xs">
                           {partner.registrationId || 'PREG-PENDING'}
                         </div>
-                        <div className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-white/5 text-emerald-400 font-mono border border-white/10">
+                        <div className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-brand-bg text-brand-red font-mono border border-brand-border">
                           {partner.partnerCode}
                         </div>
                       </td>
 
                       {/* Partner Details */}
                       <td className="py-3.5 px-4">
-                        <div className="font-bold text-white text-xs">
+                        <div className="font-bold text-brand-textPrimary text-xs">
                           {partner.user?.name || 'Unnamed Partner'}
                         </div>
-                        <div className="text-[11px] text-brand-grey flex items-center gap-2 mt-0.5">
+                        <div className="text-[11px] text-brand-textSecondary flex items-center gap-2 mt-0.5">
                           <span>{partner.user?.phone || 'No phone'}</span>
                           <span>•</span>
                           <span className="truncate max-w-[140px]">{partner.user?.email}</span>
                         </div>
                         {partner.businessName && (
-                          <div className="text-[10px] text-blue-400 font-medium mt-0.5">
+                          <div className="text-[10px] text-blue-700 font-medium mt-0.5">
                             {partner.businessName}
                           </div>
                         )}
@@ -459,13 +459,13 @@ export default function PartnerVerification() {
 
                       {/* Bank Details */}
                       <td className="py-3.5 px-4">
-                        <div className="text-white font-medium text-xs">
+                        <div className="text-brand-textPrimary font-medium text-xs">
                           {partner.bankDetails?.bankName || 'Bank Name Not Specified'}
                         </div>
-                        <div className="text-[11px] font-mono text-brand-grey mt-0.5">
+                        <div className="text-[11px] font-mono text-brand-textSecondary mt-0.5">
                           A/C: {partner.bankDetails?.accountNumber || 'N/A'}
                         </div>
-                        <div className="text-[10px] font-mono text-emerald-400 uppercase">
+                        <div className="text-[10px] font-mono text-emerald-700 uppercase font-semibold">
                           IFSC: {partner.bankDetails?.ifscCode || 'N/A'}
                         </div>
                       </td>
@@ -473,12 +473,12 @@ export default function PartnerVerification() {
                       {/* KYC Docs Progress */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="font-mono font-bold text-xs text-white">
+                          <span className="font-mono font-bold text-xs text-brand-textPrimary">
                             {verifiedCount}/{totalMandatory}
                           </span>
-                          <span className="text-[10px] text-brand-grey">Verified</span>
+                          <span className="text-[10px] text-brand-textSecondary">Verified</span>
                         </div>
-                        <div className="w-24 h-1.5 bg-brand-black rounded-full overflow-hidden border border-white/5">
+                        <div className="w-24 h-1.5 bg-brand-bg rounded-full overflow-hidden border border-brand-border">
                           <div
                             className={`h-full rounded-full ${
                               progress === 100
@@ -497,12 +497,12 @@ export default function PartnerVerification() {
                         <span
                           className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border ${
                             isApproved
-                              ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                               : isRejected
-                              ? 'bg-brand-red/15 text-brand-red border-brand-red/30'
+                              ? 'bg-rose-50 text-rose-700 border-rose-200'
                               : isResubmission
-                              ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-                              : 'bg-blue-500/15 text-blue-400 border-blue-500/30'
+                              ? 'bg-amber-50 text-amber-700 border-amber-200'
+                              : 'bg-blue-50 text-blue-700 border-blue-200'
                           }`}
                         >
                           {isApproved ? (
@@ -530,7 +530,7 @@ export default function PartnerVerification() {
                       </td>
 
                       {/* Submitted Date */}
-                      <td className="py-3.5 px-4 text-brand-grey text-[11px] font-mono whitespace-nowrap">
+                      <td className="py-3.5 px-4 text-brand-textSecondary text-[11px] font-mono whitespace-nowrap">
                         {new Date(partner.createdAt).toLocaleDateString('en-IN', {
                           day: '2-digit',
                           month: 'short',
@@ -542,7 +542,7 @@ export default function PartnerVerification() {
                       <td className="py-3.5 px-4 text-right whitespace-nowrap">
                         <button
                           onClick={() => openPartnerDetails(partner)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-md shadow-emerald-600/20"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-md shadow-brand-red/20"
                         >
                           <ShieldCheck className="w-3.5 h-3.5" />
                           <span>Inspect & Verify</span>
@@ -561,25 +561,25 @@ export default function PartnerVerification() {
       {/* PARTNER VERIFICATION DETAIL MODAL / DRAWER */}
       {/* ========================================================== */}
       {selectedPartner && (
-        <div className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-          <div className="w-full max-w-4xl bg-brand-dark rounded-3xl border border-brand-border flex flex-col max-h-[92vh] overflow-hidden shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-brand-textPrimary/40 flex items-center justify-center p-3 sm:p-6 overflow-y-auto backdrop-blur-sm">
+          <div className="w-full max-w-4xl bg-white rounded-3xl border border-brand-border flex flex-col max-h-[92vh] overflow-hidden shadow-2xl">
             {/* Header */}
-            <div className="px-6 py-4 bg-brand-black/80 border-b border-white/5 flex items-center justify-between shrink-0">
+            <div className="px-6 py-4 bg-brand-bg border-b border-brand-border flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                <div className="w-10 h-10 rounded-xl bg-brand-redLight border border-brand-red/20 flex items-center justify-center text-brand-red">
                   <Briefcase className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-xs text-emerald-400">
+                    <span className="font-mono font-bold text-xs text-brand-red">
                       {selectedPartner.registrationId || 'PREG-PENDING'}
                     </span>
                     <span className="text-brand-border">•</span>
-                    <span className="font-mono text-xs text-white">
+                    <span className="font-mono text-xs text-brand-textPrimary font-semibold">
                       {selectedPartner.partnerCode}
                     </span>
                   </div>
-                  <h3 className="text-base font-black text-white">
+                  <h3 className="text-base font-black text-brand-textPrimary">
                     {selectedPartner.user?.name}
                   </h3>
                 </div>
@@ -587,7 +587,7 @@ export default function PartnerVerification() {
 
               <button
                 onClick={closePartnerDetails}
-                className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-brand-grey hover:text-white transition"
+                className="p-2 rounded-xl bg-white hover:bg-brand-border text-brand-textSecondary hover:text-brand-textPrimary border border-brand-border transition"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -596,8 +596,8 @@ export default function PartnerVerification() {
             {/* Modal Body */}
             <div className="p-6 overflow-y-auto space-y-6">
               {loadingDetails ? (
-                <div className="py-12 text-center text-brand-grey">
-                  <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                <div className="py-12 text-center text-brand-textSecondary">
+                  <div className="w-6 h-6 border-2 border-brand-red border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                   <span>Loading partner verification file...</span>
                 </div>
               ) : (
@@ -605,29 +605,29 @@ export default function PartnerVerification() {
                   {/* Partner Info & Bank Details Cards */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Contact & Business Info */}
-                    <div className="p-4 rounded-2xl bg-brand-black/50 border border-white/5 space-y-3">
-                      <div className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <div className="p-4 rounded-2xl bg-brand-bg border border-brand-border space-y-3">
+                      <div className="text-xs font-bold text-brand-red uppercase tracking-wider flex items-center gap-1.5">
                         <User className="w-3.5 h-3.5" />
                         <span>Partner Contact Profile</span>
                       </div>
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div>
-                          <span className="text-[10px] text-brand-grey block">Mobile:</span>
-                          <span className="font-bold text-white">{selectedPartner.user?.phone}</span>
+                          <span className="text-[10px] text-brand-textSecondary block">Mobile:</span>
+                          <span className="font-bold text-brand-textPrimary">{selectedPartner.user?.phone}</span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-brand-grey block">Email:</span>
-                          <span className="font-bold text-white truncate block">{selectedPartner.user?.email}</span>
+                          <span className="text-[10px] text-brand-textSecondary block">Email:</span>
+                          <span className="font-bold text-brand-textPrimary truncate block">{selectedPartner.user?.email}</span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-brand-grey block">City / State:</span>
-                          <span className="font-bold text-white">
+                          <span className="text-[10px] text-brand-textSecondary block">City / State:</span>
+                          <span className="font-bold text-brand-textPrimary">
                             {selectedPartner.address?.city || 'N/A'}, {selectedPartner.address?.state || ''}
                           </span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-brand-grey block">PAN Number:</span>
-                          <span className="font-bold text-white font-mono uppercase">
+                          <span className="text-[10px] text-brand-textSecondary block">PAN Number:</span>
+                          <span className="font-bold text-brand-textPrimary font-mono uppercase">
                             {selectedPartner.panNumber || 'N/A'}
                           </span>
                         </div>
@@ -635,33 +635,33 @@ export default function PartnerVerification() {
                     </div>
 
                     {/* Bank Account Details */}
-                    <div className="p-4 rounded-2xl bg-brand-black/50 border border-white/5 space-y-3">
-                      <div className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <div className="p-4 rounded-2xl bg-brand-bg border border-brand-border space-y-3">
+                      <div className="text-xs font-bold text-brand-red uppercase tracking-wider flex items-center gap-1.5">
                         <Landmark className="w-3.5 h-3.5" />
                         <span>Mandatory Bank Account</span>
                       </div>
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div>
-                          <span className="text-[10px] text-brand-grey block">Account Holder:</span>
-                          <span className="font-bold text-white">
+                          <span className="text-[10px] text-brand-textSecondary block">Account Holder:</span>
+                          <span className="font-bold text-brand-textPrimary">
                             {selectedPartner.bankDetails?.accountHolderName || 'N/A'}
                           </span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-brand-grey block">Bank Name:</span>
-                          <span className="font-bold text-white">
+                          <span className="text-[10px] text-brand-textSecondary block">Bank Name:</span>
+                          <span className="font-bold text-brand-textPrimary">
                             {selectedPartner.bankDetails?.bankName || 'N/A'}
                           </span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-brand-grey block">Account Number:</span>
-                          <span className="font-bold text-white font-mono">
+                          <span className="text-[10px] text-brand-textSecondary block">Account Number:</span>
+                          <span className="font-bold text-brand-textPrimary font-mono">
                             {selectedPartner.bankDetails?.accountNumber || 'N/A'}
                           </span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-brand-grey block">IFSC Code:</span>
-                          <span className="font-bold text-emerald-400 font-mono uppercase">
+                          <span className="text-[10px] text-brand-textSecondary block">IFSC Code:</span>
+                          <span className="font-bold text-emerald-700 font-mono uppercase font-semibold">
                             {selectedPartner.bankDetails?.ifscCode || 'N/A'}
                           </span>
                         </div>
@@ -671,12 +671,12 @@ export default function PartnerVerification() {
 
                   {/* KYC Documents Section */}
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between pb-2 border-b border-white/5">
-                      <h4 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2">
-                        <FileText className="w-4 h-4 text-emerald-400" />
+                    <div className="flex items-center justify-between pb-2 border-b border-brand-border">
+                      <h4 className="text-xs font-black text-brand-textPrimary uppercase tracking-wider flex items-center gap-2">
+                        <FileText className="w-4 h-4 text-brand-red" />
                         <span>Mandatory Partner KYC Documents (3 Compulsory Files)</span>
                       </h4>
-                      <span className="text-[11px] font-mono text-brand-grey">
+                      <span className="text-[11px] font-mono text-brand-textSecondary">
                         {partnerDetails?.documentsSummary?.verifiedCount || 0}/3 Verified
                       </span>
                     </div>
@@ -692,14 +692,14 @@ export default function PartnerVerification() {
                         return (
                           <div
                             key={doc._id}
-                            className={`p-4 rounded-2xl bg-brand-black/60 border transition-all space-y-3 ${
+                            className={`p-4 rounded-2xl bg-white border transition-all space-y-3 shadow-sm ${
                               isVerified
-                                ? 'border-emerald-500/30'
+                                ? 'border-emerald-300'
                                 : isRejected
                                 ? 'border-brand-red/30'
                                 : isReupload
-                                ? 'border-amber-500/30'
-                                : 'border-white/10 hover:border-emerald-500/30'
+                                ? 'border-amber-300'
+                                : 'border-brand-border hover:border-brand-red/40'
                             }`}
                           >
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -707,35 +707,35 @@ export default function PartnerVerification() {
                                 <div
                                   className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
                                     isVerified
-                                      ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                                      ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                                       : isRejected
-                                      ? 'bg-brand-red/10 text-brand-red border-brand-red/20'
+                                      ? 'bg-brand-redLight text-brand-red border-brand-red/20'
                                       : isReupload
-                                      ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
-                                      : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                                      ? 'bg-amber-50 text-amber-700 border-amber-200'
+                                      : 'bg-blue-50 text-blue-700 border-blue-200'
                                   }`}
                                 >
                                   <FileText className="w-5 h-5" />
                                 </div>
                                 <div className="space-y-0.5">
                                   <div className="flex items-center gap-2">
-                                    <h5 className="text-xs font-bold text-white">{doc.title}</h5>
+                                    <h5 className="text-xs font-bold text-brand-textPrimary">{doc.title}</h5>
                                     <span
                                       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${
                                         isVerified
-                                          ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                                           : isRejected
-                                          ? 'bg-brand-red/15 text-brand-red border-brand-red/30'
+                                          ? 'bg-rose-50 text-rose-700 border-rose-200'
                                           : isReupload
-                                          ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-                                          : 'bg-blue-500/15 text-blue-400 border-blue-500/30'
+                                          ? 'bg-amber-50 text-amber-700 border-amber-200'
+                                          : 'bg-blue-50 text-blue-700 border-blue-200'
                                       }`}
                                     >
                                       {isVerified ? 'Verified' : isRejected ? 'Rejected' : isReupload ? 'Re-upload Req.' : 'Pending Review'}
                                     </span>
                                   </div>
-                                  <div className="flex items-center gap-2 text-[11px] font-mono text-brand-grey">
-                                    <span className="text-brand-lightGrey truncate max-w-xs">
+                                  <div className="flex items-center gap-2 text-[11px] font-mono text-brand-textSecondary">
+                                    <span className="text-brand-textPrimary truncate max-w-xs">
                                       {doc.originalName || doc.fileName}
                                     </span>
                                     <span>•</span>
@@ -748,16 +748,16 @@ export default function PartnerVerification() {
                               <div className="flex items-center gap-2 self-start sm:self-center">
                                 <button
                                   onClick={() => handlePreviewDoc(doc)}
-                                  className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 flex items-center gap-1.5 transition"
+                                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-brand-bg text-brand-textPrimary text-xs font-semibold border border-brand-border flex items-center gap-1.5 transition shadow-sm"
                                 >
-                                  <Eye className="w-3.5 h-3.5 text-blue-400" />
+                                  <Eye className="w-3.5 h-3.5 text-blue-600" />
                                   <span>Preview</span>
                                 </button>
                                 <button
                                   onClick={() => handleDownloadDoc(doc)}
-                                  className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 flex items-center gap-1.5 transition"
+                                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-brand-bg text-brand-textPrimary text-xs font-semibold border border-brand-border flex items-center gap-1.5 transition shadow-sm"
                                 >
-                                  <Download className="w-3.5 h-3.5 text-brand-grey" />
+                                  <Download className="w-3.5 h-3.5 text-brand-textSecondary" />
                                   <span>Download</span>
                                 </button>
                               </div>
@@ -765,28 +765,28 @@ export default function PartnerVerification() {
 
                             {/* Remarks / Reasons */}
                             {isVerified && doc.verificationRemarks && (
-                              <div className="text-xs text-emerald-400/90 pl-2 border-l-2 border-emerald-500/40">
+                              <div className="text-xs text-emerald-800 pl-2 border-l-2 border-emerald-500">
                                 <span className="font-semibold">Verification Note:</span> {doc.verificationRemarks}
                               </div>
                             )}
                             {isRejected && doc.rejectionReason && (
-                              <div className="text-xs text-brand-red pl-2 border-l-2 border-brand-red/40">
+                              <div className="text-xs text-brand-red pl-2 border-l-2 border-brand-red">
                                 <span className="font-semibold">Rejection Reason:</span> {doc.rejectionReason}
                               </div>
                             )}
                             {isReupload && doc.reuploadReason && (
-                              <div className="text-xs text-amber-400 pl-2 border-l-2 border-amber-500/40">
+                              <div className="text-xs text-amber-800 pl-2 border-l-2 border-amber-500">
                                 <span className="font-semibold">Instructions:</span> {doc.reuploadReason}
                               </div>
                             )}
 
                             {/* Individual Document Actions */}
-                            <div className="pt-2 border-t border-white/5 flex flex-wrap items-center justify-between gap-2">
+                            <div className="pt-2 border-t border-brand-border flex flex-wrap items-center justify-between gap-2">
                               <div className="flex flex-wrap items-center gap-2">
                                 {!isVerified && (
                                   <button
                                     onClick={() => openActionModal('verify-doc', doc)}
-                                    className="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1"
+                                    className="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm"
                                   >
                                     <Check className="w-3.5 h-3.5" />
                                     <span>Verify & Approve</span>
@@ -795,7 +795,7 @@ export default function PartnerVerification() {
                                 {!isRejected && (
                                   <button
                                     onClick={() => openActionModal('reject-doc', doc)}
-                                    className="px-3 py-1 rounded-lg bg-brand-red/10 hover:bg-brand-red/20 text-brand-red text-xs font-bold border border-brand-red/30 transition flex items-center gap-1"
+                                    className="px-3 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold border border-rose-200 transition flex items-center gap-1"
                                   >
                                     <X className="w-3.5 h-3.5" />
                                     <span>Reject</span>
@@ -804,7 +804,7 @@ export default function PartnerVerification() {
                                 {!isReupload && (
                                   <button
                                     onClick={() => openActionModal('reupload-doc', doc)}
-                                    className="px-3 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-xs font-bold border border-amber-500/30 transition flex items-center gap-1"
+                                    className="px-3 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-700 text-xs font-bold border border-amber-200 transition flex items-center gap-1"
                                   >
                                     <RotateCcw className="w-3.5 h-3.5" />
                                     <span>Request Re-upload</span>
@@ -815,7 +815,7 @@ export default function PartnerVerification() {
                               {doc.verificationHistory && doc.verificationHistory.length > 0 && (
                                 <button
                                   onClick={() => toggleAudit(doc._id)}
-                                  className="text-[11px] text-brand-grey hover:text-white flex items-center gap-1 transition"
+                                  className="text-[11px] text-brand-textSecondary hover:text-brand-textPrimary flex items-center gap-1 transition"
                                 >
                                   <History className="w-3 h-3" />
                                   <span>History ({doc.verificationHistory.length})</span>
@@ -826,10 +826,10 @@ export default function PartnerVerification() {
 
                             {/* Expanded Audit Trail */}
                             {expandedAudits[doc._id] && doc.verificationHistory && (
-                              <div className="pt-2 pl-3 border-l-2 border-white/10 space-y-1.5 text-[11px]">
+                              <div className="pt-2 pl-3 border-l-2 border-brand-border space-y-1.5 text-[11px]">
                                 {doc.verificationHistory.map((item, idx) => (
-                                  <div key={idx} className="text-brand-lightGrey">
-                                    <strong className="text-white capitalize">{item.newStatus || item.action}</strong>
+                                  <div key={idx} className="text-brand-textSecondary">
+                                    <strong className="text-brand-textPrimary capitalize">{item.newStatus || item.action}</strong>
                                     {' '}— {new Date(item.timestamp).toLocaleString('en-IN')}: {item.remarks}
                                   </div>
                                 ))}
@@ -842,14 +842,14 @@ export default function PartnerVerification() {
                   </div>
 
                   {/* Final Partner Approval Gate Section */}
-                  <div className="p-5 rounded-2xl bg-brand-black/70 border border-white/10 space-y-4">
+                  <div className="p-5 rounded-2xl bg-brand-bg border border-brand-border space-y-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
-                        <h4 className="text-sm font-black text-white flex items-center gap-2">
-                          <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                        <h4 className="text-sm font-black text-brand-textPrimary flex items-center gap-2">
+                          <ShieldCheck className="w-4 h-4 text-emerald-600" />
                           <span>Final Partner Approval Decision</span>
                         </h4>
-                        <p className="text-xs text-brand-grey mt-0.5">
+                        <p className="text-xs text-brand-textSecondary mt-0.5">
                           {partnerDetails?.documentsSummary?.allMandatoryVerified
                             ? 'All 3 mandatory KYC documents are verified. You can now approve and activate this Channel Partner account.'
                             : 'Partner account cannot be approved until all 3 mandatory KYC documents (Aadhaar, PAN, Bank Proof) are individually approved.'}
@@ -861,7 +861,7 @@ export default function PartnerVerification() {
                         <button
                           onClick={() => openActionModal('approve-partner')}
                           disabled={!partnerDetails?.documentsSummary?.allMandatoryVerified}
-                          className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-emerald-600/20"
+                          className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-emerald-600/20"
                         >
                           <CheckCircle2 className="w-4 h-4" />
                           <span>Approve & Activate Partner</span>
@@ -870,7 +870,7 @@ export default function PartnerVerification() {
                         {/* Request Resubmission */}
                         <button
                           onClick={() => openActionModal('resubmit-partner')}
-                          className="px-4 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-xs font-bold border border-amber-500/30 transition flex items-center gap-2"
+                          className="px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-700 text-xs font-bold border border-amber-200 transition flex items-center gap-2"
                         >
                           <RotateCcw className="w-4 h-4" />
                           <span>Request Resubmission</span>
@@ -879,7 +879,7 @@ export default function PartnerVerification() {
                         {/* Reject Partner */}
                         <button
                           onClick={() => openActionModal('reject-partner')}
-                          className="px-4 py-2.5 rounded-xl bg-brand-red/10 hover:bg-brand-red/20 text-brand-red text-xs font-bold border border-brand-red/30 transition flex items-center gap-2"
+                          className="px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold border border-rose-200 transition flex items-center gap-2"
                         >
                           <XCircle className="w-4 h-4" />
                           <span>Reject Application</span>
@@ -898,13 +898,13 @@ export default function PartnerVerification() {
       {/* ACTION CONFIRMATION MODAL */}
       {/* ========================================================== */}
       {actionModal.type && actionModal.type !== 'preview-doc' && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-brand-dark rounded-2xl border border-brand-border p-6 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-white/5 pb-3">
-              <h4 className="text-sm font-black text-white flex items-center gap-2">
+        <div className="fixed inset-0 z-50 bg-brand-textPrimary/40 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white rounded-2xl border border-brand-border p-6 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-brand-border pb-3">
+              <h4 className="text-sm font-black text-brand-textPrimary flex items-center gap-2">
                 {actionModal.type === 'verify-doc' && (
                   <>
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                     <span>Approve Document</span>
                   </>
                 )}
@@ -916,13 +916,13 @@ export default function PartnerVerification() {
                 )}
                 {actionModal.type === 'reupload-doc' && (
                   <>
-                    <RotateCcw className="w-4 h-4 text-amber-400" />
+                    <RotateCcw className="w-4 h-4 text-amber-600" />
                     <span>Request Re-upload</span>
                   </>
                 )}
                 {actionModal.type === 'approve-partner' && (
                   <>
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                     <span>Approve & Activate Partner</span>
                   </>
                 )}
@@ -934,18 +934,18 @@ export default function PartnerVerification() {
                 )}
                 {actionModal.type === 'resubmit-partner' && (
                   <>
-                    <RotateCcw className="w-4 h-4 text-amber-400" />
+                    <RotateCcw className="w-4 h-4 text-amber-600" />
                     <span>Request Partner Resubmission</span>
                   </>
                 )}
               </h4>
-              <button onClick={closeActionModal} className="text-brand-grey hover:text-white">
+              <button onClick={closeActionModal} className="text-brand-textSecondary hover:text-brand-textPrimary">
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {actionError && (
-              <div className="p-3 rounded-xl bg-brand-red/10 border border-brand-red/30 text-xs text-brand-red flex items-center gap-2">
+              <div className="p-3 rounded-xl bg-brand-redLight border border-brand-red/30 text-xs text-brand-red flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{actionError}</span>
               </div>
@@ -953,13 +953,13 @@ export default function PartnerVerification() {
 
             <form onSubmit={handleExecuteAction} className="space-y-4">
               {actionModal.type === 'approve-partner' ? (
-                <p className="text-xs text-brand-lightGrey leading-relaxed">
+                <p className="text-xs text-brand-textSecondary leading-relaxed">
                   Are you sure you want to approve this partner? Their account status will become{' '}
-                  <strong className="text-emerald-400">ACTIVE</strong> and they will be able to log in to the Partner CRM with their registered credentials.
+                  <strong className="text-emerald-700">ACTIVE</strong> and they will be able to log in to the Partner CRM with their registered credentials.
                 </p>
               ) : (
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-brand-lightGrey flex items-center justify-between">
+                  <label className="text-xs font-semibold text-brand-textPrimary flex items-center justify-between">
                     <span>
                       {actionModal.type === 'verify-doc'
                         ? 'Verification Remarks (Optional)'
@@ -979,17 +979,17 @@ export default function PartnerVerification() {
                         ? 'e.g. Details verified against NSDL/UIDAI'
                         : 'Enter mandatory remarks / specific instructions...'
                     }
-                    className="w-full bg-brand-black border border-brand-border/60 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-brand-border rounded-xl p-3 text-xs text-brand-textPrimary focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                   />
                 </div>
               )}
 
-              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-white/5">
+              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-brand-border">
                 <button
                   type="button"
                   onClick={closeActionModal}
                   disabled={submittingAction}
-                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-brand-lightGrey hover:text-white text-xs font-semibold"
+                  className="px-4 py-2 rounded-xl bg-white hover:bg-brand-bg text-brand-textPrimary border border-brand-border text-xs font-semibold"
                 >
                   Cancel
                 </button>
@@ -998,10 +998,10 @@ export default function PartnerVerification() {
                   disabled={submittingAction}
                   className={`px-4 py-2 rounded-xl text-xs font-bold text-white transition flex items-center gap-2 ${
                     actionModal.type === 'reject-doc' || actionModal.type === 'reject-partner'
-                      ? 'bg-brand-red hover:bg-red-600'
+                      ? 'bg-rose-600 hover:bg-rose-700 shadow-md shadow-rose-600/20'
                       : actionModal.type === 'reupload-doc' || actionModal.type === 'resubmit-partner'
-                      ? 'bg-amber-600 hover:bg-amber-500'
-                      : 'bg-emerald-600 hover:bg-emerald-500'
+                      ? 'bg-amber-600 hover:bg-amber-700 shadow-md shadow-amber-600/20'
+                      : 'bg-emerald-600 hover:bg-emerald-700 shadow-md shadow-emerald-600/20'
                   }`}
                 >
                   {submittingAction && (
@@ -1019,14 +1019,14 @@ export default function PartnerVerification() {
       {/* DOCUMENT PREVIEW MODAL */}
       {/* ========================================================== */}
       {actionModal.type === 'preview-doc' && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-4">
-          <div className="w-full max-w-5xl h-[85vh] bg-brand-dark rounded-2xl border border-brand-border flex flex-col overflow-hidden">
-            <div className="px-6 py-4 bg-brand-black/80 border-b border-white/5 flex items-center justify-between shrink-0">
+        <div className="fixed inset-0 z-50 bg-brand-textPrimary/50 flex flex-col items-center justify-center p-4 backdrop-blur-sm">
+          <div className="w-full max-w-5xl h-[85vh] bg-white rounded-2xl border border-brand-border flex flex-col overflow-hidden shadow-2xl">
+            <div className="px-6 py-4 bg-brand-bg border-b border-brand-border flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <FileText className="w-5 h-5 text-emerald-400" />
+                <FileText className="w-5 h-5 text-brand-red" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">{actionModal.doc?.title}</h4>
-                  <p className="text-[11px] font-mono text-brand-grey">
+                  <h4 className="text-sm font-bold text-brand-textPrimary">{actionModal.doc?.title}</h4>
+                  <p className="text-[11px] font-mono text-brand-textSecondary">
                     {actionModal.doc?.originalName || actionModal.doc?.fileName}
                   </p>
                 </div>
@@ -1035,38 +1035,38 @@ export default function PartnerVerification() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleDownloadDoc(actionModal.doc)}
-                  className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 flex items-center gap-1.5 transition"
+                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-brand-bg text-brand-textPrimary text-xs font-semibold border border-brand-border flex items-center gap-1.5 transition shadow-sm"
                 >
-                  <Download className="w-3.5 h-3.5 text-brand-grey" />
+                  <Download className="w-3.5 h-3.5 text-brand-textSecondary" />
                   <span>Download</span>
                 </button>
                 <button
                   onClick={closeActionModal}
-                  className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-brand-grey hover:text-white transition"
+                  className="p-1.5 rounded-xl bg-white hover:bg-brand-bg text-brand-textSecondary hover:text-brand-textPrimary border border-brand-border transition"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
-            <div className="flex-1 bg-black/60 p-4 overflow-auto flex items-center justify-center">
+            <div className="flex-1 bg-brand-bg/50 p-4 overflow-auto flex items-center justify-center">
               {previewLoading ? (
                 <div className="text-center">
-                  <div className="w-8 h-8 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin mx-auto mb-3" />
-                  <p className="text-xs text-brand-grey font-semibold">Streaming document securely...</p>
+                  <div className="w-8 h-8 border-2 border-brand-red/30 border-t-brand-red rounded-full animate-spin mx-auto mb-3" />
+                  <p className="text-xs text-brand-textSecondary font-semibold">Streaming document securely...</p>
                 </div>
               ) : previewUrl ? (
                 previewMime.includes('image') ? (
                   <img
                     src={previewUrl}
                     alt={actionModal.doc?.title}
-                    className="max-h-full max-w-full object-contain rounded-lg shadow-2xl"
+                    className="max-h-full max-w-full object-contain rounded-lg shadow-xl"
                   />
                 ) : (
                   <iframe
                     src={previewUrl}
                     title={actionModal.doc?.title}
-                    className="w-full h-full rounded-lg border border-white/5 bg-white"
+                    className="w-full h-full rounded-lg border border-brand-border bg-white"
                   />
                 )
               ) : (

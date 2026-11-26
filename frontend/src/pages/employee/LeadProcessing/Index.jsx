@@ -375,35 +375,35 @@ export default function EmployeeLeadProcessing() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-2">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-2">
           <GitBranch className="w-3.5 h-3.5" />
           <span>Underwriting & Sanction Desk</span>
         </div>
-        <h2 className="text-2xl font-black text-white">Lead Processing Desk</h2>
-        <p className="text-xs text-brand-grey">
+        <h2 className="text-2xl font-black text-brand-textPrimary">Lead Processing Desk</h2>
+        <p className="text-xs text-brand-textSecondary">
           Step-by-step 8-stage lifecycle execution, bank sanction coordinates, document vault, and audit trail.
         </p>
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-between text-xs text-white">
+        <div className="p-4 rounded-2xl bg-brand-redLight border border-brand-red/30 flex items-center justify-between text-xs text-brand-red">
           <div className="flex items-center gap-2.5">
             <AlertCircle className="w-4 h-4 text-brand-red shrink-0" />
             <span>{error}</span>
           </div>
-          <button onClick={() => setError('')} className="text-brand-grey hover:text-white">
+          <button onClick={() => setError('')} className="text-brand-textSecondary hover:text-brand-textPrimary">
             <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs text-emerald-400">
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between text-xs text-emerald-700">
           <div className="flex items-center gap-2.5">
-            <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>{success}</span>
           </div>
-          <button onClick={() => setSuccess('')} className="text-brand-grey hover:text-white">
+          <button onClick={() => setSuccess('')} className="text-brand-textSecondary hover:text-brand-textPrimary">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -413,23 +413,23 @@ export default function EmployeeLeadProcessing() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Assigned Files Queue (4 cols) */}
         <div className="lg:col-span-4 space-y-4">
-          <div className="bg-brand-dark p-4 rounded-3xl border border-brand-border/60 space-y-3">
+          <div className="bg-white p-4 rounded-3xl border border-brand-border shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-white uppercase tracking-wider">
+              <span className="text-xs font-bold text-brand-textPrimary uppercase tracking-wider">
                 Assigned Files ({leads.length})
               </span>
-              <span className="text-[10px] text-brand-grey">Live Queue</span>
+              <span className="text-[10px] text-brand-textSecondary font-medium">Live Queue</span>
             </div>
 
             {/* Search */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-brand-grey absolute left-3 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-brand-textSecondary absolute left-3 top-2.5" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search file, applicant..."
-                className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
@@ -438,7 +438,7 @@ export default function EmployeeLeadProcessing() {
               <select
                 value={sourceFilter}
                 onChange={(e) => setSourceFilter(e.target.value)}
-                className="px-2 py-1.5 rounded-xl bg-brand-black border border-brand-border text-white text-[11px] focus:outline-none"
+                className="px-2 py-1.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-[11px] focus:outline-none focus:ring-1 focus:ring-brand-red"
               >
                 <option value="all">All Sources</option>
                 <option value="website">Website Leads</option>
@@ -448,7 +448,7 @@ export default function EmployeeLeadProcessing() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-2 py-1.5 rounded-xl bg-brand-black border border-brand-border text-white text-[11px] focus:outline-none"
+                className="px-2 py-1.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-[11px] focus:outline-none focus:ring-1 focus:ring-brand-red"
               >
                 <option value="all">All Stages</option>
                 {stages.map((st) => (
@@ -463,12 +463,12 @@ export default function EmployeeLeadProcessing() {
           {/* Files List */}
           <div className="space-y-2 max-h-[700px] overflow-y-auto pr-1">
             {loadingList ? (
-              <div className="p-8 text-center text-brand-grey text-xs">
-                <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+              <div className="p-8 text-center text-brand-textSecondary text-xs">
+                <div className="w-5 h-5 border-2 border-brand-red border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                 Loading files...
               </div>
             ) : leads.length === 0 ? (
-              <div className="p-6 text-center text-xs text-brand-grey bg-brand-dark rounded-2xl border border-brand-border/40">
+              <div className="p-6 text-center text-xs text-brand-textSecondary bg-white rounded-2xl border border-brand-border shadow-sm">
                 No assigned loan files match the criteria.
               </div>
             ) : (
@@ -480,44 +480,44 @@ export default function EmployeeLeadProcessing() {
                     onClick={() => loadLeadFull(lead._id)}
                     className={`p-3.5 rounded-2xl border cursor-pointer transition text-left ${
                       isSelected
-                        ? 'bg-blue-600/10 border-blue-500 shadow-lg shadow-blue-500/10'
-                        : 'bg-brand-dark/70 hover:bg-brand-dark border-brand-border/60 hover:border-brand-border'
+                        ? 'bg-brand-redLight/40 border-brand-red shadow-sm'
+                        : 'bg-white hover:bg-brand-bg border-brand-border'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="font-mono text-xs font-bold text-white">
+                      <span className="font-mono text-xs font-bold text-brand-textPrimary">
                         {lead.leadId}
                       </span>
                       <span
                         className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
                           lead.source === 'partner'
-                            ? 'bg-purple-500/15 text-purple-400 border border-purple-500/30'
-                            : 'bg-blue-500/15 text-blue-400 border border-blue-500/30'
+                            ? 'bg-brand-redLight text-brand-red border border-brand-red/20'
+                            : 'bg-blue-50 text-blue-700 border border-blue-200'
                         }`}
                       >
                         {lead.source === 'partner' ? 'Partner File' : 'Website Direct'}
                       </span>
                     </div>
 
-                    <div className="text-xs font-semibold text-white truncate">
+                    <div className="text-xs font-semibold text-brand-textPrimary truncate">
                       {lead.customerName}
                     </div>
-                    <div className="text-[11px] text-brand-grey flex items-center justify-between mt-1">
+                    <div className="text-[11px] text-brand-textSecondary flex items-center justify-between mt-1">
                       <span>{lead.loanCategory?.name || 'Loan'}</span>
-                      <span className="font-bold text-emerald-400">
+                      <span className="font-bold text-emerald-600">
                         ₹{Number(lead.requiredLoanAmount || 0).toLocaleString('en-IN')}
                       </span>
                     </div>
 
-                    <div className="mt-2.5 pt-2 border-t border-white/5 flex items-center justify-between text-[10px]">
-                      <span className="text-brand-grey">Stage:</span>
+                    <div className="mt-2.5 pt-2 border-t border-brand-border flex items-center justify-between text-[10px]">
+                      <span className="text-brand-textSecondary">Stage:</span>
                       <span
                         className={`font-semibold ${
                           ['Disbursement', 'PDD', 'Payout'].includes(lead.status)
-                            ? 'text-emerald-400'
+                            ? 'text-emerald-600'
                             : lead.status === 'Cancelled'
                             ? 'text-brand-red'
-                            : 'text-blue-400'
+                            : 'text-brand-textPrimary'
                         }`}
                       >
                         {lead.status}
@@ -533,9 +533,9 @@ export default function EmployeeLeadProcessing() {
         {/* Right Column: Processing Desk Detail (8 cols) */}
         <div className="lg:col-span-8 space-y-6">
           {!selectedLead ? (
-            <div className="p-12 text-center bg-brand-dark rounded-3xl border border-brand-border/60 text-brand-grey space-y-3">
-              <FolderOpen className="w-10 h-10 text-brand-grey mx-auto opacity-40" />
-              <div className="text-sm font-bold text-white">No File Selected</div>
+            <div className="p-12 text-center bg-white rounded-3xl border border-brand-border text-brand-textSecondary space-y-3 shadow-sm">
+              <FolderOpen className="w-10 h-10 text-brand-textSecondary mx-auto opacity-40" />
+              <div className="text-sm font-bold text-brand-textPrimary">No File Selected</div>
               <p className="text-xs max-w-sm mx-auto">
                 Select an assigned loan file from the left queue to inspect details, advance through the 8 lifecycle stages, and record documents.
               </p>
@@ -543,18 +543,18 @@ export default function EmployeeLeadProcessing() {
           ) : (
             <>
               {/* Lead Top Summary Card */}
-              <div className="bg-brand-dark p-6 rounded-3xl border border-brand-border/60 shadow-xl relative overflow-hidden">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-5">
+              <div className="bg-white p-6 rounded-3xl border border-brand-border shadow-sm relative overflow-hidden">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-border pb-5">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-mono text-sm font-extrabold text-blue-400">
+                      <span className="font-mono text-sm font-extrabold text-brand-red">
                         {selectedLead.leadId}
                       </span>
                       <span
                         className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                           selectedLead.source === 'partner'
-                            ? 'bg-purple-500/10 text-purple-400 border border-purple-500/30'
-                            : 'bg-blue-500/10 text-blue-400 border border-blue-500/30'
+                            ? 'bg-brand-redLight text-brand-red border border-brand-red/20'
+                            : 'bg-blue-50 text-blue-700 border border-blue-200'
                         }`}
                       >
                         {selectedLead.source === 'partner'
@@ -562,20 +562,20 @@ export default function EmployeeLeadProcessing() {
                           : 'Direct Website Lead'}
                       </span>
                     </div>
-                    <h3 className="text-xl font-black text-white">{selectedLead.customerName}</h3>
-                    <p className="text-xs text-brand-grey mt-0.5">
+                    <h3 className="text-xl font-black text-brand-textPrimary">{selectedLead.customerName}</h3>
+                    <p className="text-xs text-brand-textSecondary mt-0.5">
                       {selectedLead.customerPhone} • {selectedLead.customerEmail || 'No email'} • {selectedLead.city}
                     </p>
                   </div>
 
                   <div className="sm:text-right">
-                    <div className="text-[10px] text-brand-grey uppercase font-bold tracking-wider">
+                    <div className="text-[10px] text-brand-textSecondary uppercase font-bold tracking-wider">
                       Requested Loan Facility
                     </div>
-                    <div className="text-xl font-extrabold text-emerald-400">
+                    <div className="text-xl font-extrabold text-emerald-600">
                       ₹{Number(selectedLead.requiredLoanAmount || 0).toLocaleString('en-IN')}
                     </div>
-                    <div className="text-xs text-brand-lightGrey mt-0.5">
+                    <div className="text-xs text-brand-textSecondary mt-0.5">
                       {selectedLead.loanCategory?.name} • Bank: {selectedLead.preferredBank?.name || 'Best Match'}
                     </div>
                   </div>
@@ -584,46 +584,46 @@ export default function EmployeeLeadProcessing() {
                 {/* Additional Metadata Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 text-xs">
                   <div>
-                    <span className="text-brand-grey text-[10px] block">Employment</span>
-                    <span className="font-semibold text-white capitalize">
+                    <span className="text-brand-textSecondary text-[10px] block">Employment</span>
+                    <span className="font-semibold text-brand-textPrimary capitalize">
                       {selectedLead.employmentType || 'Salaried'}
                     </span>
                   </div>
                   <div>
-                    <span className="text-brand-grey text-[10px] block">Monthly Income</span>
-                    <span className="font-semibold text-white">
+                    <span className="text-brand-textSecondary text-[10px] block">Monthly Income</span>
+                    <span className="font-semibold text-brand-textPrimary">
                       ₹{Number(selectedLead.monthlyIncome || 0).toLocaleString('en-IN')}
                     </span>
                   </div>
                   <div>
-                    <span className="text-brand-grey text-[10px] block">PAN Number</span>
-                    <span className="font-mono font-semibold text-white">
+                    <span className="text-brand-textSecondary text-[10px] block">PAN Number</span>
+                    <span className="font-mono font-semibold text-brand-textPrimary">
                       {selectedLead.panNumber || 'Not provided'}
                     </span>
                   </div>
                   <div>
-                    <span className="text-brand-grey text-[10px] block">Assigned Officer</span>
-                    <span className="font-semibold text-blue-400">You (Assigned)</span>
+                    <span className="text-brand-textSecondary text-[10px] block">Assigned Officer</span>
+                    <span className="font-semibold text-brand-red">You (Assigned)</span>
                   </div>
                 </div>
 
                 {/* Overall Document Verification Status Banner */}
-                <div className="mt-4 pt-3 border-t border-white/5 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="mt-4 pt-3 border-t border-brand-border flex flex-wrap items-center justify-between gap-3 text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-brand-grey font-bold uppercase tracking-wider">
+                    <span className="text-[11px] text-brand-textSecondary font-bold uppercase tracking-wider">
                       Overall KYC Verification:
                     </span>
                     <span
                       className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${
                         selectedLead.documentVerificationStatus === 'verified'
-                          ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                           : selectedLead.documentVerificationStatus === 'rejected'
-                          ? 'bg-brand-red/15 text-brand-red border-brand-red/30'
+                          ? 'bg-brand-redLight text-brand-red border-brand-red/30'
                           : ['action_required', 'reupload_required'].includes(
                               selectedLead.documentVerificationStatus
                             )
-                          ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-                          : 'bg-blue-500/15 text-blue-400 border-blue-500/30'
+                          ? 'bg-amber-50 text-amber-700 border-amber-200'
+                          : 'bg-blue-50 text-blue-700 border-blue-200'
                       }`}
                     >
                       {selectedLead.documentVerificationStatus === 'verified' ? (
@@ -652,28 +652,28 @@ export default function EmployeeLeadProcessing() {
                     </span>
                   </div>
 
-                  <span className="text-[11px] text-brand-grey font-medium">
-                    Vault: <strong className="text-white">{leadDetails?.documents?.length || 0}</strong> attached files
+                  <span className="text-[11px] text-brand-textSecondary font-medium">
+                    Vault: <strong className="text-brand-textPrimary">{leadDetails?.documents?.length || 0}</strong> attached files
                   </span>
                 </div>
               </div>
 
               {/* 8-STAGE INTERACTIVE LIFECYCLE STEPPER */}
-              <div className="bg-brand-dark p-6 rounded-3xl border border-brand-border/60 shadow-xl">
+              <div className="bg-white p-6 rounded-3xl border border-brand-border shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h4 className="text-sm font-bold text-white">8-Stage Loan Lifecycle Stepper</h4>
-                    <p className="text-xs text-brand-grey">
+                    <h4 className="text-sm font-bold text-brand-textPrimary">8-Stage Loan Lifecycle Stepper</h4>
+                    <p className="text-xs text-brand-textSecondary">
                       Official progression from initial intake to disbursement and payout.
                     </p>
                   </div>
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-bold ${
                       selectedLead.status === 'Cancelled'
-                        ? 'bg-brand-red/10 text-brand-red border border-brand-red/30'
+                        ? 'bg-brand-redLight text-brand-red border border-brand-red/30'
                         : ['Disbursement', 'PDD', 'Payout'].includes(selectedLead.status)
-                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
-                        : 'bg-blue-500/10 text-blue-400 border border-blue-500/30'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        : 'bg-brand-bg text-brand-textPrimary border border-brand-border'
                     }`}
                   >
                     Current: {selectedLead.status}
@@ -694,7 +694,7 @@ export default function EmployeeLeadProcessing() {
                           {idx !== 0 && (
                             <div
                               className={`absolute top-4 -left-1/2 w-full h-0.5 z-0 ${
-                                isPast || isCurrent ? 'bg-blue-600' : 'bg-white/10'
+                                isPast || isCurrent ? 'bg-brand-red' : 'bg-brand-border'
                               }`}
                             />
                           )}
@@ -703,10 +703,10 @@ export default function EmployeeLeadProcessing() {
                           <div
                             className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold z-10 transition-all ${
                               isPast
-                                ? 'bg-blue-600 text-white'
+                                ? 'bg-brand-red text-white'
                                 : isCurrent
-                                ? 'bg-blue-500 text-white ring-4 ring-blue-500/20'
-                                : 'bg-brand-card text-brand-grey border border-brand-border'
+                                ? 'bg-brand-red text-white ring-4 ring-brand-red/20'
+                                : 'bg-brand-bg text-brand-textSecondary border border-brand-border'
                             }`}
                           >
                             {isPast ? <CheckCircle className="w-4 h-4" /> : idx + 1}
@@ -715,10 +715,10 @@ export default function EmployeeLeadProcessing() {
                           <span
                             className={`mt-2 text-[11px] font-semibold ${
                               isCurrent
-                                ? 'text-blue-400 font-bold'
+                                ? 'text-brand-red font-bold'
                                 : isPast
-                                ? 'text-white'
-                                : 'text-brand-grey'
+                                ? 'text-brand-textPrimary'
+                                : 'text-brand-textSecondary'
                             }`}
                           >
                             {stage}
@@ -730,7 +730,7 @@ export default function EmployeeLeadProcessing() {
                 </div>
 
                 {selectedLead.status === 'Cancelled' && (
-                  <div className="mt-2 p-3 rounded-xl bg-brand-red/10 border border-brand-red/30 text-xs text-brand-red flex items-center gap-2">
+                  <div className="mt-2 p-3 rounded-xl bg-brand-redLight border border-brand-red/30 text-xs text-brand-red flex items-center gap-2">
                     <AlertTriangle className="w-4 h-4 shrink-0" />
                     <span>This loan file is marked as CANCELLED / REJECTED.</span>
                   </div>
@@ -738,22 +738,22 @@ export default function EmployeeLeadProcessing() {
               </div>
 
               {/* ADVANCE STAGE FORM */}
-              <div className="bg-brand-dark p-6 rounded-3xl border border-brand-border/60 shadow-xl">
-                <h4 className="text-sm font-bold text-white mb-1">Advance File Stage</h4>
-                <p className="text-xs text-brand-grey mb-4">
+              <div className="bg-white p-6 rounded-3xl border border-brand-border shadow-sm">
+                <h4 className="text-sm font-bold text-brand-textPrimary mb-1">Advance File Stage</h4>
+                <p className="text-xs text-brand-textSecondary mb-4">
                   Select the next stage, input bank sanction/disbursement coordinates, and write mandatory remarks.
                 </p>
 
                 <form onSubmit={handleStageUpdate} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                      <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                         Transition To Stage *
                       </label>
                       <select
                         value={newStatus}
                         onChange={(e) => setNewStatus(e.target.value)}
-                        className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                         required
                       >
                         {stages.map((st) => (
@@ -767,8 +767,8 @@ export default function EmployeeLeadProcessing() {
                     {/* Partner Referral Notice for Disbursement */}
                     {selectedLead.source === 'partner' &&
                       ['Disbursement', 'PDD', 'Payout'].includes(newStatus) && (
-                        <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center gap-2.5 text-xs text-purple-300">
-                          <CheckCircle className="w-4 h-4 text-purple-400 shrink-0" />
+                        <div className="p-3 rounded-xl bg-brand-redLight border border-brand-red/20 flex items-center gap-2.5 text-xs text-brand-red">
+                          <CheckCircle className="w-4 h-4 text-brand-red shrink-0" />
                           <span>
                             Moving to Disbursement will automatically trigger partner commission calculation & payout eligibility.
                           </span>
@@ -778,14 +778,14 @@ export default function EmployeeLeadProcessing() {
 
                   {/* Dynamic inputs for Sanction */}
                   {['Sanction', 'Disbursement', 'PDD', 'Payout'].includes(newStatus) && (
-                    <div className="p-4 rounded-2xl bg-brand-black/60 border border-brand-border/60 space-y-3">
-                      <div className="text-xs font-bold text-blue-400 flex items-center gap-1.5">
+                    <div className="p-4 rounded-2xl bg-brand-bg border border-brand-border space-y-3">
+                      <div className="text-xs font-bold text-brand-red flex items-center gap-1.5">
                         <ShieldCheck className="w-3.5 h-3.5" />
                         <span>Sanction Approval Information</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
-                          <label className="block text-[11px] text-brand-grey mb-1">
+                          <label className="block text-[11px] text-brand-textSecondary mb-1">
                             Sanctioned Amount (₹)
                           </label>
                           <input
@@ -793,11 +793,11 @@ export default function EmployeeLeadProcessing() {
                             value={sanctionedAmount}
                             onChange={(e) => setSanctionedAmount(e.target.value)}
                             placeholder="e.g. 1500000"
-                            className="w-full px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-white text-xs focus:outline-none"
+                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] text-brand-grey mb-1">
+                          <label className="block text-[11px] text-brand-textSecondary mb-1">
                             Sanction Reference / Letter No.
                           </label>
                           <input
@@ -805,18 +805,18 @@ export default function EmployeeLeadProcessing() {
                             value={sanctionReference}
                             onChange={(e) => setSanctionReference(e.target.value)}
                             placeholder="e.g. HDFC-SAN-2026-99"
-                            className="w-full px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-white text-xs focus:outline-none"
+                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] text-brand-grey mb-1">
+                          <label className="block text-[11px] text-brand-textSecondary mb-1">
                             Sanction Date
                           </label>
                           <input
                             type="date"
                             value={sanctionDate}
                             onChange={(e) => setSanctionDate(e.target.value)}
-                            className="w-full px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-white text-xs focus:outline-none"
+                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                           />
                         </div>
                       </div>
@@ -825,14 +825,14 @@ export default function EmployeeLeadProcessing() {
 
                   {/* Dynamic inputs for Disbursement */}
                   {['Disbursement', 'PDD', 'Payout'].includes(newStatus) && (
-                    <div className="p-4 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-3">
-                      <div className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                    <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-3">
+                      <div className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
                         <IndianRupee className="w-3.5 h-3.5" />
                         <span>Disbursement & UTR Banking Information</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
-                          <label className="block text-[11px] text-brand-grey mb-1">
+                          <label className="block text-[11px] text-emerald-800 mb-1 font-medium">
                             Disbursed Amount (₹) *
                           </label>
                           <input
@@ -840,12 +840,12 @@ export default function EmployeeLeadProcessing() {
                             value={disbursedAmount}
                             onChange={(e) => setDisbursedAmount(e.target.value)}
                             placeholder="e.g. 1500000"
-                            className="w-full px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-white text-xs focus:outline-none"
+                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
                             required
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] text-brand-grey mb-1">
+                          <label className="block text-[11px] text-emerald-800 mb-1 font-medium">
                             Disbursement UTR / Account No.
                           </label>
                           <input
@@ -853,18 +853,18 @@ export default function EmployeeLeadProcessing() {
                             value={disbursementReference}
                             onChange={(e) => setDisbursementReference(e.target.value)}
                             placeholder="e.g. UTR-AXIS-99281928"
-                            className="w-full px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-white text-xs focus:outline-none"
+                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] text-brand-grey mb-1">
+                          <label className="block text-[11px] text-emerald-800 mb-1 font-medium">
                             Disbursement Date
                           </label>
                           <input
                             type="date"
                             value={disbursementDate}
                             onChange={(e) => setDisbursementDate(e.target.value)}
-                            className="w-full px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-white text-xs focus:outline-none"
+                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
                           />
                         </div>
                       </div>
@@ -872,7 +872,7 @@ export default function EmployeeLeadProcessing() {
                   )}
 
                   <div>
-                    <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                    <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                       Mandatory Processing Remarks (Audit Trail) *
                     </label>
                     <textarea
@@ -880,7 +880,7 @@ export default function EmployeeLeadProcessing() {
                       value={remarks}
                       onChange={(e) => setRemarks(e.target.value)}
                       placeholder="Enter verification notes, bank query responses, or reason for status advancement..."
-                      className="w-full px-3.5 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full px-3.5 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white resize-none"
                       required
                     />
                   </div>
@@ -889,7 +889,7 @@ export default function EmployeeLeadProcessing() {
                     <button
                       type="submit"
                       disabled={submittingStage}
-                      className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-lg shadow-blue-600/20 disabled:opacity-50 flex items-center gap-2"
+                      className="px-5 py-2.5 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm disabled:opacity-50 flex items-center gap-2"
                     >
                       {submittingStage ? (
                         <>
@@ -908,20 +908,20 @@ export default function EmployeeLeadProcessing() {
               </div>
 
               {/* DOCUMENTS & ATTACHMENTS VAULT */}
-              <div className="bg-brand-dark p-6 rounded-3xl border border-brand-border/60 shadow-xl space-y-5">
+              <div className="bg-white p-6 rounded-3xl border border-brand-border shadow-sm space-y-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
-                    <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-blue-400" />
+                    <h4 className="text-sm font-bold text-brand-textPrimary flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-brand-red" />
                       <span>Document Vault & KYC Verification Desk</span>
                     </h4>
-                    <p className="text-xs text-brand-grey mt-0.5">
+                    <p className="text-xs text-brand-textSecondary mt-0.5">
                       Review, verify, reject, or request re-upload for customer KYC & bank proof files.
                     </p>
                   </div>
                   <button
                     onClick={() => setDocModalOpen(true)}
-                    className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-brand-border text-xs font-semibold transition flex items-center gap-1.5 self-start sm:self-auto"
+                    className="px-3 py-1.5 rounded-xl bg-brand-bg hover:bg-brand-border/60 text-brand-textPrimary border border-brand-border text-xs font-semibold transition flex items-center gap-1.5 self-start sm:self-auto"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Attach Document</span>
@@ -929,20 +929,20 @@ export default function EmployeeLeadProcessing() {
                 </div>
 
                 {/* Verification Guidance Note */}
-                <div className="p-3.5 rounded-2xl bg-blue-500/5 border border-blue-500/20 text-xs text-blue-300 flex items-start gap-2.5">
-                  <FileCheck className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
+                <div className="p-3.5 rounded-2xl bg-brand-redLight/40 border border-brand-red/20 text-xs text-brand-textPrimary flex items-start gap-2.5">
+                  <FileCheck className="w-4 h-4 text-brand-red shrink-0 mt-0.5" />
                   <div className="space-y-1">
-                    <span className="font-bold text-white block">Loan Officer Verification Responsibility:</span>
-                    <p className="text-[11px] text-brand-lightGrey">
-                      Verify each of the 3 mandatory documents (<strong className="text-white">Aadhaar Card</strong>, <strong className="text-white">PAN Card</strong>, and <strong className="text-white">Bank Proof</strong>). When all 3 are verified, the file automatically achieves <span className="text-emerald-400 font-bold">Verified</span> status. Pipeline stages remain independent from KYC status.
+                    <span className="font-bold text-brand-textPrimary block">Loan Officer Verification Responsibility:</span>
+                    <p className="text-[11px] text-brand-textSecondary">
+                      Verify each of the 3 mandatory documents (<strong className="text-brand-textPrimary">Aadhaar Card</strong>, <strong className="text-brand-textPrimary">PAN Card</strong>, and <strong className="text-brand-textPrimary">Bank Proof</strong>). When all 3 are verified, the file automatically achieves <span className="text-emerald-600 font-bold">Verified</span> status. Pipeline stages remain independent from KYC status.
                     </p>
                   </div>
                 </div>
 
                 {leadDetails?.documents?.length === 0 ? (
-                  <div className="p-8 text-center text-xs text-brand-grey bg-brand-black/40 rounded-2xl border border-brand-border/40 space-y-2">
-                    <FolderOpen className="w-8 h-8 text-brand-grey mx-auto opacity-40" />
-                    <div className="text-white font-semibold">No Documents Attached Yet</div>
+                  <div className="p-8 text-center text-xs text-brand-textSecondary bg-brand-bg rounded-2xl border border-brand-border space-y-2">
+                    <FolderOpen className="w-8 h-8 text-brand-textSecondary mx-auto opacity-40" />
+                    <div className="text-brand-textPrimary font-semibold">No Documents Attached Yet</div>
                     <p className="text-[11px]">
                       Customer did not attach documents at submission. Click "Attach Document" to upload on customer's behalf.
                     </p>
@@ -962,45 +962,45 @@ export default function EmployeeLeadProcessing() {
                           key={doc._id}
                           className={`p-4 rounded-2xl border transition-all ${
                             isVerified
-                              ? 'bg-brand-black/80 border-emerald-500/30'
+                              ? 'bg-white border-emerald-200 shadow-sm'
                               : isRejected
-                              ? 'bg-brand-black/80 border-brand-red/30'
+                              ? 'bg-white border-brand-red/30 shadow-sm'
                               : isReupload
-                              ? 'bg-brand-black/80 border-amber-500/30'
-                              : 'bg-brand-black/80 border-brand-border/60'
+                              ? 'bg-white border-amber-200 shadow-sm'
+                              : 'bg-white border-brand-border shadow-sm'
                           }`}
                         >
                           {/* Document Header Row */}
-                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-white/5">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-brand-border">
                             <div className="flex items-start gap-3 min-w-0">
                               <div
                                 className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
                                   isVerified
-                                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                                    ? 'bg-emerald-50 text-emerald-600 border-emerald-200'
                                     : isRejected
-                                    ? 'bg-brand-red/10 text-brand-red border-brand-red/20'
+                                    ? 'bg-brand-redLight text-brand-red border-brand-red/20'
                                     : isReupload
-                                    ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
-                                    : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                                    ? 'bg-amber-50 text-amber-600 border-amber-200'
+                                    : 'bg-brand-redLight text-brand-red border-brand-red/20'
                                 }`}
                               >
                                 <FileText className="w-5 h-5" />
                               </div>
                               <div className="min-w-0">
                                 <div className="flex items-center gap-2 flex-wrap">
-                                  <h5 className="text-sm font-bold text-white truncate">{doc.title}</h5>
-                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/5 text-brand-lightGrey border border-white/10 uppercase">
+                                  <h5 className="text-sm font-bold text-brand-textPrimary truncate">{doc.title}</h5>
+                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-brand-bg text-brand-textSecondary border border-brand-border uppercase">
                                     {doc.documentType?.replace('_', ' ')}
                                   </span>
                                 </div>
-                                <div className="text-[11px] text-brand-grey mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
-                                  <span className="font-mono text-white/80 truncate max-w-[200px]">
+                                <div className="text-[11px] text-brand-textSecondary mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                                  <span className="font-mono text-brand-textPrimary font-semibold truncate max-w-[200px]">
                                     {doc.originalName || doc.fileName}
                                   </span>
                                   <span>•</span>
                                   <span>{doc.fileSize ? `${(doc.fileSize / 1024).toFixed(1)} KB` : '100 KB'}</span>
                                   <span>•</span>
-                                  <span>Uploaded by <strong className="text-white capitalize">{doc.uploadedByRole || 'customer'}</strong></span>
+                                  <span>Uploaded by <strong className="text-brand-textPrimary capitalize">{doc.uploadedByRole || 'customer'}</strong></span>
                                   <span>•</span>
                                   <span>{new Date(doc.createdAt).toLocaleDateString()}</span>
                                 </div>
@@ -1012,12 +1012,12 @@ export default function EmployeeLeadProcessing() {
                               <span
                                 className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${
                                   isVerified
-                                    ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                                     : isRejected
-                                    ? 'bg-brand-red/15 text-brand-red border-brand-red/30'
+                                    ? 'bg-brand-redLight text-brand-red border-brand-red/30'
                                     : isReupload
-                                    ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-                                    : 'bg-blue-500/15 text-blue-400 border-blue-500/30'
+                                    ? 'bg-amber-50 text-amber-700 border-amber-200'
+                                    : 'bg-blue-50 text-blue-700 border-blue-200'
                                 }`}
                               >
                                 {isVerified ? (
@@ -1044,7 +1044,7 @@ export default function EmployeeLeadProcessing() {
                               </span>
 
                               {isVerified && doc.verifiedByName && (
-                                <div className="text-[10px] text-emerald-400/80 mt-1">
+                                <div className="text-[10px] text-emerald-600 mt-1 font-medium">
                                   by {doc.verifiedByName} on {new Date(doc.verifiedAt).toLocaleDateString()}
                                 </div>
                               )}
@@ -1053,7 +1053,7 @@ export default function EmployeeLeadProcessing() {
 
                           {/* Rejection / Re-upload Notice */}
                           {isRejected && doc.rejectionReason && (
-                            <div className="mt-3 p-3 rounded-xl bg-brand-red/10 border border-brand-red/25 text-xs text-brand-red flex items-start gap-2">
+                            <div className="mt-3 p-3 rounded-xl bg-brand-redLight border border-brand-red/25 text-xs text-brand-red flex items-start gap-2">
                               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                               <div>
                                 <span className="font-bold block">Rejection Reason:</span>
@@ -1063,8 +1063,8 @@ export default function EmployeeLeadProcessing() {
                           )}
 
                           {isReupload && doc.reuploadReason && (
-                            <div className="mt-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 text-xs text-amber-300 flex items-start gap-2">
-                              <RotateCcw className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+                            <div className="mt-3 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 flex items-start gap-2">
+                              <RotateCcw className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
                               <div>
                                 <span className="font-bold block">Re-upload Instructions:</span>
                                 <span>{doc.reuploadReason}</span>
@@ -1073,23 +1073,23 @@ export default function EmployeeLeadProcessing() {
                           )}
 
                           {/* Action Buttons Row */}
-                          <div className="mt-3.5 pt-3 border-t border-white/5 flex flex-wrap items-center justify-between gap-2.5">
+                          <div className="mt-3.5 pt-3 border-t border-brand-border flex flex-wrap items-center justify-between gap-2.5">
                             <div className="flex flex-wrap items-center gap-2">
                               <button
                                 type="button"
                                 onClick={() => handleViewDoc(doc)}
-                                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 transition flex items-center gap-1.5"
+                                className="px-3 py-1.5 rounded-lg bg-brand-bg hover:bg-brand-border/60 text-brand-textPrimary text-xs font-semibold border border-brand-border transition flex items-center gap-1.5"
                               >
-                                <Eye className="w-3.5 h-3.5 text-blue-400" />
+                                <Eye className="w-3.5 h-3.5 text-brand-red" />
                                 <span>View</span>
                               </button>
 
                               <button
                                 type="button"
                                 onClick={() => handleDownloadDoc(doc)}
-                                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 transition flex items-center gap-1.5"
+                                className="px-3 py-1.5 rounded-lg bg-brand-bg hover:bg-brand-border/60 text-brand-textPrimary text-xs font-semibold border border-brand-border transition flex items-center gap-1.5"
                               >
-                                <Download className="w-3.5 h-3.5 text-emerald-400" />
+                                <Download className="w-3.5 h-3.5 text-emerald-600" />
                                 <span>Download</span>
                               </button>
 
@@ -1099,7 +1099,7 @@ export default function EmployeeLeadProcessing() {
                                   type="button"
                                   onClick={() => handleVerifyDoc(doc)}
                                   disabled={submittingDocAction}
-                                  className="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-50"
+                                  className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white border border-emerald-200 text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-50"
                                 >
                                   <CheckCircle2 className="w-3.5 h-3.5" />
                                   <span>Verify Document</span>
@@ -1114,7 +1114,7 @@ export default function EmployeeLeadProcessing() {
                                     setDocActionReason('');
                                   }}
                                   disabled={submittingDocAction}
-                                  className="px-3 py-1.5 rounded-lg bg-brand-red/15 hover:bg-brand-red text-brand-red hover:text-white border border-brand-red/30 text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-50"
+                                  className="px-3 py-1.5 rounded-lg bg-brand-redLight hover:bg-brand-red text-brand-red hover:text-white border border-brand-red/30 text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-50"
                                 >
                                   <XCircle className="w-3.5 h-3.5" />
                                   <span>Reject</span>
@@ -1129,7 +1129,7 @@ export default function EmployeeLeadProcessing() {
                                     setDocActionReason('');
                                   }}
                                   disabled={submittingDocAction}
-                                  className="px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-600 text-amber-400 hover:text-white border border-amber-500/30 text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-50"
+                                  className="px-3 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-600 text-amber-700 hover:text-white border border-amber-200 text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-50"
                                 >
                                   <RotateCcw className="w-3.5 h-3.5" />
                                   <span>Request Re-upload</span>
@@ -1143,9 +1143,9 @@ export default function EmployeeLeadProcessing() {
                                   setReuploadFile(null);
                                 }}
                                 disabled={submittingDocAction}
-                                className="px-3 py-1.5 rounded-lg bg-blue-500/15 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/30 text-xs font-semibold transition flex items-center gap-1.5 disabled:opacity-50"
+                                className="px-3 py-1.5 rounded-lg bg-brand-bg hover:bg-brand-border/60 text-brand-textPrimary border border-brand-border text-xs font-semibold transition flex items-center gap-1.5 disabled:opacity-50"
                               >
-                                <Upload className="w-3.5 h-3.5" />
+                                <Upload className="w-3.5 h-3.5 text-brand-red" />
                                 <span>Replace File</span>
                               </button>
                             </div>
@@ -1154,9 +1154,9 @@ export default function EmployeeLeadProcessing() {
                             <button
                               type="button"
                               onClick={() => toggleHistory(doc._id)}
-                              className="px-2.5 py-1 rounded-lg text-brand-grey hover:text-white text-[11px] font-medium flex items-center gap-1 hover:bg-white/5 transition"
+                              className="px-2.5 py-1 rounded-lg text-brand-textSecondary hover:text-brand-textPrimary text-[11px] font-medium flex items-center gap-1 hover:bg-brand-bg transition"
                             >
-                              <History className="w-3.5 h-3.5 text-blue-400" />
+                              <History className="w-3.5 h-3.5 text-brand-red" />
                               <span>Audit History ({doc.verificationHistory?.length || 0})</span>
                               {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                             </button>
@@ -1164,26 +1164,26 @@ export default function EmployeeLeadProcessing() {
 
                           {/* Expandable Audit History Timeline */}
                           {isExpanded && (
-                            <div className="mt-3.5 pt-3 border-t border-white/5 space-y-2">
-                              <div className="text-[11px] font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                                <History className="w-3 h-3 text-blue-400" />
+                            <div className="mt-3.5 pt-3 border-t border-brand-border space-y-2">
+                              <div className="text-[11px] font-bold text-brand-textPrimary uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                <History className="w-3 h-3 text-brand-red" />
                                 <span>Document Verification Audit Trail</span>
                               </div>
 
                               {doc.verificationHistory?.length === 0 ? (
-                                <p className="text-[11px] text-brand-grey italic">No audit transitions recorded yet.</p>
+                                <p className="text-[11px] text-brand-textSecondary italic">No audit transitions recorded yet.</p>
                               ) : (
                                 <div className="space-y-2">
                                   {[...doc.verificationHistory].reverse().map((item, hIdx) => (
                                     <div
                                       key={hIdx}
-                                      className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] space-y-1"
+                                      className="p-2.5 rounded-xl bg-brand-bg border border-brand-border text-[11px] space-y-1"
                                     >
-                                      <div className="flex items-center justify-between text-brand-grey">
+                                      <div className="flex items-center justify-between text-brand-textSecondary">
                                         <div className="flex items-center gap-2">
-                                          <span className="font-bold text-white capitalize">{item.newStatus?.replace('_', ' ')}</span>
+                                          <span className="font-bold text-brand-textPrimary capitalize">{item.newStatus?.replace('_', ' ')}</span>
                                           {item.previousStatus && (
-                                            <span className="text-[10px] text-brand-grey">
+                                            <span className="text-[10px] text-brand-textSecondary">
                                               (from {item.previousStatus})
                                             </span>
                                           )}
@@ -1193,12 +1193,12 @@ export default function EmployeeLeadProcessing() {
                                         </span>
                                       </div>
                                       {item.reason && (
-                                        <p className="text-brand-lightGrey">
-                                          Reason: <span className="text-white">{item.reason}</span>
+                                        <p className="text-brand-textSecondary">
+                                          Reason: <span className="text-brand-textPrimary">{item.reason}</span>
                                         </p>
                                       )}
-                                      <div className="text-[10px] text-brand-grey">
-                                        Officer: <span className="text-blue-400">{item.changedByName || 'System / Officer'}</span>
+                                      <div className="text-[10px] text-brand-textSecondary">
+                                        Officer: <span className="text-brand-red font-medium">{item.changedByName || 'System / Officer'}</span>
                                       </div>
                                     </div>
                                   ))}
@@ -1214,39 +1214,39 @@ export default function EmployeeLeadProcessing() {
               </div>
 
               {/* AUDIT LOG & REMARKS HISTORY */}
-              <div className="bg-brand-dark p-6 rounded-3xl border border-brand-border/60 shadow-xl space-y-4">
+              <div className="bg-white p-6 rounded-3xl border border-brand-border shadow-sm space-y-4">
                 <div className="flex items-center gap-2">
-                  <History className="w-4 h-4 text-blue-400" />
-                  <h4 className="text-sm font-bold text-white">Lifecycle Audit Log & Remarks</h4>
+                  <History className="w-4 h-4 text-brand-red" />
+                  <h4 className="text-sm font-bold text-brand-textPrimary">Lifecycle Audit Log & Remarks</h4>
                 </div>
 
                 <div className="space-y-3">
                   {selectedLead.statusHistory?.length === 0 ? (
-                    <div className="text-xs text-brand-grey">No historical transitions recorded yet.</div>
+                    <div className="text-xs text-brand-textSecondary">No historical transitions recorded yet.</div>
                   ) : (
                     [...selectedLead.statusHistory].reverse().map((hist, idx) => (
                       <div
                         key={idx}
-                        className="p-3.5 rounded-2xl bg-brand-black/60 border border-brand-border/40 text-xs space-y-1.5"
+                        className="p-3.5 rounded-2xl bg-brand-bg border border-brand-border text-xs space-y-1.5"
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-blue-400">{hist.status}</span>
+                            <span className="font-bold text-brand-red">{hist.status}</span>
                             {hist.previousStatus && (
-                              <span className="text-[10px] text-brand-grey">
+                              <span className="text-[10px] text-brand-textSecondary">
                                 (from {hist.previousStatus})
                               </span>
                             )}
                           </div>
-                          <span className="text-[10px] text-brand-grey font-mono">
+                          <span className="text-[10px] text-brand-textSecondary font-mono">
                             {new Date(hist.changedAt).toLocaleString()}
                           </span>
                         </div>
 
-                        <p className="text-xs text-brand-lightGrey">{hist.remarks}</p>
+                        <p className="text-xs text-brand-textSecondary">{hist.remarks}</p>
 
-                        <div className="text-[10px] text-brand-grey pt-1 border-t border-white/5">
-                          Logged by: <span className="text-white font-medium">{hist.changedByName || 'Officer'}</span>
+                        <div className="text-[10px] text-brand-textSecondary pt-1 border-t border-brand-border">
+                          Logged by: <span className="text-brand-textPrimary font-medium">{hist.changedByName || 'Officer'}</span>
                         </div>
                       </div>
                     ))
@@ -1260,29 +1260,29 @@ export default function EmployeeLeadProcessing() {
 
       {/* DOCUMENT ATTACH MODAL */}
       {docModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="bg-brand-dark rounded-3xl border border-brand-border max-w-md w-full p-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl border border-brand-border max-w-md w-full p-6 shadow-2xl relative">
             <button
               onClick={() => setDocModalOpen(false)}
-              className="absolute top-5 right-5 p-1 rounded-lg text-brand-grey hover:text-white bg-white/5"
+              className="absolute top-5 right-5 p-1 rounded-lg text-brand-textSecondary hover:text-brand-textPrimary bg-brand-bg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-base font-bold text-white mb-1">Attach File Document</h3>
-            <p className="text-xs text-brand-grey mb-4">
-              File: <span className="font-mono text-blue-400 font-bold">{selectedLead?.leadId}</span>
+            <h3 className="text-base font-bold text-brand-textPrimary mb-1">Attach File Document</h3>
+            <p className="text-xs text-brand-textSecondary mb-4">
+              File: <span className="font-mono text-brand-red font-bold">{selectedLead?.leadId}</span>
             </p>
 
             <form onSubmit={handleAddDocument} className="space-y-4 text-xs">
               <div>
-                <label className="block text-brand-lightGrey mb-1 font-semibold">
+                <label className="block text-brand-textPrimary mb-1 font-semibold">
                   Document Category *
                 </label>
                 <select
                   value={docType}
                   onChange={(e) => setDocType(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                   required
                 >
                   <option value="pan_card">PAN Card</option>
@@ -1296,7 +1296,7 @@ export default function EmployeeLeadProcessing() {
               </div>
 
               <div>
-                <label className="block text-brand-lightGrey mb-1 font-semibold">
+                <label className="block text-brand-textPrimary mb-1 font-semibold">
                   Document Title / Description *
                 </label>
                 <input
@@ -1304,13 +1304,13 @@ export default function EmployeeLeadProcessing() {
                   value={docTitle}
                   onChange={(e) => setDocTitle(e.target.value)}
                   placeholder="e.g. Customer Verified Aadhaar Card"
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-brand-lightGrey mb-1 font-semibold">
+                <label className="block text-brand-textPrimary mb-1 font-semibold">
                   Officer Notes / Verification Remarks
                 </label>
                 <textarea
@@ -1318,7 +1318,7 @@ export default function EmployeeLeadProcessing() {
                   value={docRemarks}
                   onChange={(e) => setDocRemarks(e.target.value)}
                   placeholder="e.g. Scanned copy verified against originals."
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red resize-none"
                 />
               </div>
 
@@ -1326,14 +1326,14 @@ export default function EmployeeLeadProcessing() {
                 <button
                   type="button"
                   onClick={() => setDocModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-brand-grey text-xs font-semibold"
+                  className="px-4 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary hover:bg-brand-bg text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submittingDoc}
-                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-lg shadow-blue-600/20 disabled:opacity-50"
+                  className="px-4 py-2 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm disabled:opacity-50"
                 >
                   {submittingDoc ? 'Recording...' : 'Attach Document'}
                 </button>
@@ -1345,14 +1345,14 @@ export default function EmployeeLeadProcessing() {
 
       {/* VIEW DOCUMENT INLINE PREVIEW MODAL */}
       {docActionModal.type === 'view' && docActionModal.doc && (
-        <div className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="bg-brand-dark rounded-3xl border border-brand-border max-w-4xl w-full h-[85vh] p-6 shadow-2xl relative flex flex-col">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10 shrink-0">
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl border border-brand-border max-w-4xl w-full h-[85vh] p-6 shadow-2xl relative flex flex-col">
+            <div className="flex items-center justify-between pb-4 border-b border-brand-border shrink-0">
               <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-blue-400" />
+                <FileText className="w-5 h-5 text-brand-red" />
                 <div>
-                  <h3 className="text-base font-bold text-white">{docActionModal.doc.title}</h3>
-                  <p className="text-xs text-brand-grey font-mono">
+                  <h3 className="text-base font-bold text-brand-textPrimary">{docActionModal.doc.title}</h3>
+                  <p className="text-xs text-brand-textSecondary font-mono">
                     {docActionModal.doc.originalName || docActionModal.doc.fileName}
                   </p>
                 </div>
@@ -1361,9 +1361,9 @@ export default function EmployeeLeadProcessing() {
                 <button
                   type="button"
                   onClick={() => handleDownloadDoc(docActionModal.doc)}
-                  className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-xl bg-brand-bg hover:bg-brand-border/60 text-brand-textPrimary text-xs font-semibold border border-brand-border flex items-center gap-1.5"
                 >
-                  <Download className="w-4 h-4 text-emerald-400" />
+                  <Download className="w-4 h-4 text-emerald-600" />
                   <span>Download</span>
                 </button>
                 <button
@@ -1372,7 +1372,7 @@ export default function EmployeeLeadProcessing() {
                     setViewDocBlobUrl('');
                     setDocActionModal({ type: null, doc: null });
                   }}
-                  className="p-1.5 rounded-xl text-brand-grey hover:text-white bg-white/5 hover:bg-white/10"
+                  className="p-1.5 rounded-xl text-brand-textSecondary hover:text-brand-textPrimary bg-brand-bg"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -1380,7 +1380,7 @@ export default function EmployeeLeadProcessing() {
             </div>
 
             {/* Document Frame / Viewer */}
-            <div className="flex-1 mt-4 bg-brand-black rounded-2xl overflow-hidden border border-white/5 relative flex items-center justify-center">
+            <div className="flex-1 mt-4 bg-brand-bg rounded-2xl overflow-hidden border border-brand-border relative flex items-center justify-center">
               {viewDocBlobUrl ? (
                 docActionModal.doc.mimeType?.startsWith('image/') ? (
                   <img
@@ -1396,7 +1396,7 @@ export default function EmployeeLeadProcessing() {
                   />
                 )
               ) : (
-                <div className="text-xs text-brand-grey animate-pulse">Loading secure document stream...</div>
+                <div className="text-xs text-brand-textSecondary animate-pulse">Loading secure document stream...</div>
               )}
             </div>
           </div>
@@ -1405,11 +1405,11 @@ export default function EmployeeLeadProcessing() {
 
       {/* REJECT DOCUMENT MODAL */}
       {docActionModal.type === 'reject' && docActionModal.doc && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="bg-brand-dark rounded-3xl border border-brand-red/40 max-w-md w-full p-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl border border-brand-border max-w-md w-full p-6 shadow-2xl relative">
             <button
               onClick={() => setDocActionModal({ type: null, doc: null })}
-              className="absolute top-5 right-5 p-1 rounded-lg text-brand-grey hover:text-white bg-white/5"
+              className="absolute top-5 right-5 p-1 rounded-lg text-brand-textSecondary hover:text-brand-textPrimary bg-brand-bg"
             >
               <X className="w-5 h-5" />
             </button>
@@ -1418,13 +1418,13 @@ export default function EmployeeLeadProcessing() {
               <XCircle className="w-5 h-5" />
               <span>Reject Customer Document</span>
             </div>
-            <p className="text-xs text-brand-grey mb-4">
-              Rejecting <strong className="text-white">{docActionModal.doc.title}</strong> will flag the document and notify applicant / referring channel.
+            <p className="text-xs text-brand-textSecondary mb-4">
+              Rejecting <strong className="text-brand-textPrimary">{docActionModal.doc.title}</strong> will flag the document and notify applicant / referring channel.
             </p>
 
             <form onSubmit={handleRejectDoc} className="space-y-4 text-xs">
               <div>
-                <label className="block text-brand-lightGrey mb-1 font-semibold">
+                <label className="block text-brand-textPrimary mb-1 font-semibold">
                   Mandatory Rejection Reason *
                 </label>
                 <textarea
@@ -1432,7 +1432,7 @@ export default function EmployeeLeadProcessing() {
                   value={docActionReason}
                   onChange={(e) => setDocActionReason(e.target.value)}
                   placeholder="e.g. Document image is blurred; name does not match application details; expired ID."
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-red/40 text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-brand-red"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red resize-none"
                   required
                 />
               </div>
@@ -1441,14 +1441,14 @@ export default function EmployeeLeadProcessing() {
                 <button
                   type="button"
                   onClick={() => setDocActionModal({ type: null, doc: null })}
-                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-brand-grey text-xs font-semibold"
+                  className="px-4 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary hover:bg-brand-bg text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submittingDocAction || !docActionReason.trim()}
-                  className="px-4 py-2 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold transition shadow-lg shadow-brand-red/25 disabled:opacity-50"
+                  className="px-4 py-2 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm disabled:opacity-50"
                 >
                   {submittingDocAction ? 'Rejecting...' : 'Confirm Rejection'}
                 </button>
@@ -1460,26 +1460,26 @@ export default function EmployeeLeadProcessing() {
 
       {/* REQUEST RE-UPLOAD MODAL */}
       {docActionModal.type === 'request-reupload' && docActionModal.doc && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="bg-brand-dark rounded-3xl border border-amber-500/40 max-w-md w-full p-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl border border-brand-border max-w-md w-full p-6 shadow-2xl relative">
             <button
               onClick={() => setDocActionModal({ type: null, doc: null })}
-              className="absolute top-5 right-5 p-1 rounded-lg text-brand-grey hover:text-white bg-white/5"
+              className="absolute top-5 right-5 p-1 rounded-lg text-brand-textSecondary hover:text-brand-textPrimary bg-brand-bg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-2 mb-2 text-amber-400 font-bold text-sm">
+            <div className="flex items-center gap-2 mb-2 text-amber-600 font-bold text-sm">
               <RotateCcw className="w-5 h-5" />
               <span>Request Document Re-upload</span>
             </div>
-            <p className="text-xs text-brand-grey mb-4">
-              Request a replacement copy of <strong className="text-white">{docActionModal.doc.title}</strong> with instructions.
+            <p className="text-xs text-brand-textSecondary mb-4">
+              Request a replacement copy of <strong className="text-brand-textPrimary">{docActionModal.doc.title}</strong> with instructions.
             </p>
 
             <form onSubmit={handleRequestReuploadDoc} className="space-y-4 text-xs">
               <div>
-                <label className="block text-brand-lightGrey mb-1 font-semibold">
+                <label className="block text-brand-textPrimary mb-1 font-semibold">
                   Reason / Re-upload Instructions *
                 </label>
                 <textarea
@@ -1487,7 +1487,7 @@ export default function EmployeeLeadProcessing() {
                   value={docActionReason}
                   onChange={(e) => setDocActionReason(e.target.value)}
                   placeholder="e.g. Please provide a clear color scanned copy of both front and back sides."
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-amber-500/40 text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-amber-500 resize-none"
                   required
                 />
               </div>
@@ -1496,14 +1496,14 @@ export default function EmployeeLeadProcessing() {
                 <button
                   type="button"
                   onClick={() => setDocActionModal({ type: null, doc: null })}
-                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-brand-grey text-xs font-semibold"
+                  className="px-4 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary hover:bg-brand-bg text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submittingDocAction || !docActionReason.trim()}
-                  className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition shadow-lg shadow-amber-600/25 disabled:opacity-50"
+                  className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-sm disabled:opacity-50"
                 >
                   {submittingDocAction ? 'Sending Request...' : 'Send Re-upload Request'}
                 </button>
@@ -1515,41 +1515,41 @@ export default function EmployeeLeadProcessing() {
 
       {/* RE-UPLOAD / REPLACE FILE MODAL */}
       {docActionModal.type === 'reupload' && docActionModal.doc && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="bg-brand-dark rounded-3xl border border-blue-500/40 max-w-md w-full p-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl border border-brand-border max-w-md w-full p-6 shadow-2xl relative">
             <button
               onClick={() => {
                 setDocActionModal({ type: null, doc: null });
                 setReuploadFile(null);
               }}
-              className="absolute top-5 right-5 p-1 rounded-lg text-brand-grey hover:text-white bg-white/5"
+              className="absolute top-5 right-5 p-1 rounded-lg text-brand-textSecondary hover:text-brand-textPrimary bg-brand-bg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-2 mb-2 text-blue-400 font-bold text-sm">
+            <div className="flex items-center gap-2 mb-2 text-brand-red font-bold text-sm">
               <Upload className="w-5 h-5" />
               <span>Replace / Re-upload File</span>
             </div>
-            <p className="text-xs text-brand-grey mb-4">
-              Upload replacement file for <strong className="text-white">{docActionModal.doc.title}</strong>. This will automatically reset status to <span className="text-blue-400 font-semibold">Pending</span>.
+            <p className="text-xs text-brand-textSecondary mb-4">
+              Upload replacement file for <strong className="text-brand-textPrimary">{docActionModal.doc.title}</strong>. This will automatically reset status to <span className="text-brand-red font-semibold">Pending</span>.
             </p>
 
             <form onSubmit={handleReuploadReplacementDoc} className="space-y-4 text-xs">
               <div>
-                <label className="block text-brand-lightGrey mb-1 font-semibold">
+                <label className="block text-brand-textPrimary mb-1 font-semibold">
                   Choose Replacement File (PDF, JPG, PNG - Max 10MB) *
                 </label>
                 <input
                   type="file"
                   accept=".pdf,image/jpeg,image/jpg,image/png"
                   onChange={(e) => setReuploadFile(e.target.files?.[0] || null)}
-                  className="w-full text-xs text-brand-grey file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-600/30"
+                  className="w-full text-xs text-brand-textSecondary file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-brand-redLight file:text-brand-red hover:file:bg-brand-redLight/80"
                   required
                 />
                 {reuploadFile && (
-                  <p className="text-[11px] text-brand-lightGrey mt-2">
-                    Selected: <span className="text-white font-medium">{reuploadFile.name}</span> ({(reuploadFile.size / 1024).toFixed(1)} KB)
+                  <p className="text-[11px] text-brand-textSecondary mt-2">
+                    Selected: <span className="text-brand-textPrimary font-medium">{reuploadFile.name}</span> ({(reuploadFile.size / 1024).toFixed(1)} KB)
                   </p>
                 )}
               </div>
@@ -1561,14 +1561,14 @@ export default function EmployeeLeadProcessing() {
                     setDocActionModal({ type: null, doc: null });
                     setReuploadFile(null);
                   }}
-                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-brand-grey text-xs font-semibold"
+                  className="px-4 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary hover:bg-brand-bg text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submittingDocAction || !reuploadFile}
-                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-lg shadow-blue-600/25 disabled:opacity-50"
+                  className="px-4 py-2 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm disabled:opacity-50"
                 >
                   {submittingDocAction ? 'Uploading...' : 'Upload Replacement'}
                 </button>

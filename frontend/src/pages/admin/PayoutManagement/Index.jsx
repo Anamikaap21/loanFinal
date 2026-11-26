@@ -342,19 +342,19 @@ export default function PayoutManagement() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-2">
             <CreditCard className="w-3.5 h-3.5" />
             <span>Channel Partner Commission Desk</span>
           </div>
-          <h2 className="text-2xl font-black text-white">Partner Payout</h2>
-          <p className="text-xs text-brand-grey">
+          <h2 className="text-2xl font-black text-brand-textPrimary">Partner Payout</h2>
+          <p className="text-xs text-brand-textSecondary">
             Automatic and manual commission payouts for disbursed partner loans. Includes administrative rate override, payment completion, and instant invoice generation.
           </p>
         </div>
 
         <button
           onClick={openCreateModal}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold transition shadow-lg shadow-brand-red/25 shrink-0 self-start sm:self-auto"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm shrink-0 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Create Payout</span>
@@ -362,25 +362,25 @@ export default function PayoutManagement() {
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center gap-3 text-xs text-white">
+        <div className="p-4 rounded-2xl bg-brand-redLight border border-brand-red/30 flex items-center gap-3 text-xs text-brand-red">
           <AlertCircle className="w-4 h-4 text-brand-red shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3 text-xs text-emerald-400">
-          <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-3 text-xs text-emerald-700">
+          <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
       {/* Filter Bar */}
-      <div className="flex justify-between items-center bg-brand-dark p-4 rounded-2xl border border-brand-border/60">
+      <div className="flex justify-between items-center bg-white p-4 rounded-2xl border border-brand-border shadow-sm">
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+          className="px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
         >
           <option value="all">All Payout Statuses</option>
           <option value="pending">Pending</option>
@@ -389,16 +389,16 @@ export default function PayoutManagement() {
           <option value="cancelled">Cancelled</option>
         </select>
 
-        <div className="text-xs text-brand-grey">
-          Total Payouts: <span className="text-white font-bold">{payouts.length}</span>
+        <div className="text-xs text-brand-textSecondary">
+          Total Payouts: <span className="text-brand-textPrimary font-bold">{payouts.length}</span>
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-brand-dark rounded-3xl border border-brand-border/60 overflow-hidden shadow-xl min-w-0 max-w-full">
+      <div className="bg-white rounded-3xl border border-brand-border overflow-hidden shadow-sm min-w-0 max-w-full">
         <div className="overflow-x-auto min-w-0 max-w-full">
           <table className="w-full text-left text-xs min-w-[1250px]">
-            <thead className="bg-brand-black/60 text-brand-grey uppercase tracking-wider font-semibold border-b border-brand-border/50">
+            <thead className="bg-brand-bg text-brand-textSecondary uppercase tracking-wider font-semibold border-b border-brand-border">
               <tr>
                 <th className="py-4 px-4 whitespace-nowrap min-w-[150px]">Payout Ref</th>
                 <th className="py-4 px-4 whitespace-nowrap min-w-[220px]">Partner DSA</th>
@@ -411,99 +411,99 @@ export default function PayoutManagement() {
                 <th className="py-4 px-4 text-right whitespace-nowrap min-w-[180px]">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-brand-border/40 text-brand-lightGrey">
+            <tbody className="divide-y divide-brand-border text-brand-textPrimary">
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="py-8 text-center text-brand-grey">
+                  <td colSpan={9} className="py-8 text-center text-brand-textSecondary">
                     <div className="w-6 h-6 border-2 border-brand-red border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                     Loading payout records...
                   </td>
                 </tr>
               ) : payouts.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-8 text-center text-brand-grey">
+                  <td colSpan={9} className="py-8 text-center text-brand-textSecondary">
                     No partner payouts found. Click "Create Payout" to manually generate one.
                   </td>
                 </tr>
               ) : (
                 payouts.map((payout) => (
-                  <tr key={payout._id} className="hover:bg-white/5 transition-colors">
-                    <td className="py-4 px-4 font-mono font-bold text-white whitespace-nowrap min-w-[150px] align-top">
+                  <tr key={payout._id} className="hover:bg-brand-redLight/20 transition-colors">
+                    <td className="py-4 px-4 font-mono font-bold text-brand-textPrimary whitespace-nowrap min-w-[150px] align-top">
                       <div className="text-xs">{payout.payoutNumber}</div>
-                      <div className="text-[10px] text-brand-grey font-sans font-normal mt-0.5">
+                      <div className="text-[10px] text-brand-textSecondary font-sans font-normal mt-0.5">
                         {new Date(payout.createdAt).toLocaleDateString()}
                       </div>
                     </td>
                     <td className="py-4 px-4 min-w-[220px] align-top">
-                      <div className="font-bold text-white text-xs leading-snug whitespace-nowrap">
+                      <div className="font-bold text-brand-textPrimary text-xs leading-snug whitespace-nowrap">
                         {payout.partner?.user?.name || payout.partner?.businessName || 'Channel Partner'}
                       </div>
                       {payout.partner?.businessName && payout.partner?.user?.name && payout.partner.businessName !== payout.partner.user.name && (
-                        <div className="text-[10px] text-brand-grey leading-tight mt-0.5 whitespace-nowrap">
+                        <div className="text-[10px] text-brand-textSecondary leading-tight mt-0.5 whitespace-nowrap">
                           {payout.partner.businessName}
                         </div>
                       )}
                       <div className="mt-1.5">
-                        <span className="inline-flex items-center font-mono text-[10px] font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded whitespace-nowrap">
+                        <span className="inline-flex items-center font-mono text-[10px] font-semibold text-brand-red bg-brand-redLight border border-brand-red/20 px-2 py-0.5 rounded whitespace-nowrap">
                           {payout.partner?.partnerCode || 'DSA-N/A'}
                         </span>
                       </div>
                     </td>
                     <td className="py-4 px-4 min-w-[190px] align-top">
-                      <div className="font-mono font-bold text-white whitespace-nowrap tracking-tight text-xs">
+                      <div className="font-mono font-bold text-brand-textPrimary whitespace-nowrap tracking-tight text-xs">
                         {payout.lead?.leadId || 'N/A'}
                       </div>
-                      <div className="text-[11px] text-brand-lightGrey mt-0.5 whitespace-nowrap">
+                      <div className="text-[11px] text-brand-textSecondary mt-0.5 whitespace-nowrap">
                         {payout.lead?.customerName || 'Customer'}
                       </div>
                       {payout.lead?.loanCategory && (
-                        <div className="text-[10px] text-brand-grey mt-0.5 whitespace-nowrap">
+                        <div className="text-[10px] text-brand-textSecondary mt-0.5 whitespace-nowrap">
                           {typeof payout.lead.loanCategory === 'object' ? payout.lead.loanCategory.name : payout.lead.loanCategory}
                         </div>
                       )}
                     </td>
-                    <td className="py-4 px-4 font-semibold text-white whitespace-nowrap min-w-[130px] align-top">
+                    <td className="py-4 px-4 font-semibold text-brand-textPrimary whitespace-nowrap min-w-[130px] align-top">
                       ₹{Number(payout.disbursedLoanAmount || 0).toLocaleString('en-IN')}
                     </td>
                     <td className="py-4 px-4 whitespace-nowrap min-w-[140px] align-top">
-                      <div className="capitalize font-semibold text-white">
+                      <div className="capitalize font-semibold text-brand-textPrimary">
                         {payout.commissionType === 'fixed' ? 'Fixed (₹)' : 'Percentage (%)'}
                       </div>
-                      <div className="text-[10px] text-brand-grey mt-0.5">
+                      <div className="text-[10px] text-brand-textSecondary mt-0.5">
                         {payout.commissionType === 'fixed'
                           ? `₹${Number(payout.commissionRate || 0).toLocaleString('en-IN')}`
                           : `${payout.commissionRate}%`}
                       </div>
                     </td>
                     <td className="py-4 px-4 whitespace-nowrap min-w-[140px] align-top">
-                      <div>Gross: <span className="font-bold text-white">₹{Number(payout.grossCommissionAmount || 0).toLocaleString('en-IN')}</span></div>
-                      <div className="text-[10px] text-brand-grey mt-0.5">TDS (5%): ₹{Number(payout.tdsAmount || 0).toLocaleString('en-IN')}</div>
+                      <div>Gross: <span className="font-bold text-brand-textPrimary">₹{Number(payout.grossCommissionAmount || 0).toLocaleString('en-IN')}</span></div>
+                      <div className="text-[10px] text-brand-textSecondary mt-0.5">TDS (5%): ₹{Number(payout.tdsAmount || 0).toLocaleString('en-IN')}</div>
                     </td>
-                    <td className="py-4 px-4 font-black text-emerald-400 text-sm whitespace-nowrap min-w-[130px] align-top">
+                    <td className="py-4 px-4 font-black text-emerald-600 text-sm whitespace-nowrap min-w-[130px] align-top">
                       ₹{Number(payout.netPayoutAmount || 0).toLocaleString('en-IN')}
                     </td>
                     <td className="py-4 px-4 whitespace-nowrap min-w-[110px] text-center align-top">
                       <span className={`inline-block px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${
                         payout.status === 'completed' || payout.status === 'paid'
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : payout.status === 'processing'
-                          ? 'bg-blue-500/10 text-blue-400 border border-blue-500/30'
-                          : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
-                      }`}>
+                          ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                          : 'bg-amber-50 text-amber-700 border border-amber-200'
+                        }`}>
                         {payout.status === 'completed' ? 'PAID' : payout.status}
                       </span>
                     </td>
                     <td className="py-4 px-4 text-right space-x-2 whitespace-nowrap min-w-[180px] align-top">
                       <button
                         onClick={() => openOverrideModal(payout)}
-                        className="px-2.5 py-1.5 rounded-lg bg-brand-card hover:bg-white/10 text-white border border-brand-border text-[11px] font-semibold transition inline-block"
+                        className="px-2.5 py-1.5 rounded-lg bg-brand-bg hover:bg-brand-border/60 text-brand-textPrimary border border-brand-border text-[11px] font-semibold transition inline-block"
                       >
                         Override / Pay
                       </button>
                       {!payout.isInvoiceGenerated && (
                         <button
                           onClick={() => handleGenerateInvoice(payout)}
-                          className="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500 hover:text-white text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold transition inline-block"
+                          className="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-[11px] font-semibold transition inline-block"
                         >
                           Generate Invoice
                         </button>
@@ -519,35 +519,35 @@ export default function PayoutManagement() {
 
       {/* CREATE PAYOUT MODAL */}
       {createModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-brand-dark rounded-3xl border border-brand-border max-w-2xl w-full p-6 shadow-2xl relative my-8">
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto">
+          <div className="bg-white rounded-3xl border border-brand-border max-w-2xl w-full p-6 shadow-2xl relative my-8">
             <button
               onClick={() => setCreateModalOpen(false)}
-              className="absolute top-5 right-5 p-1 rounded-lg text-brand-grey hover:text-white bg-white/5 transition"
+              className="absolute top-5 right-5 p-1 rounded-lg text-brand-textSecondary hover:text-brand-textPrimary bg-brand-bg transition"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="mb-5">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-brand-red/10 text-brand-red border border-brand-red/20 mb-1">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-1">
                 <Plus className="w-3 h-3" />
                 <span>Manual Generation</span>
               </div>
-              <h3 className="text-lg font-bold text-white">Create Partner Payout</h3>
-              <p className="text-xs text-brand-grey">
+              <h3 className="text-lg font-bold text-brand-textPrimary">Create Partner Payout</h3>
+              <p className="text-xs text-brand-textSecondary">
                 Select a registered partner and an associated lead file to generate a commission payout record.
               </p>
             </div>
 
             {createError && (
-              <div className="p-3 mb-4 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center gap-2 text-xs text-brand-red">
+              <div className="p-3 mb-4 rounded-xl bg-brand-redLight border border-brand-red/30 flex items-center gap-2 text-xs text-brand-red">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{createError}</span>
               </div>
             )}
 
             {selectedLeadWarning && (
-              <div className="p-3 mb-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-2 text-xs text-amber-400">
+              <div className="p-3 mb-4 rounded-xl bg-amber-50 border border-amber-200 flex items-center gap-2 text-xs text-amber-700">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{selectedLeadWarning}</span>
               </div>
@@ -557,7 +557,7 @@ export default function PayoutManagement() {
               {/* Partner Selection Row */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Select Partner *
                   </label>
                   <select
@@ -565,7 +565,7 @@ export default function PayoutManagement() {
                     onChange={(e) => handlePartnerChange(e.target.value)}
                     required
                     disabled={loadingPartners}
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                   >
                     <option value="">{loadingPartners ? 'Loading partners...' : '-- Choose Registered Partner --'}</option>
                     {partners.map((p) => (
@@ -577,7 +577,7 @@ export default function PayoutManagement() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Partner / DSA Code
                   </label>
                   <input
@@ -585,7 +585,7 @@ export default function PayoutManagement() {
                     value={formData.partnerCode}
                     readOnly
                     placeholder="Auto-fetched"
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black/60 border border-brand-border text-brand-grey text-xs font-mono"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg/60 border border-brand-border text-brand-textSecondary text-xs font-mono"
                   />
                 </div>
               </div>
@@ -593,7 +593,7 @@ export default function PayoutManagement() {
               {/* Lead Selection Row */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Associated Lead File *
                   </label>
                   <select
@@ -601,7 +601,7 @@ export default function PayoutManagement() {
                     onChange={(e) => handleLeadChange(e.target.value)}
                     required
                     disabled={!formData.partnerId || loadingLeads}
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red disabled:opacity-50"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red disabled:opacity-50"
                   >
                     <option value="">
                       {!formData.partnerId
@@ -622,7 +622,7 @@ export default function PayoutManagement() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Lead Reference ID
                   </label>
                   <input
@@ -630,7 +630,7 @@ export default function PayoutManagement() {
                     value={formData.leadCode}
                     readOnly
                     placeholder="Auto-fetched"
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black/60 border border-brand-border text-brand-grey text-xs font-mono"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg/60 border border-brand-border text-brand-textSecondary text-xs font-mono"
                   />
                 </div>
               </div>
@@ -638,7 +638,7 @@ export default function PayoutManagement() {
               {/* Lead Coordinates Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Customer Name
                   </label>
                   <input
@@ -646,12 +646,12 @@ export default function PayoutManagement() {
                     value={formData.customerName}
                     readOnly
                     placeholder="Auto-fetched"
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black/60 border border-brand-border text-brand-grey text-xs"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg/60 border border-brand-border text-brand-textSecondary text-xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Loan Category
                   </label>
                   <input
@@ -659,7 +659,7 @@ export default function PayoutManagement() {
                     value={formData.loanCategory}
                     readOnly
                     placeholder="Auto-fetched"
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black/60 border border-brand-border text-brand-grey text-xs"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg/60 border border-brand-border text-brand-textSecondary text-xs"
                   />
                 </div>
               </div>
@@ -667,7 +667,7 @@ export default function PayoutManagement() {
               {/* Disbursement Info Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Loan Disbursed Amount (₹) *
                   </label>
                   <input
@@ -678,12 +678,12 @@ export default function PayoutManagement() {
                     onChange={(e) => setFormData({ ...formData, disbursedLoanAmount: e.target.value })}
                     required
                     placeholder="e.g. 1000000"
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red font-mono"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Disbursement Date *
                   </label>
                   <input
@@ -691,7 +691,7 @@ export default function PayoutManagement() {
                     value={formData.disbursementDate}
                     onChange={(e) => setFormData({ ...formData, disbursementDate: e.target.value })}
                     required
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                   />
                 </div>
               </div>
@@ -699,13 +699,13 @@ export default function PayoutManagement() {
               {/* Calculation Type & Rate Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Payout Calculation Type *
                   </label>
                   <select
                     value={formData.commissionType}
                     onChange={(e) => setFormData({ ...formData, commissionType: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                   >
                     <option value="percentage">Percentage (%) of Disbursed Amount</option>
                     <option value="fixed">Fixed Amount (₹)</option>
@@ -713,7 +713,7 @@ export default function PayoutManagement() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     {formData.commissionType === 'percentage' ? 'Payout Rate (% of Disbursed)' : 'Fixed Payout Amount (₹)'} *
                   </label>
                   <input
@@ -724,32 +724,32 @@ export default function PayoutManagement() {
                     onChange={(e) => setFormData({ ...formData, commissionRate: e.target.value })}
                     required
                     placeholder={formData.commissionType === 'percentage' ? 'e.g. 1.5' : 'e.g. 15000'}
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red font-mono"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red font-mono"
                   />
                 </div>
               </div>
 
               {/* Live Financial Calculations Summary Card */}
-              <div className="p-4 rounded-2xl bg-brand-black/70 border border-brand-border/70 space-y-2">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-brand-grey mb-1">
+              <div className="p-4 rounded-2xl bg-brand-bg border border-brand-border space-y-2">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-brand-textSecondary mb-1">
                   Automatic Financial Calculations
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-center">
-                  <div className="p-2.5 rounded-xl bg-brand-dark border border-brand-border/40">
-                    <div className="text-[10px] text-brand-grey font-semibold">Gross Payout</div>
-                    <div className="text-sm font-bold text-white mt-0.5">
+                  <div className="p-2.5 rounded-xl bg-white border border-brand-border">
+                    <div className="text-[10px] text-brand-textSecondary font-semibold">Gross Payout</div>
+                    <div className="text-sm font-bold text-brand-textPrimary mt-0.5">
                       ₹{calculatedGross.toLocaleString('en-IN')}
                     </div>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-brand-dark border border-brand-border/40">
-                    <div className="text-[10px] text-brand-grey font-semibold">TDS (5% Sec 194H)</div>
-                    <div className="text-sm font-bold text-amber-400 mt-0.5">
+                  <div className="p-2.5 rounded-xl bg-white border border-brand-border">
+                    <div className="text-[10px] text-brand-textSecondary font-semibold">TDS (5% Sec 194H)</div>
+                    <div className="text-sm font-bold text-amber-600 mt-0.5">
                       ₹{calculatedTds.toLocaleString('en-IN')}
                     </div>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                    <div className="text-[10px] text-emerald-400 font-semibold">Net Payable</div>
-                    <div className="text-sm font-black text-emerald-400 mt-0.5">
+                  <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                    <div className="text-[10px] text-emerald-700 font-semibold">Net Payable</div>
+                    <div className="text-sm font-black text-emerald-700 mt-0.5">
                       ₹{calculatedNet.toLocaleString('en-IN')}
                     </div>
                   </div>
@@ -759,7 +759,7 @@ export default function PayoutManagement() {
               {/* Payout Date & Initial Status Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Payout Date *
                   </label>
                   <input
@@ -767,18 +767,18 @@ export default function PayoutManagement() {
                     value={formData.payoutDate}
                     onChange={(e) => setFormData({ ...formData, payoutDate: e.target.value })}
                     required
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Payment Status *
                   </label>
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                   >
                     <option value="pending">Pending</option>
                     <option value="processing">Processing</option>
@@ -789,7 +789,7 @@ export default function PayoutManagement() {
 
               {/* Remarks */}
               <div>
-                <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                   Remarks / Notes (Optional)
                 </label>
                 <textarea
@@ -797,7 +797,7 @@ export default function PayoutManagement() {
                   value={formData.remarks}
                   onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
                   placeholder="e.g. Generated upon branch sanction letter verification..."
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red resize-none"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red resize-none"
                 />
               </div>
 
@@ -807,14 +807,14 @@ export default function PayoutManagement() {
                   type="button"
                   onClick={() => setCreateModalOpen(false)}
                   disabled={submittingCreate}
-                  className="flex-1 py-2.5 rounded-xl bg-brand-card border border-brand-border text-xs font-semibold text-white hover:bg-white/5 transition"
+                  className="flex-1 py-2.5 rounded-xl bg-white border border-brand-border text-xs font-semibold text-brand-textPrimary hover:bg-brand-bg transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submittingCreate || !!selectedLeadWarning}
-                  className="flex-1 py-2.5 rounded-xl bg-brand-red hover:bg-brand-redHover disabled:opacity-50 text-white text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20"
+                  className="flex-1 py-2.5 rounded-xl bg-brand-red hover:bg-brand-deepRed disabled:opacity-50 text-white text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm"
                 >
                   {submittingCreate ? (
                     <>
@@ -833,23 +833,23 @@ export default function PayoutManagement() {
 
       {/* OVERRIDE / PAY MODAL */}
       {overrideModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="bg-brand-dark rounded-3xl border border-brand-border max-w-md w-full p-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl border border-brand-border max-w-md w-full p-6 shadow-2xl relative">
             <button
               onClick={() => setOverrideModalOpen(false)}
-              className="absolute top-5 right-5 p-1 rounded-lg text-brand-grey hover:text-white bg-white/5 transition"
+              className="absolute top-5 right-5 p-1 rounded-lg text-brand-textSecondary hover:text-brand-textPrimary bg-brand-bg transition"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-base font-bold text-white mb-1">Commission Override & Settlement</h3>
-            <p className="text-xs text-brand-grey mb-4">
+            <h3 className="text-base font-bold text-brand-textPrimary mb-1">Commission Override & Settlement</h3>
+            <p className="text-xs text-brand-textSecondary mb-4">
               Payout: <span className="font-mono text-brand-red font-bold">{selectedPayout?.payoutNumber}</span>
             </p>
 
             <form onSubmit={handleOverride} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                   Commission Rate (% of ₹{Number(selectedPayout?.disbursedLoanAmount).toLocaleString('en-IN')})
                 </label>
                 <input
@@ -862,30 +862,30 @@ export default function PayoutManagement() {
                     const gross = (selectedPayout.disbursedLoanAmount * Number(r)) / 100;
                     setNetAmount(gross - (gross * 5) / 100);
                   }}
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red font-mono"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-emerald-400 mb-1">
+                <label className="block text-xs font-semibold text-emerald-800 mb-1">
                   Net Payable Amount (INR after TDS)
                 </label>
                 <input
                   type="number"
                   value={netAmount}
                   onChange={(e) => setNetAmount(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-emerald-500/40 text-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-emerald-400 font-mono"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-emerald-200 text-brand-textPrimary text-xs font-bold focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                   Payment Status
                 </label>
                 <select
                   value={payoutStatus}
                   onChange={(e) => setPayoutStatus(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
                 >
                   <option value="pending">Pending</option>
                   <option value="processing">Processing with Bank</option>
@@ -896,7 +896,7 @@ export default function PayoutManagement() {
 
               {(payoutStatus === 'completed' || payoutStatus === 'paid') && (
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                     Bank Transaction / NEFT Reference
                   </label>
                   <input
@@ -904,13 +904,13 @@ export default function PayoutManagement() {
                     value={transactionRef}
                     onChange={(e) => setTransactionRef(e.target.value)}
                     placeholder="e.g. NEFT202611230001"
-                    className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs font-mono uppercase focus:outline-none focus:ring-1 focus:ring-brand-red"
+                    className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs font-mono uppercase focus:outline-none focus:ring-1 focus:ring-brand-red"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-semibold text-brand-lightGrey mb-1">
+                <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
                   Settlement Remarks
                 </label>
                 <textarea
@@ -918,7 +918,7 @@ export default function PayoutManagement() {
                   value={remarks}
                   onChange={(e) => setRemarks(e.target.value)}
                   placeholder="e.g. Processed via HDFC Corporate Net Banking..."
-                  className="w-full px-3 py-2 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red resize-none"
+                  className="w-full px-3 py-2 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red resize-none"
                 />
               </div>
 
@@ -926,13 +926,13 @@ export default function PayoutManagement() {
                 <button
                   type="button"
                   onClick={() => setOverrideModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-xl bg-brand-card border border-brand-border text-xs font-semibold text-white hover:bg-white/5 transition"
+                  className="flex-1 py-2.5 rounded-xl bg-white border border-brand-border text-xs font-semibold text-brand-textPrimary hover:bg-brand-bg transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold transition"
+                  className="flex-1 py-2.5 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-sm"
                 >
                   Confirm Settlement
                 </button>

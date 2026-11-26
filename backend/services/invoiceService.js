@@ -75,24 +75,25 @@ export const generateInvoicePDF = (invoice) => {
 
       doc.pipe(writeStream);
 
-      // Colors
-      const black = '#111111';
-      const brandRed = '#C8102E';
-      const grey = '#555555';
-      const lightGrey = '#F4F4F5';
-      const borderGrey = '#E4E4E7';
+      // Colors matching RealCred Red & White design system
+      const textPrimary = '#242424';
+      const brandRed = '#D71938';
+      const brandDeepRed = '#B5122D';
+      const textSecondary = '#666666';
+      const lightGrey = '#F8F8FA';
+      const borderGrey = '#E5E5E5';
 
       // 1. BRAND HEADER
       doc.rect(40, 40, 515, 6).fill(brandRed);
 
       doc
         .fontSize(22)
-        .fillColor(black)
+        .fillColor(textPrimary)
         .font('Helvetica-Bold')
         .text('REAL', 40, 55, { continued: true })
         .fillColor(brandRed)
         .text('CRED')
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .fontSize(9)
         .font('Helvetica-Bold')
         .text('YOUR LOAN. ONE GUIDED ROUTE.', 40, 80);
@@ -100,7 +101,7 @@ export const generateInvoicePDF = (invoice) => {
       doc
         .fontSize(8)
         .font('Helvetica')
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text('RealCred Technology Private Limited', 40, 95)
         .text('D-9, Ground Floor, Workshala, Vyapar Marg, Block D', 40, 107)
         .text('Noida Sector 3, Noida, Uttar Pradesh 201301, India', 40, 119)
@@ -111,22 +112,22 @@ export const generateInvoicePDF = (invoice) => {
 
       doc
         .fontSize(10)
-        .fillColor(black)
+        .fillColor(textPrimary)
         .font('Helvetica-Bold')
         .text('COMMISSION INVOICE', 370, 65)
         .fontSize(8)
         .font('Helvetica')
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text(`Invoice No: `, 370, 82, { continued: true })
         .font('Helvetica-Bold')
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text(invoice.invoiceNumber)
         .font('Helvetica')
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text(`Date: `, 370, 96, { continued: true })
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text(new Date(invoice.invoiceDate).toLocaleDateString('en-IN'))
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text(`Settlement Status: `, 370, 110, { continued: true })
         .font('Helvetica-Bold')
         .fillColor(invoice.payoutStatus === 'completed' ? '#16A34A' : '#D97706')
@@ -143,11 +144,11 @@ export const generateInvoicePDF = (invoice) => {
         .fillColor(brandRed)
         .text('BILLED TO (CHANNEL PARTNER):', 40, 170)
         .fontSize(10)
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text(invoice.partnerDetails?.partnerName || 'Channel Partner', 40, 185)
         .fontSize(8)
         .font('Helvetica')
-        .fillColor(grey);
+        .fillColor(textSecondary);
 
       let currentY = 198;
       if (invoice.partnerDetails?.businessName) {
@@ -174,23 +175,23 @@ export const generateInvoicePDF = (invoice) => {
         .text('REFERRED LOAN COORDINATES:', 320, 170)
         .fontSize(8)
         .font('Helvetica')
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text('Lead ID: ', 320, 185, { continued: true })
         .font('Helvetica-Bold')
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text(invoice.loanReference?.leadCode || 'N/A')
         .font('Helvetica')
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text('Customer Name: ', 320, 199, { continued: true })
         .font('Helvetica-Bold')
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text(invoice.loanReference?.customerName || 'N/A')
         .font('Helvetica')
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text('Loan Category: ', 320, 213, { continued: true })
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text(invoice.loanReference?.loanCategory || 'N/A')
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text('Bank Disbursed Amount: ', 320, 227, { continued: true })
         .font('Helvetica-Bold')
         .fillColor('#16A34A')
@@ -198,7 +199,7 @@ export const generateInvoicePDF = (invoice) => {
 
       // 3. FINANCIAL LINE ITEMS TABLE
       const tableTop = 270;
-      doc.rect(40, tableTop, 515, 24).fill(black);
+      doc.rect(40, tableTop, 515, 24).fill(brandRed);
 
       doc
         .fontSize(8)
@@ -213,14 +214,14 @@ export const generateInvoicePDF = (invoice) => {
       doc
         .fontSize(8)
         .font('Helvetica-Bold')
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text('Loan Sourcing & Facilitation Commission', 50, tableTop + 30)
         .font('Helvetica')
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .fontSize(7)
         .text(`Calculated on bank disbursement of INR ${Number(invoice.loanReference?.disbursedLoanAmount || 0).toLocaleString('en-IN')}`, 50, tableTop + 42)
         .fontSize(8)
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text(`${invoice.financialSummary?.commissionRate}%`, 350, tableTop + 33, { width: 50, align: 'center' })
         .font('Helvetica-Bold')
         .text(`INR ${Number(invoice.financialSummary?.grossCommissionAmount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, 430, tableTop + 33, { width: 115, align: 'right' });
@@ -241,7 +242,7 @@ export const generateInvoicePDF = (invoice) => {
       doc
         .fontSize(10)
         .font('Helvetica-Bold')
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text('NET COMMISSION PAYABLE', 50, tableTop + 86)
         .fillColor('#16A34A')
         .text(`INR ${Number(invoice.financialSummary?.totalPayable || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, 430, tableTop + 85, { width: 115, align: 'right' });
@@ -251,11 +252,11 @@ export const generateInvoicePDF = (invoice) => {
       doc
         .fontSize(8)
         .font('Helvetica-Bold')
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text('TAX & STATUTORY NOTES:', 40, noteTop)
         .font('Helvetica')
         .fontSize(7)
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text('1. Tax Deducted at Source (TDS) is calculated at the rate of 5% in accordance with Section 194H of the Indian Income Tax Act, 1961.', 40, noteTop + 14)
         .text('2. TDS certificate (Form 16A) will be issued quarterly against the registered PAN of the Channel Partner.', 40, noteTop + 24)
         .text('3. This document is a computer-generated billing statement issued by RealCred Technology Private Limited and requires no physical signature.', 40, noteTop + 34);
@@ -264,11 +265,11 @@ export const generateInvoicePDF = (invoice) => {
       doc
         .fontSize(8)
         .font('Helvetica-Bold')
-        .fillColor(black)
+        .fillColor(textPrimary)
         .text('For RealCred Technology Private Limited', 360, noteTop + 60, { width: 195, align: 'right' })
         .font('Helvetica')
         .fontSize(7)
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text('Authorized Finance Signatory', 360, noteTop + 100, { width: 195, align: 'right' });
 
       // Bottom Brand Footer
@@ -276,7 +277,7 @@ export const generateInvoicePDF = (invoice) => {
         .rect(40, 770, 515, 1)
         .fill(borderGrey)
         .fontSize(7)
-        .fillColor(grey)
+        .fillColor(textSecondary)
         .text('RealCred Technology Private Limited | CIN: Verified Fintech | https://realcred.in', 40, 778, {
           align: 'center',
           width: 515,

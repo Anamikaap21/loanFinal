@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { ShieldAlert } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
+import Logo from '../components/common/Logo.jsx';
 
 export const ProtectedRoute = ({ allowedRoles = [], children }) => {
   const { user, isAuthenticated, loading, role, logout } = useAuth();
@@ -9,9 +10,10 @@ export const ProtectedRoute = ({ allowedRoles = [], children }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-brand-black flex flex-col items-center justify-center text-white">
-        <div className="w-10 h-10 border-3 border-brand-red border-t-transparent rounded-full animate-spin mb-4"></div>
-        <p className="text-sm font-medium text-brand-grey">Authenticating RealCred Session...</p>
+      <div className="min-h-screen bg-brand-bg flex flex-col items-center justify-center text-brand-textPrimary">
+        <Logo withLink={false} size="lg" className="mb-6" />
+        <div className="w-8 h-8 border-3 border-brand-red border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p className="text-sm font-semibold text-brand-textSecondary">Authenticating RealCred Session...</p>
       </div>
     );
   }

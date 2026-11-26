@@ -127,41 +127,41 @@ export default function WebsiteManagement() {
     <div className="space-y-6 max-w-4xl">
       {/* Top Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-red/10 text-brand-red border border-brand-red/20 mb-2">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-2">
           <Globe className="w-3.5 h-3.5" />
           <span>RealCred Dynamic CMS Controller</span>
         </div>
-        <h2 className="text-2xl font-black text-white">Website Management (CMS)</h2>
-        <p className="text-xs text-brand-grey">
+        <h2 className="text-2xl font-black text-brand-textPrimary">Website Management (CMS)</h2>
+        <p className="text-xs text-brand-textSecondary">
           Update public homepage headlines, company tagline, official contact numbers, corporate address, and corporate vision statements in real-time.
         </p>
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center gap-3 text-xs text-white">
+        <div className="p-4 rounded-2xl bg-brand-redLight border border-brand-red/30 flex items-center gap-3 text-xs text-brand-red">
           <AlertCircle className="w-4 h-4 text-brand-red shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3 text-xs text-emerald-400">
-          <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-3 text-xs text-emerald-800">
+          <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Brand & Hero Identity */}
-        <div className="bg-brand-dark rounded-3xl border border-brand-border/60 p-6 space-y-4">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2">
+        <div className="bg-white rounded-3xl border border-brand-border shadow-sm p-6 space-y-4">
+          <h3 className="text-sm font-bold text-brand-textPrimary flex items-center gap-2">
             <Building2 className="w-4 h-4 text-brand-red" />
             Brand Tagline & Hero Banners
           </h3>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Official Company Tagline
               </label>
               <input
@@ -169,12 +169,12 @@ export default function WebsiteManagement() {
                 name="tagline"
                 value={formData.tagline}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red font-medium"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Homepage Hero Heading
               </label>
               <input
@@ -182,12 +182,12 @@ export default function WebsiteManagement() {
                 name="heroTitle"
                 value={formData.heroTitle}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Homepage Subheading
               </label>
               <input
@@ -195,22 +195,22 @@ export default function WebsiteManagement() {
                 name="heroSubheading"
                 value={formData.heroSubheading}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
               />
             </div>
           </div>
         </div>
 
         {/* Official Contact Coordinates */}
-        <div className="bg-brand-dark rounded-3xl border border-brand-border/60 p-6 space-y-4">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2">
+        <div className="bg-white rounded-3xl border border-brand-border shadow-sm p-6 space-y-4">
+          <h3 className="text-sm font-bold text-brand-textPrimary flex items-center gap-2">
             <Phone className="w-4 h-4 text-brand-red" />
             Corporate Communications & Coordinates
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Primary Helpline
               </label>
               <input
@@ -218,12 +218,12 @@ export default function WebsiteManagement() {
                 name="phone1"
                 value={formData.phone1}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Secondary Helpline
               </label>
               <input
@@ -231,12 +231,12 @@ export default function WebsiteManagement() {
                 name="phone2"
                 value={formData.phone2}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Official Contact Email
               </label>
               <input
@@ -244,12 +244,12 @@ export default function WebsiteManagement() {
                 name="email1"
                 value={formData.email1}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Support Desk Email
               </label>
               <input
@@ -257,12 +257,12 @@ export default function WebsiteManagement() {
                 name="email2"
                 value={formData.email2}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Headquarters Address (Rendered in Navbar, Footer, and Contact Page)
               </label>
               <textarea
@@ -270,7 +270,7 @@ export default function WebsiteManagement() {
                 name="fullAddress"
                 value={formData.fullAddress}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-red resize-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red resize-none"
               />
             </div>
           </div>
@@ -281,7 +281,7 @@ export default function WebsiteManagement() {
           <button
             type="submit"
             disabled={saving}
-            className="px-6 py-3 rounded-xl bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold transition shadow-lg shadow-brand-red/20 flex items-center gap-2 disabled:opacity-50"
+            className="px-6 py-3 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition shadow-lg shadow-brand-red/20 flex items-center gap-2 disabled:opacity-50"
           >
             {saving ? (
               <>

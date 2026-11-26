@@ -50,29 +50,29 @@ export default function Products() {
     <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 sm:space-y-12 min-w-0 max-w-full">
       {/* Header Banner */}
       <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-card border border-brand-border/60 text-xs text-brand-grey mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-brand-border text-xs text-brand-textSecondary mb-4 shadow-sm">
           <Sparkles className="w-4 h-4 text-brand-red" />
           <span>Tailored Credit Portfolios</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-          Our Loan <span className="gradient-text-red">Products</span>
+        <h1 className="text-4xl sm:text-5xl font-black text-brand-textPrimary tracking-tight leading-tight">
+          Our Loan <span className="text-brand-red">Products</span>
         </h1>
-        <p className="mt-3 text-sm sm:text-base text-brand-grey max-w-2xl mx-auto">
+        <p className="mt-3 text-sm sm:text-base text-brand-textSecondary max-w-2xl mx-auto">
           Explore our complete range of institutional credit solutions tailored for individual borrowers and expanding enterprises.
         </p>
       </div>
 
       {/* Loading State */}
       {loading ? (
-        <div className="py-24 text-center text-brand-grey">
+        <div className="py-24 text-center text-brand-textSecondary">
           <div className="w-8 h-8 border-2 border-brand-red border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-xs">Fetching active loan products from RealCred database...</p>
         </div>
       ) : categories.length === 0 ? (
-        <div className="py-20 text-center glass-card rounded-3xl border border-brand-cardBorder max-w-md mx-auto p-8">
+        <div className="py-20 text-center bg-white rounded-3xl border border-brand-border max-w-md mx-auto p-8 shadow-sm">
           <CreditCard className="w-10 h-10 text-brand-red mx-auto mb-3" />
-          <h3 className="text-lg font-bold text-white mb-1">No Loan Products Available</h3>
-          <p className="text-xs text-brand-grey">Please check back soon or contact our customer desk.</p>
+          <h3 className="text-lg font-bold text-brand-textPrimary mb-1">No Loan Products Available</h3>
+          <p className="text-xs text-brand-textSecondary">Please check back soon or contact our customer desk.</p>
         </div>
       ) : (
         /* Compact Product Cards Grid */
@@ -84,28 +84,28 @@ export default function Products() {
             return (
               <div
                 key={product._id}
-                className="bg-[#19191B] rounded-2xl border border-white/10 p-5 sm:p-6 flex flex-col justify-between hover:border-brand-red/40 hover:-translate-y-1 transition duration-300 shadow-xl group min-w-0 h-full"
+                className="bg-white rounded-2xl border border-brand-border p-5 sm:p-6 flex flex-col justify-between hover:border-brand-red/50 hover:shadow-lg hover:-translate-y-1 transition duration-300 shadow-sm group min-w-0 h-full"
               >
                 {/* Top Section: Icon, Name & One-line Description */}
                 <div className="min-w-0">
-                  <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/20 text-brand-red flex items-center justify-center mb-4 group-hover:scale-105 group-hover:bg-brand-red group-hover:text-white transition duration-300 shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-brand-redLight border border-brand-red/20 text-brand-red flex items-center justify-center mb-4 group-hover:scale-105 group-hover:bg-brand-red group-hover:text-white transition duration-300 shrink-0">
                     <IconComponent className="w-6 h-6" />
                   </div>
 
-                  <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-brand-red transition break-words [overflow-wrap:anywhere] [word-break:break-word]">
+                  <h3 className="text-lg sm:text-xl font-bold text-brand-textPrimary group-hover:text-brand-red transition break-words [overflow-wrap:anywhere] [word-break:break-word]">
                     {product.name}
                   </h3>
 
-                  <p className="text-xs text-brand-grey leading-relaxed mt-2 line-clamp-3 break-words [overflow-wrap:anywhere] [word-break:break-word]">
+                  <p className="text-xs text-brand-textSecondary leading-relaxed mt-2 line-clamp-3 break-words [overflow-wrap:anywhere] [word-break:break-word]">
                     {shortDescription}
                   </p>
                 </div>
 
                 {/* Bottom Section: Two Action Buttons ONLY */}
-                <div className="pt-5 mt-5 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 min-w-0">
+                <div className="pt-5 mt-5 border-t border-brand-border grid grid-cols-1 sm:grid-cols-2 gap-2.5 min-w-0">
                   <Link
                     to={`/products/${product.slug}`}
-                    className="py-2.5 px-3 rounded-xl bg-brand-card hover:bg-white/10 text-white text-xs font-bold uppercase tracking-wider border border-brand-border transition text-center flex items-center justify-center gap-1.5 min-w-0"
+                    className="py-2.5 px-3 rounded-xl bg-white hover:bg-brand-redLight text-brand-textPrimary hover:text-brand-red text-xs font-bold uppercase tracking-wider border border-brand-border transition text-center flex items-center justify-center gap-1.5 min-w-0 shadow-sm"
                   >
                     <span className="truncate">View Details</span>
                     <ChevronRight className="w-3.5 h-3.5 shrink-0" />
@@ -113,7 +113,7 @@ export default function Products() {
 
                   <Link
                     to={`/apply-loan?category=${product._id}`}
-                    className="py-2.5 px-3 rounded-xl bg-brand-red hover:bg-brand-redAccent text-white text-xs font-bold uppercase tracking-wider transition shadow-md shadow-brand-red/20 text-center flex items-center justify-center gap-1.5 min-w-0"
+                    className="py-2.5 px-3 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold uppercase tracking-wider transition shadow-sm shadow-brand-red/20 text-center flex items-center justify-center gap-1.5 min-w-0"
                   >
                     <span className="truncate">Apply Now</span>
                     <ArrowRight className="w-3.5 h-3.5 shrink-0" />

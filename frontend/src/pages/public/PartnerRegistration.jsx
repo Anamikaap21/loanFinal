@@ -128,74 +128,74 @@ export default function PartnerRegistration() {
   };
 
   return (
-    <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto min-w-0 max-w-full">
-      <div className="glass-card p-6 sm:p-10 rounded-2xl border border-brand-cardBorder shadow-2xl min-w-0">
+    <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto min-w-0 max-w-full bg-brand-bg">
+      <div className="bg-white p-6 sm:p-10 rounded-2xl border border-brand-border shadow-md min-w-0">
         {/* Header */}
-        <div className="text-center mb-8 pb-6 border-b border-white/5">
-          <div className="inline-flex p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
+        <div className="text-center mb-8 pb-6 border-b border-brand-border">
+          <div className="inline-flex p-3 rounded-xl bg-brand-redLight text-brand-red border border-brand-red/20 mb-3">
             <Briefcase className="w-6 h-6" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Register as a <span className="gradient-text-red">Channel Partner</span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-brand-textPrimary">
+            Register as a <span className="text-brand-red">Channel Partner</span>
           </h1>
-          <p className="mt-2 text-xs sm:text-sm text-brand-grey max-w-xl mx-auto">
+          <p className="mt-2 text-xs sm:text-sm text-brand-textSecondary max-w-xl mx-auto">
             Join the RealCred Direct Selling Agent (DSA) Network. Submit your profile, bank details, and KYC credentials for Admin verification.
           </p>
         </div>
 
         {/* Error Alert */}
         {error && (
-          <div className="mb-6 p-4 rounded-xl bg-red-950/40 border border-brand-red/40 text-red-200 text-xs flex items-start gap-3">
+          <div className="mb-6 p-4 rounded-xl bg-red-50 border border-brand-red/30 text-brand-red text-xs flex items-start gap-3">
             <AlertCircle className="w-4 h-4 text-brand-red shrink-0 mt-0.5" />
-            <div className="leading-relaxed">{error}</div>
+            <div className="leading-relaxed font-medium">{error}</div>
           </div>
         )}
 
         {/* Registration Success Confirmation Screen */}
         {success ? (
           <div className="space-y-6 text-center py-6">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400 shadow-lg shadow-emerald-500/10">
+            <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto text-emerald-600 shadow-sm">
               <CheckCircle2 className="w-10 h-10" />
             </div>
 
             <div className="space-y-2 max-w-xl mx-auto">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Verification Pending</span>
               </span>
 
-              <h2 className="text-xl sm:text-2xl font-black text-white">
+              <h2 className="text-xl sm:text-2xl font-black text-brand-textPrimary">
                 Registration Submitted Successfully
               </h2>
 
-              <p className="text-sm text-brand-lightGrey leading-relaxed">
+              <p className="text-sm text-brand-textSecondary leading-relaxed">
                 Your registration has been submitted successfully. Your KYC documents are pending Admin verification. Your Partner CRM account will be activated after approval.
               </p>
             </div>
 
             {/* Registration Details Card */}
-            <div className="max-w-md mx-auto p-4 rounded-2xl bg-brand-black/60 border border-brand-border/60 text-left space-y-2.5 font-mono text-xs">
-              <div className="flex items-center justify-between pb-2 border-b border-white/5">
-                <span className="text-brand-grey">Registration ID:</span>
-                <span className="text-emerald-400 font-bold text-sm tracking-wider">
+            <div className="max-w-md mx-auto p-4 rounded-2xl bg-brand-bg border border-brand-border text-left space-y-2.5 font-mono text-xs shadow-sm">
+              <div className="flex items-center justify-between pb-2 border-b border-brand-border">
+                <span className="text-brand-textSecondary">Registration ID:</span>
+                <span className="text-brand-red font-bold text-sm tracking-wider">
                   {submittedInfo?.registrationId || 'PREG-PENDING'}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-brand-grey">Partner DSA Code:</span>
-                <span className="text-white font-bold">
+                <span className="text-brand-textSecondary">Partner DSA Code:</span>
+                <span className="text-brand-textPrimary font-bold">
                   {submittedInfo?.partnerCode || 'RCP-PENDING'}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-brand-grey">Account Status:</span>
-                <span className="text-amber-400 font-bold uppercase">
+                <span className="text-brand-textSecondary">Account Status:</span>
+                <span className="text-amber-700 font-bold uppercase">
                   {submittedInfo?.accountStatus || 'INACTIVE'} (Pending Approval)
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-brand-grey">KYC Review:</span>
-                <span className="text-blue-400 font-bold">
+                <span className="text-brand-textSecondary">KYC Review:</span>
+                <span className="text-brand-red font-bold">
                   Sent to Admin Verification Desk
                 </span>
               </div>
@@ -204,14 +204,14 @@ export default function PartnerRegistration() {
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 to="/login?role=partner"
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold transition flex items-center justify-center gap-2 shadow-md shadow-brand-red/25"
               >
                 <span>Partner CRM Login</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/"
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-dark border border-brand-border hover:bg-white/5 text-brand-lightGrey hover:text-white text-xs font-semibold transition flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white border border-brand-border hover:bg-brand-redLight text-brand-textPrimary hover:text-brand-red text-xs font-semibold transition flex items-center justify-center gap-2 shadow-sm"
               >
                 <Home className="w-4 h-4" />
                 <span>Return to Homepage</span>
@@ -223,9 +223,9 @@ export default function PartnerRegistration() {
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* 1. Personal & Contact Details */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 pb-2 border-b border-white/5">
-                <User className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+              <div className="flex items-center gap-2 pb-2 border-b border-brand-border">
+                <User className="w-4 h-4 text-brand-red" />
+                <h3 className="text-xs font-bold text-brand-textPrimary uppercase tracking-wider">
                   1. Personal & Contact Information
                 </h3>
               </div>
@@ -233,7 +233,7 @@ export default function PartnerRegistration() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Full Name */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Full Name *
                   </label>
                   <input
@@ -243,13 +243,13 @@ export default function PartnerRegistration() {
                     onChange={handleChange}
                     placeholder="e.g. Ramesh Chandra"
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 {/* Mobile Number */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Mobile Number *
                   </label>
                   <input
@@ -259,13 +259,13 @@ export default function PartnerRegistration() {
                     onChange={handleChange}
                     placeholder="10-digit mobile number"
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 {/* Email Address */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Email Address *
                   </label>
                   <input
@@ -275,13 +275,13 @@ export default function PartnerRegistration() {
                     onChange={handleChange}
                     placeholder="partner@example.com"
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 {/* Business / Firm Name */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Business / Firm Name (Optional)
                   </label>
                   <input
@@ -290,13 +290,13 @@ export default function PartnerRegistration() {
                     value={formData.businessName}
                     onChange={handleChange}
                     placeholder="e.g. Chandra Financials"
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 {/* City */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     City *
                   </label>
                   <input
@@ -306,13 +306,13 @@ export default function PartnerRegistration() {
                     onChange={handleChange}
                     placeholder="e.g. Noida / Delhi"
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 {/* State */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     State
                   </label>
                   <input
@@ -321,13 +321,13 @@ export default function PartnerRegistration() {
                     value={formData.state}
                     onChange={handleChange}
                     placeholder="e.g. Uttar Pradesh"
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 {/* PAN Number */}
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     PAN Card Number *
                   </label>
                   <input
@@ -338,7 +338,7 @@ export default function PartnerRegistration() {
                     placeholder="ABCDE1234F"
                     maxLength={10}
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs uppercase font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs uppercase font-mono focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
               </div>
@@ -346,9 +346,9 @@ export default function PartnerRegistration() {
 
             {/* 2. Mandatory Bank Details */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 pb-2 border-b border-white/5">
-                <Landmark className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+              <div className="flex items-center gap-2 pb-2 border-b border-brand-border">
+                <Landmark className="w-4 h-4 text-brand-red" />
+                <h3 className="text-xs font-bold text-brand-textPrimary uppercase tracking-wider">
                   2. Mandatory Bank Account Details (For Payouts)
                 </h3>
               </div>
@@ -356,7 +356,7 @@ export default function PartnerRegistration() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Account Holder Name */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Account Holder Name *
                   </label>
                   <input
@@ -366,13 +366,13 @@ export default function PartnerRegistration() {
                     onChange={handleChange}
                     placeholder="As registered in bank passbook"
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 {/* Bank Name */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Bank Name *
                   </label>
                   <input
@@ -382,13 +382,13 @@ export default function PartnerRegistration() {
                     onChange={handleChange}
                     placeholder="e.g. HDFC Bank / ICICI Bank"
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 {/* Bank Account Number */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Bank Account Number *
                   </label>
                   <input
@@ -398,13 +398,13 @@ export default function PartnerRegistration() {
                     onChange={handleChange}
                     placeholder="Enter account number"
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs font-mono focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 {/* IFSC Code */}
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     IFSC Code *
                   </label>
                   <input
@@ -415,7 +415,7 @@ export default function PartnerRegistration() {
                     placeholder="e.g. HDFC0001234"
                     maxLength={11}
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs uppercase font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs uppercase font-mono focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
               </div>
@@ -423,9 +423,9 @@ export default function PartnerRegistration() {
 
             {/* 3. Mandatory KYC Documents Uploads */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 pb-2 border-b border-white/5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+              <div className="flex items-center gap-2 pb-2 border-b border-brand-border">
+                <ShieldCheck className="w-4 h-4 text-brand-red" />
+                <h3 className="text-xs font-bold text-brand-textPrimary uppercase tracking-wider">
                   3. Mandatory Partner KYC Documents
                 </h3>
               </div>
@@ -437,23 +437,23 @@ export default function PartnerRegistration() {
                 setPanFile={setPanFile}
                 bankProofFile={bankProofFile}
                 setBankProofFile={setBankProofFile}
-                accentColor="emerald"
+                accentColor="red"
                 isOptional={false}
               />
             </div>
 
             {/* 4. Password & Security Credentials */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 pb-2 border-b border-white/5">
-                <Lock className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+              <div className="flex items-center gap-2 pb-2 border-b border-brand-border">
+                <Lock className="w-4 h-4 text-brand-red" />
+                <h3 className="text-xs font-bold text-brand-textPrimary uppercase tracking-wider">
                   4. Partner CRM Login Credentials
                 </h3>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Password *
                   </label>
                   <input
@@ -463,12 +463,12 @@ export default function PartnerRegistration() {
                     onChange={handleChange}
                     placeholder="Min 6 characters"
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-lightGrey mb-1.5">
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                     Confirm Password *
                   </label>
                   <input
@@ -478,7 +478,7 @@ export default function PartnerRegistration() {
                     onChange={handleChange}
                     placeholder="Re-enter password"
                     required
-                    className="w-full px-4 py-2.5 rounded-xl bg-brand-black/60 border border-brand-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red shadow-sm"
                   />
                 </div>
               </div>
@@ -488,7 +488,7 @@ export default function PartnerRegistration() {
             <button
               type="submit"
               disabled={loading || success}
-              className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-emerald-600/25 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-3.5 px-4 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-brand-red/25 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? (
                 <div className="flex items-center gap-2">
@@ -503,9 +503,9 @@ export default function PartnerRegistration() {
               )}
             </button>
 
-            <div className="text-center text-xs text-brand-grey pt-4 border-t border-white/5">
+            <div className="text-center text-xs text-brand-textSecondary pt-4 border-t border-brand-border">
               Already have an active Channel Partner account?{' '}
-              <Link to="/login?role=partner" className="text-emerald-400 font-bold hover:underline">
+              <Link to="/login?role=partner" className="text-brand-red font-bold hover:underline">
                 Login here
               </Link>
             </div>

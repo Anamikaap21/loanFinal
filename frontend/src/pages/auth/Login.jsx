@@ -13,6 +13,7 @@ import {
   EyeOff
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
+import Logo from '../../components/common/Logo.jsx';
 
 const roleMeta = {
   admin: {
@@ -126,27 +127,15 @@ export default function Login() {
   const Icon = currentMeta.icon;
 
   return (
-    <div className="min-h-screen bg-brand-black text-white flex flex-col justify-between selection:bg-brand-red selection:text-white">
+    <div className="min-h-screen bg-brand-bg text-brand-textPrimary flex flex-col justify-between selection:bg-brand-red selection:text-white">
       {/* Top Bar */}
-      <header className="border-b border-brand-border/40 bg-brand-dark/90 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-brand-border bg-white sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-red flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-brand-red/20">
-              RC
-            </div>
-            <div>
-              <div className="text-xl font-extrabold tracking-tight text-white flex items-center gap-1">
-                REAL<span className="text-brand-red">CRED</span>
-              </div>
-              <div className="text-[10px] text-brand-grey font-medium tracking-wider uppercase">
-                Your Loan. One Guided Route.
-              </div>
-            </div>
-          </Link>
+          <Logo variant="light" size="md" />
 
           <Link
             to="/crm-login"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-brand-grey hover:text-white px-3.5 py-1.5 rounded-lg border border-brand-border/50 hover:border-brand-grey/50 transition"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-brand-textSecondary hover:text-brand-red px-3.5 py-1.5 rounded-lg border border-brand-border bg-white hover:border-brand-red/30 transition shadow-sm"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Back to Role Selection
@@ -156,49 +145,49 @@ export default function Login() {
 
       {/* Main Login Area */}
       <main className="max-w-md w-full mx-auto px-4 py-12 flex-1 flex flex-col justify-center min-w-0 max-w-full">
-        <div className="glass-card p-6 sm:p-8 rounded-2xl border border-brand-cardBorder shadow-2xl min-w-0 max-w-full">
+        <div className="bg-white p-6 sm:p-8 rounded-2xl border border-brand-border shadow-lg min-w-0 max-w-full">
           {/* Active Role Header */}
-          <div className="flex items-center justify-between pb-6 border-b border-white/5 mb-6">
+          <div className="flex items-center justify-between pb-6 border-b border-brand-border mb-6">
             <div className="flex items-center gap-3">
-              <div className={`p-2.5 rounded-xl border ${currentMeta.color}`}>
+              <div className="p-2.5 rounded-xl bg-brand-redLight text-brand-red border border-brand-red/20">
                 <Icon className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-black/40 border border-white/10 text-brand-grey">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-brand-bg border border-brand-border text-brand-textSecondary">
                   {currentMeta.badge}
                 </span>
-                <h2 className="text-lg font-bold text-white mt-1">{currentMeta.title}</h2>
+                <h2 className="text-lg font-bold text-brand-textPrimary mt-1">{currentMeta.title}</h2>
               </div>
             </div>
             <Link
               to="/crm-login"
-              className="inline-flex items-center gap-1 text-xs text-brand-redAccent hover:text-white font-semibold transition"
+              className="inline-flex items-center gap-1 text-xs text-brand-red hover:underline font-semibold transition"
             >
               <ArrowLeft className="w-3 h-3" />
               <span>Back</span>
             </Link>
           </div>
 
-          <p className="text-xs text-brand-grey mb-6 leading-relaxed">
+          <p className="text-xs text-brand-textSecondary mb-6 leading-relaxed">
             {currentMeta.description}
           </p>
 
           {/* Error Banner */}
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-950/40 border border-brand-red/40 text-red-200 text-xs flex items-start gap-3">
+            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-brand-red/30 text-brand-red text-xs flex items-start gap-3">
               <AlertCircle className="w-4 h-4 text-brand-red shrink-0 mt-0.5" />
-              <div className="leading-relaxed">{error}</div>
+              <div className="leading-relaxed font-medium">{error}</div>
             </div>
           )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs font-semibold text-brand-lightGrey uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-brand-textPrimary uppercase tracking-wider mb-2">
                 {currentMeta.identifierLabel}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-brand-grey">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-brand-textSecondary">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
@@ -209,19 +198,19 @@ export default function Login() {
                   placeholder={currentMeta.identifierPlaceholder}
                   required
                   autoFocus
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-brand-black/60 border border-brand-border text-white text-sm placeholder-brand-grey/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-sm placeholder:text-brand-textSecondary/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition shadow-sm"
                 />
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-semibold text-brand-lightGrey uppercase tracking-wider">
+                <label className="text-xs font-semibold text-brand-textPrimary uppercase tracking-wider">
                   Password
                 </label>
               </div>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-brand-grey">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-brand-textSecondary">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
@@ -231,12 +220,12 @@ export default function Login() {
                   onChange={handleChange}
                   placeholder="Enter your account password"
                   required
-                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-brand-black/60 border border-brand-border text-white text-sm placeholder-brand-grey/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition"
+                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-sm placeholder:text-brand-textSecondary/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition shadow-sm"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-brand-grey hover:text-white transition"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-brand-textSecondary hover:text-brand-textPrimary transition"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -246,7 +235,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 px-4 rounded-xl bg-brand-red hover:bg-brand-redAccent text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-brand-red/25 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3.5 px-4 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-brand-red/25 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -264,11 +253,11 @@ export default function Login() {
 
           {/* Quick Links for Partners */}
           {activeRole === 'partner' && (
-            <div className="mt-6 pt-6 border-t border-white/5 text-center">
-              <span className="text-xs text-brand-grey">Not registered as a partner yet? </span>
+            <div className="mt-6 pt-6 border-t border-brand-border text-center">
+              <span className="text-xs text-brand-textSecondary">Not registered as a partner yet? </span>
               <Link
                 to="/partner-registration"
-                className="text-xs font-bold text-brand-redAccent hover:underline"
+                className="text-xs font-bold text-brand-red hover:underline"
               >
                 Register Now
               </Link>
@@ -278,7 +267,7 @@ export default function Login() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-brand-border/40 py-6 text-center text-xs text-brand-grey">
+      <footer className="border-t border-brand-border bg-white py-6 text-center text-xs text-brand-textSecondary">
         <p>&copy; {new Date().getFullYear()} RealCred Technology Private Limited. Official Domain: https://realcred.in</p>
       </footer>
     </div>

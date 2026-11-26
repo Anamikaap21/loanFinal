@@ -164,41 +164,41 @@ export default function EmployeeCreateLead() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/25 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-redLight text-brand-red border border-brand-red/20 mb-2">
             <PlusCircle className="w-3.5 h-3.5" />
             <span>Direct Lead Sourcing</span>
           </div>
-          <h2 className="text-2xl font-black text-white">Create Customer Lead</h2>
-          <p className="text-xs text-brand-grey mt-0.5">
+          <h2 className="text-2xl font-black text-brand-textPrimary">Create Customer Lead</h2>
+          <p className="text-xs text-brand-textSecondary mt-0.5">
             Log a new loan application file sourced directly by you. The file will be assigned directly to your desk.
           </p>
         </div>
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center gap-3 text-xs text-white">
+        <div className="p-4 rounded-2xl bg-brand-redLight border border-brand-red/30 flex items-center gap-3 text-xs text-brand-red">
           <AlertCircle className="w-4 h-4 text-brand-red shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3 text-xs text-emerald-400">
-          <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-3 text-xs text-emerald-700">
+          <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-brand-dark p-6 sm:p-8 rounded-3xl border border-brand-border/60 shadow-xl space-y-6">
+      <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-3xl border border-brand-border shadow-sm space-y-6">
         {/* Section 1: Customer Details */}
         <div>
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-            <User className="w-4 h-4 text-blue-400" />
+          <h3 className="text-sm font-bold text-brand-textPrimary uppercase tracking-wider mb-4 flex items-center gap-2">
+            <User className="w-4 h-4 text-brand-red" />
             <span>1. Customer Personal Details</span>
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Full Customer Name <span className="text-brand-red">*</span>
               </label>
               <input
@@ -207,12 +207,12 @@ export default function EmployeeCreateLead() {
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="e.g. Rahul Sharma"
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Mobile Number (10 Digits) <span className="text-brand-red">*</span>
               </label>
               <input
@@ -222,12 +222,12 @@ export default function EmployeeCreateLead() {
                 placeholder="e.g. 9876543210"
                 maxLength={10}
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Email Address (Optional)
               </label>
               <input
@@ -235,12 +235,12 @@ export default function EmployeeCreateLead() {
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 placeholder="e.g. rahul@example.com"
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 PAN Card Number (Optional)
               </label>
               <input
@@ -249,12 +249,12 @@ export default function EmployeeCreateLead() {
                 onChange={(e) => setPanNumber(e.target.value.toUpperCase())}
                 placeholder="ABCDE1234F"
                 maxLength={10}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey uppercase focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary uppercase focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white font-mono"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Customer City / Location <span className="text-brand-red">*</span>
               </label>
               <input
@@ -263,27 +263,27 @@ export default function EmployeeCreateLead() {
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="e.g. Mumbai, Maharashtra"
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
           </div>
         </div>
 
         {/* Section 2: Employment Profile */}
-        <div className="pt-4 border-t border-brand-border/40">
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-            <Briefcase className="w-4 h-4 text-blue-400" />
+        <div className="pt-4 border-t border-brand-border">
+          <h3 className="text-sm font-bold text-brand-textPrimary uppercase tracking-wider mb-4 flex items-center gap-2">
+            <Briefcase className="w-4 h-4 text-brand-red" />
             <span>2. Employment & Income</span>
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Employment Type <span className="text-brand-red">*</span>
               </label>
               <select
                 value={employmentType}
                 onChange={(e) => setEmploymentType(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               >
                 <option value="Salaried">Salaried</option>
                 <option value="Self-Employed Professional">Self-Employed Professional</option>
@@ -295,7 +295,7 @@ export default function EmployeeCreateLead() {
 
             {employmentType === 'Other' && (
               <div>
-                <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+                <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                   Employment Details <span className="text-brand-red">*</span>
                 </label>
                 <input
@@ -303,13 +303,13 @@ export default function EmployeeCreateLead() {
                   value={otherEmploymentDetails}
                   onChange={(e) => setOtherEmploymentDetails(e.target.value)}
                   placeholder="Specify employment (e.g. Freelancer, Consultant)"
-                  className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Net Monthly In-Hand Income (₹)
               </label>
               <input
@@ -318,21 +318,21 @@ export default function EmployeeCreateLead() {
                 onChange={(e) => setMonthlyIncome(e.target.value)}
                 placeholder="e.g. 75000"
                 min={0}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
           </div>
         </div>
 
         {/* Section 3: Loan Requirement */}
-        <div className="pt-4 border-t border-brand-border/40">
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-            <CreditCard className="w-4 h-4 text-blue-400" />
+        <div className="pt-4 border-t border-brand-border">
+          <h3 className="text-sm font-bold text-brand-textPrimary uppercase tracking-wider mb-4 flex items-center gap-2">
+            <CreditCard className="w-4 h-4 text-brand-red" />
             <span>3. Loan Facility & Target Institution</span>
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Loan Category <span className="text-brand-red">*</span>
               </label>
               <select
@@ -340,7 +340,7 @@ export default function EmployeeCreateLead() {
                 onChange={(e) => setLoanCategory(e.target.value)}
                 disabled={loadingConfig}
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               >
                 {categories.map((cat) => (
                   <option key={cat._id} value={cat._id}>
@@ -351,7 +351,7 @@ export default function EmployeeCreateLead() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Required Loan Amount (₹) <span className="text-brand-red">*</span>
               </label>
               <input
@@ -361,18 +361,18 @@ export default function EmployeeCreateLead() {
                 placeholder="e.g. 2500000"
                 min={10000}
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Preferred Lending Partner (Optional)
               </label>
               <select
                 value={preferredBank}
                 onChange={(e) => setPreferredBank(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white"
               >
                 <option value="">Any Suitable Lending Bank / NBFC</option>
                 {banks.map((b) => (
@@ -384,7 +384,7 @@ export default function EmployeeCreateLead() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-brand-grey mb-1.5">
+              <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
                 Internal Underwriting Remarks (Optional)
               </label>
               <textarea
@@ -392,14 +392,14 @@ export default function EmployeeCreateLead() {
                 onChange={(e) => setRemarks(e.target.value)}
                 placeholder="Any special customer notes, bureau score, or eligibility observations..."
                 rows={3}
-                className="w-full px-4 py-2.5 rounded-xl bg-brand-black border border-brand-border text-white text-xs placeholder:text-brand-grey focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-bg border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary focus:outline-none focus:ring-1 focus:ring-brand-red focus:bg-white resize-none"
               />
             </div>
           </div>
         </div>
 
         {/* Section 4: Mandatory KYC Verification Documents */}
-        <div className="pt-4 border-t border-brand-border/40">
+        <div className="pt-4 border-t border-brand-border">
           <KycDocumentUploadFields
             aadhaarFile={aadhaarFile}
             setAadhaarFile={setAadhaarFile}
@@ -407,17 +407,17 @@ export default function EmployeeCreateLead() {
             setPanFile={setPanFile}
             bankProofFile={bankProofFile}
             setBankProofFile={setBankProofFile}
-            accentColor="blue"
+            accentColor="red"
             isOptional={false}
           />
         </div>
 
         {/* Submit Button */}
-        <div className="pt-4 border-t border-brand-border/40 flex justify-end">
+        <div className="pt-4 border-t border-brand-border flex justify-end">
           <button
             type="submit"
             disabled={submitting || loadingConfig}
-            className="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition shadow-lg shadow-blue-600/25 flex items-center gap-2 disabled:opacity-50"
+            className="px-6 py-3 rounded-2xl bg-brand-red hover:bg-brand-deepRed text-white font-bold text-xs transition shadow-sm flex items-center gap-2 disabled:opacity-50"
           >
             {submitting ? (
               <>

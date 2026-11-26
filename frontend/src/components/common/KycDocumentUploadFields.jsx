@@ -100,16 +100,16 @@ export default function KycDocumentUploadFields({
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-white/5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-brand-border">
         <div>
-          <div className="text-xs font-bold text-white flex items-center gap-2">
+          <div className="text-xs font-bold text-brand-textPrimary flex items-center gap-2">
             <Upload className={`w-4 h-4 ${accentClasses.icon}`} />
             <span>KYC & Verification Documents</span>
             <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${accentClasses.badge}`}>
               {isOptional ? 'Optional at Submission' : '3 Required Documents'}
             </span>
           </div>
-          <p className="text-[11px] text-brand-grey mt-0.5">
+          <p className="text-[11px] text-brand-textSecondary mt-0.5">
             Supported formats: PDF, JPG, JPEG, PNG (Max 10MB per document).
           </p>
         </div>
@@ -119,42 +119,42 @@ export default function KycDocumentUploadFields({
         {docs.map((doc) => (
           <div
             key={doc.id}
-            className={`p-3.5 rounded-2xl bg-brand-black/60 border transition-all ${
+            className={`p-3.5 rounded-2xl bg-white border transition-all shadow-sm ${
               doc.file
-                ? `${accentClasses.activeBorder} bg-white/[0.02]`
-                : `border-brand-border/60 ${accentClasses.borderHover}`
+                ? `${accentClasses.activeBorder} bg-brand-redLight/20`
+                : `border-brand-border hover:border-brand-red/50`
             }`}
           >
             <div className="flex items-start justify-between gap-2 mb-2">
               <div>
-                <span className="text-xs font-bold text-white block">
+                <span className="text-xs font-bold text-brand-textPrimary block">
                   {doc.label} {doc.required && <span className="text-brand-red">*</span>}
                 </span>
-                <span className="text-[10px] text-brand-grey block mt-0.5">
+                <span className="text-[10px] text-brand-textSecondary block mt-0.5">
                   {doc.sublabel}
                 </span>
               </div>
               {doc.file ? (
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
               ) : (
-                <FileText className="w-4 h-4 text-brand-grey shrink-0 mt-0.5" />
+                <FileText className="w-4 h-4 text-brand-textSecondary shrink-0 mt-0.5" />
               )}
             </div>
 
             {doc.file ? (
-              <div className="mt-3 p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between gap-2">
+              <div className="mt-3 p-2.5 rounded-xl bg-brand-bg border border-brand-border flex items-center justify-between gap-2">
                 <div className="truncate">
-                  <div className="text-xs font-medium text-white truncate">
+                  <div className="text-xs font-medium text-brand-textPrimary truncate">
                     {doc.file.name}
                   </div>
-                  <div className="text-[10px] text-brand-grey">
+                  <div className="text-[10px] text-brand-textSecondary">
                     {formatFileSize(doc.file.size)}
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => doc.setFile(null)}
-                  className="p-1 rounded-lg hover:bg-white/10 text-brand-grey hover:text-brand-red transition-colors shrink-0"
+                  className="p-1 rounded-lg hover:bg-brand-redLight text-brand-textSecondary hover:text-brand-red transition-colors shrink-0"
                   title="Remove file"
                 >
                   <X className="w-4 h-4" />
@@ -168,8 +168,8 @@ export default function KycDocumentUploadFields({
                   onChange={(e) => handleFileSelection(e, doc.setFile)}
                   className="hidden"
                 />
-                <div className="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-dashed border-white/20 text-center transition-colors">
-                  <span className="text-xs text-brand-lightGrey font-medium flex items-center justify-center gap-1.5">
+                <div className="w-full py-2 px-3 rounded-xl bg-brand-bg hover:bg-brand-redLight border border-dashed border-brand-border hover:border-brand-red text-center transition-colors">
+                  <span className="text-xs text-brand-textSecondary hover:text-brand-red font-medium flex items-center justify-center gap-1.5">
                     <Upload className="w-3.5 h-3.5" />
                     <span>Choose File</span>
                   </span>
