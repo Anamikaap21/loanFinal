@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
+import React, { useState } from "react";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import {
   Building2,
   Menu,
@@ -9,28 +9,28 @@ import {
   Phone,
   Mail,
   MapPin,
-  ShieldCheck
-} from 'lucide-react';
-import Logo from '../components/common/Logo.jsx';
+  ShieldCheck,
+} from "lucide-react";
+import Logo from "../components/common/Logo.jsx";
 
 export default function PublicLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'About Us', path: '/about' },
-    { label: 'Our Products', path: '/products' },
-    { label: 'Our Team', path: '/team' },
-    { label: 'EMI Calculator', path: '/#emi-calculator' },
-    { label: 'Check Eligibility', path: '/eligibility' },
-    { label: 'Partner With Us', path: '/partner-registration' },
-    { label: 'Contact Us', path: '/contact' },
+    { label: "Home", path: "/" },
+    { label: "About Us", path: "/about" },
+    { label: "Our Products", path: "/products" },
+    { label: "Our Team", path: "/team" },
+    { label: "EMI Calculator", path: "/#emi-calculator" },
+    { label: "Check Eligibility", path: "/eligibility" },
+    { label: "Partner With Us", path: "/partner-registration" },
+    { label: "Contact Us", path: "/contact" },
   ];
 
   const isActive = (path) => {
-    if (path.startsWith('/#')) {
-      return location.pathname === '/' && location.hash === path.substring(1);
+    if (path.startsWith("/#")) {
+      return location.pathname === "/" && location.hash === path.substring(1);
     }
     return location.pathname === path;
   };
@@ -46,7 +46,7 @@ export default function PublicLayout() {
       const el = document.getElementById(targetId);
       if (el) {
         setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth' });
+          el.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
     }
@@ -60,16 +60,26 @@ export default function PublicLayout() {
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5 hover:text-brand-red transition">
               <Phone className="w-3.5 h-3.5 text-brand-red" />
-              <span className="font-medium text-brand-textPrimary">7048976349 / 8527710939</span>
+              <span className="font-medium text-brand-textPrimary">
+                7048976349 / 8527710939
+              </span>
             </span>
             <span className="flex items-center gap-1.5 hover:text-brand-red transition">
               <Mail className="w-3.5 h-3.5 text-brand-red" />
-              <span className="font-medium text-brand-textPrimary">info@realcred.in</span>
+              <span className="font-medium text-brand-textPrimary">
+                info@realcred.in
+              </span>
+              <Mail className="w-3.5 h-3.5 text-brand-red" />
+              <span className="font-medium text-brand-textPrimary">
+                customercare@realcred.in
+              </span>
             </span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span className="font-medium">Corporate Loan Distribution & Banking Solutions</span>
+            <span className="font-medium">
+              Corporate Loan Distribution & Banking Solutions
+            </span>
           </div>
         </div>
       </div>
@@ -86,10 +96,11 @@ export default function PublicLayout() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-[13px] 2xl:text-sm font-semibold tracking-normal whitespace-nowrap transition-colors py-1 ${isActive(link.path)
-                  ? 'text-brand-red font-bold border-b-2 border-brand-red pb-1'
-                  : 'text-brand-textSecondary hover:text-brand-red'
-                  }`}
+                className={`text-[13px] 2xl:text-sm font-semibold tracking-normal whitespace-nowrap transition-colors py-1 ${
+                  isActive(link.path)
+                    ? "text-brand-red font-bold border-b-2 border-brand-red pb-1"
+                    : "text-brand-textSecondary hover:text-brand-red"
+                }`}
               >
                 {link.label}
               </Link>
@@ -135,10 +146,18 @@ export default function PublicLayout() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-label={
+                mobileMenuOpen
+                  ? "Close navigation menu"
+                  : "Open navigation menu"
+              }
               className="p-2 sm:p-2.5 rounded-xl bg-white text-brand-textSecondary hover:text-brand-red hover:bg-brand-redLight border border-brand-border focus:outline-none transition shadow-sm shrink-0 cursor-pointer"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              ) : (
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -151,10 +170,11 @@ export default function PublicLayout() {
                 key={link.path}
                 to={link.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block py-2.5 px-3 rounded-xl text-sm font-semibold transition ${isActive(link.path)
-                  ? 'bg-brand-redLight text-brand-red font-bold'
-                  : 'text-brand-textSecondary hover:bg-slate-50 hover:text-brand-red'
-                  }`}
+                className={`block py-2.5 px-3 rounded-xl text-sm font-semibold transition ${
+                  isActive(link.path)
+                    ? "bg-brand-redLight text-brand-red font-bold"
+                    : "text-brand-textSecondary hover:bg-slate-50 hover:text-brand-red"
+                }`}
               >
                 {link.label}
               </Link>
@@ -211,51 +231,163 @@ export default function PublicLayout() {
                 <Logo variant="dark" size="md" />
               </div>
               <p className="text-xs text-slate-300 mb-3 leading-relaxed">
-                RealCred Technology Private Limited is a corporate loan distribution company connecting customers with suitable banking & NBFC solutions.
+                RealCred Technology Private Limited is a corporate loan
+                distribution company connecting customers with suitable banking
+                & NBFC solutions.
               </p>
               <p className="text-[11px] font-semibold text-slate-200 mb-4">
                 Tagline: Your Loan. One Guided Route.
               </p>
               <div className="pt-3 border-t border-slate-800 text-[11px] text-slate-400">
-                <span className="text-slate-200 font-medium">Lending Network:</span> Partnered with 30+ leading Banks & premier NBFCs across India.
+                <span className="text-slate-200 font-medium">
+                  Lending Network:
+                </span>{" "}
+                Partnered with 30+ leading Banks & premier NBFCs across India.
               </div>
             </div>
 
             {/* Col 2: Quick Links / Portals */}
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Quick Navigation</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+                Quick Navigation
+              </h4>
               <ul className="space-y-2.5 text-xs">
-                <li><Link to="/about" className="text-slate-300 hover:text-brand-red transition-colors">About RealCred</Link></li>
-                <li><Link to="/products" className="text-slate-300 hover:text-brand-red transition-colors">Loan Products</Link></li>
-                <li><Link to="/team" className="text-slate-300 hover:text-brand-red transition-colors">Our Leadership Team</Link></li>
-                <li><Link to="/#emi-calculator" className="text-slate-300 hover:text-brand-red transition-colors">EMI Calculator</Link></li>
-                <li><Link to="/eligibility" className="text-slate-300 hover:text-brand-red transition-colors font-medium text-brand-red">Check Loan Eligibility</Link></li>
-                <li><Link to="/privacy-policy" className="text-slate-300 hover:text-brand-red transition-colors font-medium">Privacy Policy</Link></li>
-                <li><Link to="/partner-registration" className="text-slate-300 hover:text-brand-red transition-colors">Become a Channel Partner</Link></li>
-                <li><Link to="/crm-login" className="text-slate-300 hover:text-brand-red transition-colors font-semibold">CRM Access Portal</Link></li>
+                <li>
+                  <Link
+                    to="/about"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    About RealCred
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/products"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    Loan Products
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/team"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    Our Leadership Team
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/#emi-calculator"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    EMI Calculator
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/eligibility"
+                    className="text-slate-300 hover:text-brand-red transition-colors font-medium text-brand-red"
+                  >
+                    Check Loan Eligibility
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/privacy-policy"
+                    className="text-slate-300 hover:text-brand-red transition-colors font-medium"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/partner-registration"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    Become a Channel Partner
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/crm-login"
+                    className="text-slate-300 hover:text-brand-red transition-colors font-semibold"
+                  >
+                    CRM Access Portal
+                  </Link>
+                </li>
               </ul>
             </div>
 
             {/* Col 3: Loan Products */}
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Loan Solutions</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+                Loan Solutions
+              </h4>
               <ul className="space-y-2.5 text-xs">
-                <li><Link to="/products" className="text-slate-300 hover:text-brand-red transition-colors">Home Loan</Link></li>
-                <li><Link to="/products" className="text-slate-300 hover:text-brand-red transition-colors">Loan Against Property</Link></li>
-                <li><Link to="/products" className="text-slate-300 hover:text-brand-red transition-colors">Business Loan</Link></li>
-                <li><Link to="/products" className="text-slate-300 hover:text-brand-red transition-colors">Personal Loan</Link></li>
-                <li><Link to="/products" className="text-slate-300 hover:text-brand-red transition-colors">OD – Overdraft Facility</Link></li>
-                <li><Link to="/products" className="text-slate-300 hover:text-brand-red transition-colors">Education Loan</Link></li>
+                <li>
+                  <Link
+                    to="/products"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    Home Loan
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/products"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    Loan Against Property
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/products"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    Business Loan
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/products"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    Personal Loan
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/products"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    OD – Overdraft Facility
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/products"
+                    className="text-slate-300 hover:text-brand-red transition-colors"
+                  >
+                    Education Loan
+                  </Link>
+                </li>
               </ul>
             </div>
 
             {/* Col 4: Corporate Office */}
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Corporate Office</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+                Corporate Office
+              </h4>
               <div className="space-y-3 text-xs mb-5">
                 <div className="flex items-start gap-2.5">
                   <MapPin className="w-4 h-4 text-brand-red shrink-0 mt-0.5" />
-                  <span className="text-slate-300 leading-relaxed">D-9, Ground Floor, Workshala, Vyapar Marg, Block D, Noida Sector 3, Noida, UP 201301</span>
+                  <span className="text-slate-300 leading-relaxed">
+                    D-9, Ground Floor, Workshala, Vyapar Marg, Block D, Noida
+                    Sector 3, Noida, UP 201301
+                  </span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Phone className="w-4 h-4 text-brand-red shrink-0" />
@@ -264,6 +396,10 @@ export default function PublicLayout() {
                 <div className="flex items-center gap-2.5">
                   <Mail className="w-4 h-4 text-brand-red shrink-0" />
                   <span className="text-slate-300">info@realcred.in</span>
+                  <Mail className="w-4 h-4 text-brand-red shrink-0" />
+                  <span className="text-slate-300">
+                    customercare@realcred.in
+                  </span>
                 </div>
               </div>
 
@@ -279,13 +415,33 @@ export default function PublicLayout() {
           </div>
 
           <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-slate-400">
-            <p>&copy; {new Date().getFullYear()} RealCred Technology Private Limited. All rights reserved.</p>
+            <p>
+              &copy; {new Date().getFullYear()} RealCred Technology Private
+              Limited. All rights reserved.
+            </p>
             <div className="flex items-center gap-4">
-              <Link to="/privacy-policy" className="text-slate-300 hover:text-brand-red transition-colors font-medium">Privacy Policy</Link>
+              <Link
+                to="/privacy-policy"
+                className="text-slate-300 hover:text-brand-red transition-colors font-medium"
+              >
+                Privacy Policy
+              </Link>
               <span>•</span>
-              <Link to="/contact" className="text-slate-300 hover:text-brand-red transition-colors">Contact Us</Link>
+              <Link
+                to="/contact"
+                className="text-slate-300 hover:text-brand-red transition-colors"
+              >
+                Contact Us
+              </Link>
               <span>•</span>
-              <a href="https://realcred.in" target="_blank" rel="noreferrer" className="text-white hover:text-brand-red font-medium transition-colors">realcred.in</a>
+              <a
+                href="https://realcred.in"
+                target="_blank"
+                rel="noreferrer"
+                className="text-white hover:text-brand-red font-medium transition-colors"
+              >
+                realcred.in
+              </a>
             </div>
           </div>
         </div>

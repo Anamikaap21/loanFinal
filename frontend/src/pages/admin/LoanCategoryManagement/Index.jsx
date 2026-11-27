@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Layers, 
-  Plus, 
-  Search, 
-  Edit3, 
-  Trash2, 
-  CheckCircle, 
-  XCircle, 
-  AlertCircle, 
+import {
+  Layers,
+  Plus,
+  Search,
+  Edit3,
+  Trash2,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
   X,
   AlertTriangle,
   Home,
@@ -82,9 +82,14 @@ export default function LoanCategoryManagement() {
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
+    shortName: '',
     tagline: '',
     description: '',
     iconName: 'CreditCard',
+    baseInterestRate: '',
+    maximumFacility: '',
+    maximumTenure: '',
+    processingTime: '',
     minAmount: 50000,
     maxAmount: 50000000,
     minInterestRate: 8.5,
@@ -96,6 +101,7 @@ export default function LoanCategoryManagement() {
     features: '',
     eligibility: '',
     requiredDocuments: '',
+    documentChecklist: '',
   });
 
   // Delete Confirmation Modal State
@@ -127,9 +133,14 @@ export default function LoanCategoryManagement() {
     setFormData({
       name: '',
       slug: '',
+      shortName: '',
       tagline: '',
       description: '',
       iconName: 'CreditCard',
+      baseInterestRate: '',
+      maximumFacility: '',
+      maximumTenure: '',
+      processingTime: '',
       minAmount: 50000,
       maxAmount: 50000000,
       minInterestRate: 8.5,
@@ -141,6 +152,7 @@ export default function LoanCategoryManagement() {
       features: '',
       eligibility: '',
       requiredDocuments: '',
+      documentChecklist: '',
     });
     setModalOpen(true);
   };
@@ -150,9 +162,14 @@ export default function LoanCategoryManagement() {
     setFormData({
       name: cat.name || '',
       slug: cat.slug || '',
+      shortName: cat.shortName || '',
       tagline: cat.tagline || '',
       description: cat.description || '',
       iconName: cat.iconName || 'CreditCard',
+      baseInterestRate: cat.baseInterestRate || '',
+      maximumFacility: cat.maximumFacility || '',
+      maximumTenure: cat.maximumTenure || '',
+      processingTime: cat.processingTime || '',
       minAmount: cat.minAmount ?? 50000,
       maxAmount: cat.maxAmount ?? 50000000,
       minInterestRate: cat.minInterestRate ?? (cat.interestRateRange?.min ?? 8.5),
@@ -164,6 +181,7 @@ export default function LoanCategoryManagement() {
       features: Array.isArray(cat.features) ? cat.features.join('\n') : '',
       eligibility: Array.isArray(cat.eligibility) ? cat.eligibility.join('\n') : '',
       requiredDocuments: Array.isArray(cat.requiredDocuments) ? cat.requiredDocuments.join('\n') : '',
+      documentChecklist: Array.isArray(cat.documentChecklist) ? cat.documentChecklist.join('\n') : '',
     });
     setModalOpen(true);
   };
@@ -204,9 +222,14 @@ export default function LoanCategoryManagement() {
       const payload = {
         name: formData.name.trim(),
         slug: formData.slug.trim(),
+        shortName: formData.shortName.trim(),
         tagline: formData.tagline.trim(),
         description: formData.description.trim(),
         iconName: formData.iconName,
+        baseInterestRate: formData.baseInterestRate.trim(),
+        maximumFacility: formData.maximumFacility.trim(),
+        maximumTenure: formData.maximumTenure.trim(),
+        processingTime: formData.processingTime.trim(),
         minAmount: Number(formData.minAmount) || 0,
         maxAmount: Number(formData.maxAmount) || 0,
         minInterestRate: Number(formData.minInterestRate) || 0,
@@ -223,6 +246,9 @@ export default function LoanCategoryManagement() {
           : [],
         requiredDocuments: formData.requiredDocuments
           ? formData.requiredDocuments.split(/\r?\n/).map(s => s.trim()).filter(Boolean)
+          : [],
+        documentChecklist: formData.documentChecklist
+          ? formData.documentChecklist.split(/\r?\n/).map(s => s.trim()).filter(Boolean)
           : [],
       };
 
@@ -400,6 +426,16 @@ export default function LoanCategoryManagement() {
                             <IconComp className="w-4 h-4" />
                           </div>
                           <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5 mb-1 flex-wrap">
+                              {cat.shortName && (
+                                <span className="font-mono text-[10px] font-bold text-white bg-brand-red px-1.5 py-0.5 rounded shadow-sm">
+                                  {cat.shortName}
+                                </span>
+                              )}
+                              <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                                {cat.documentChecklist?.length || cat.requiredDocuments?.length || 0} Docs
+                              </span>
+                            </div>
                             <span className="font-bold text-brand-textPrimary block break-words [overflow-wrap:anywhere]">{cat.name}</span>
                             <span className="text-[10px] text-brand-textSecondary font-mono block break-all">
                               /products/{cat.slug}
@@ -413,23 +449,24 @@ export default function LoanCategoryManagement() {
                         </div>
                       </td>
                       <td className="py-3.5 px-4 font-mono text-brand-textPrimary whitespace-nowrap">
-                        {formatCurrency(cat.minAmount)} - {formatCurrency(cat.maxAmount)}
+                        <div className="font-bold">{cat.maximumFacility || formatCurrency(cat.maxAmount)}</div>
+                        <div className="text-[10px] text-brand-textSecondary">{formatCurrency(cat.minAmount)} min</div>
                       </td>
                       <td className="py-3.5 px-4 font-mono text-brand-textPrimary whitespace-nowrap">
-                        {minRate}% - {maxRate}%
+                        <div className="font-bold">{cat.baseInterestRate || `${minRate}% - ${maxRate}%`}</div>
                       </td>
                       <td className="py-3.5 px-4 font-mono text-brand-textPrimary whitespace-nowrap">
-                        {Math.round((cat.minTenureMonths || 12) / 12)} - {Math.round((cat.maxTenureMonths || 360) / 12)} Yrs
+                        <div className="font-bold">{cat.maximumTenure || `${Math.round((cat.maxTenureMonths || 360) / 12)} Yrs`}</div>
+                        <div className="text-[10px] text-brand-red font-semibold">{cat.processingTime || '2-7 Days'}</div>
                       </td>
                       <td className="py-3.5 px-4 whitespace-nowrap">
                         <button
                           onClick={() => toggleStatus(cat)}
                           title="Click to toggle Active / Inactive"
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition ${
-                            isCatActive
-                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
-                              : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
-                          }`}
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition ${isCatActive
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                            : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
+                            }`}
                         >
                           {isCatActive ? (
                             <>
@@ -449,11 +486,10 @@ export default function LoanCategoryManagement() {
                           <button
                             onClick={() => toggleStatus(cat)}
                             title={isCatActive ? 'Hide from public website' : 'Make live on public website'}
-                            className={`p-1.5 rounded-lg border transition ${
-                              isCatActive
-                                ? 'bg-white border-brand-border text-brand-textSecondary hover:text-brand-red hover:bg-brand-redLight'
-                                : 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
-                            }`}
+                            className={`p-1.5 rounded-lg border transition ${isCatActive
+                              ? 'bg-white border-brand-border text-brand-textSecondary hover:text-brand-red hover:bg-brand-redLight'
+                              : 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
+                              }`}
                           >
                             {isCatActive ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                           </button>
@@ -506,8 +542,8 @@ export default function LoanCategoryManagement() {
 
             {/* Modal Form */}
             <form onSubmit={handleSubmit} className="p-6 space-y-5 max-h-[80vh] overflow-y-auto">
-              {/* Category Name & Slug */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Category Name, Short Name & Slug */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-brand-textPrimary mb-1.5">
                     Category Name <span className="text-brand-red">*</span>
@@ -524,7 +560,20 @@ export default function LoanCategoryManagement() {
 
                 <div>
                   <label className="block text-xs font-bold text-brand-textPrimary mb-1.5">
-                    URL Slug <span className="text-brand-textSecondary font-normal">(Auto-generated or custom)</span>
+                    Short Name <span className="text-brand-red font-mono">(PL, BL, HL, LAP)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.shortName}
+                    onChange={(e) => setFormData(prev => ({ ...prev, shortName: e.target.value.toUpperCase() }))}
+                    placeholder="e.g. HL"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs uppercase font-mono placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-brand-textPrimary mb-1.5">
+                    URL Slug <span className="text-brand-textSecondary font-normal">(Auto/custom)</span>
                   </label>
                   <input
                     type="text"
@@ -532,6 +581,58 @@ export default function LoanCategoryManagement() {
                     onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
                     placeholder="e.g. home-loan"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red font-mono"
+                  />
+                </div>
+              </div>
+
+              {/* High-Level Parameters Display Strings */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-2xl bg-brand-bg border border-brand-border">
+                <div>
+                  <label className="block text-[11px] font-bold text-brand-textPrimary mb-1">
+                    Base Interest Display
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.baseInterestRate}
+                    onChange={(e) => setFormData(prev => ({ ...prev, baseInterestRate: e.target.value }))}
+                    placeholder="e.g. 7.10% - 12.5%"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-brand-textPrimary mb-1">
+                    Maximum Facility
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.maximumFacility}
+                    onChange={(e) => setFormData(prev => ({ ...prev, maximumFacility: e.target.value }))}
+                    placeholder="e.g. ₹50 Crores"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-brand-textPrimary mb-1">
+                    Maximum Tenure
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.maximumTenure}
+                    onChange={(e) => setFormData(prev => ({ ...prev, maximumTenure: e.target.value }))}
+                    placeholder="e.g. 30 Years"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-brand-textPrimary mb-1">
+                    Processing Turnaround
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.processingTime}
+                    onChange={(e) => setFormData(prev => ({ ...prev, processingTime: e.target.value }))}
+                    placeholder="e.g. 10 Days"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                   />
                 </div>
               </div>
@@ -714,6 +815,20 @@ export default function LoanCategoryManagement() {
                   value={formData.eligibility}
                   onChange={(e) => setFormData(prev => ({ ...prev, eligibility: e.target.value }))}
                   placeholder="Salaried individuals with min monthly income ₹25,000&#10;Self-employed professionals with min 2 yrs business vintage&#10;Minimum credit score of 650+"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red font-mono text-[11px]"
+                />
+              </div>
+
+              {/* Document Checklist for Verification */}
+              <div>
+                <label className="block text-xs font-bold text-brand-textPrimary mb-1">
+                  Official Document Checklist <span className="text-brand-red font-semibold">(One document requirement per line)</span>
+                </label>
+                <textarea
+                  rows={4}
+                  value={formData.documentChecklist}
+                  onChange={(e) => setFormData(prev => ({ ...prev, documentChecklist: e.target.value }))}
+                  placeholder="PAN Card & Aadhaar Card&#10;Last 3 Months Salary Slips&#10;Last 6 Months Bank Statement&#10;Property Title Deeds & Chain of Title (30 Years)"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/60 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red font-mono text-[11px]"
                 />
               </div>

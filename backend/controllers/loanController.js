@@ -88,6 +88,11 @@ export const getHomepageProducts = async (req, res, next) => {
         maxTenureYears: maxYears,
         processingFeeDetails: fee,
         status: bank.status,
+        category: bank.category || 'Private Banks',
+        roi: bank.roi || `${minRate}% – ${maxRate}% p.a.`,
+        maxLTV: bank.maxLTV || '75%',
+        maxTenure: bank.maxTenure || `Up to ${maxYears} Years`,
+        processingTime: bank.processingTime || '10-15 days',
         features: [
           `Interest rates starting from ${minRate}% p.a.`,
           `Flexible repayment tenure up to ${maxYears} years`,

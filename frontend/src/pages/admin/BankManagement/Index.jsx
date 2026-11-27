@@ -20,6 +20,7 @@ export default function BankManagement() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [categoryFilter, setCategoryFilter] = useState('all');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -31,12 +32,17 @@ export default function BankManagement() {
     bankCode: '',
     logoUrl: '',
     description: '',
+    category: 'Private Banks',
+    roi: '',
+    maxLTV: '',
+    maxTenure: '',
+    processingTime: '',
     contactPerson: '',
     email: '',
     phone: '',
     minROI: 8.5,
     maxROI: 14.5,
-    maxTenure: 360,
+    maxTenureMonths: 360,
     processingFee: 'Up to 1% + GST',
     status: 'active',
   });
@@ -49,7 +55,7 @@ export default function BankManagement() {
   const fetchBanks = async () => {
     try {
       setLoading(true);
-      const res = await adminService.getBanks({ search, status: statusFilter });
+      const res = await adminService.getBanks({ search, status: statusFilter, category: categoryFilter });
       if (res.status === 'success') {
         setBanks(res.data);
       }
@@ -63,7 +69,7 @@ export default function BankManagement() {
 
   useEffect(() => {
     fetchBanks();
-  }, [search, statusFilter]);
+  }, [search, statusFilter, categoryFilter]);
 
   const openCreateModal = () => {
     setEditingBank(null);
@@ -72,12 +78,17 @@ export default function BankManagement() {
       bankCode: '',
       logoUrl: '',
       description: '',
+      category: 'Private Banks',
+      roi: '',
+      maxLTV: '',
+      maxTenure: '',
+      processingTime: '',
       contactPerson: '',
       email: '',
       phone: '',
       minROI: 8.5,
       maxROI: 14.5,
-      maxTenure: 360,
+      maxTenureMonths: 360,
       processingFee: 'Up to 1% + GST',
       status: 'active',
     });
@@ -91,12 +102,17 @@ export default function BankManagement() {
       bankCode: bank.bankCode,
       logoUrl: bank.logoUrl || '',
       description: bank.description || '',
+      category: bank.category || 'Private Banks',
+      roi: bank.roi || '',
+      maxLTV: bank.maxLTV || '',
+      maxTenure: bank.maxTenure || '',
+      processingTime: bank.processingTime || '',
       contactPerson: bank.contactDetails?.contactPerson || '',
       email: bank.contactDetails?.email || '',
       phone: bank.contactDetails?.phone || '',
       minROI: bank.interestRateRange?.min ?? 8.5,
       maxROI: bank.interestRateRange?.max ?? 14.5,
-      maxTenure: bank.maxTenureMonths ?? 360,
+      maxTenureMonths: bank.maxTenureMonths ?? 360,
       processingFee: bank.processingFeeDetails || 'Up to 1% + GST',
       status: bank.status || 'active',
     });
@@ -124,6 +140,11 @@ export default function BankManagement() {
         bankCode: formData.bankCode.trim().toUpperCase(),
         logoUrl: formData.logoUrl.trim(),
         description: formData.description.trim(),
+        category: formData.category,
+        roi: formData.roi.trim(),
+        maxLTV: formData.maxLTV.trim(),
+        maxTenure: formData.maxTenure.trim(),
+        processingTime: formData.processingTime.trim(),
         contactDetails: {
           contactPerson: formData.contactPerson.trim(),
           email: formData.email.trim().toLowerCase(),
@@ -133,7 +154,7 @@ export default function BankManagement() {
           min: Number(formData.minROI),
           max: Number(formData.maxROI),
         },
-        maxTenureMonths: Number(formData.maxTenure),
+        maxTenureMonths: Number(formData.maxTenureMonths),
         processingFeeDetails: formData.processingFee.trim(),
         status: formData.status,
       };
@@ -258,6 +279,17 @@ export default function BankManagement() {
             <option value="active">Active Only</option>
             <option value="inactive">Inactive Only</option>
           </select>
+
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+          >
+            <option value="all">All Categories</option>
+            <option value="PSU Banks">PSU Banks</option>
+            <option value="Private Banks">Private Banks</option>
+            <option value="NBFCs">NBFCs</option>
+          </select>
         </div>
 
         <div className="text-xs text-brand-textSecondary self-end sm:self-center">
@@ -271,9 +303,10 @@ export default function BankManagement() {
           <table className="w-full text-left text-xs min-w-[760px]">
             <thead className="bg-brand-bg text-brand-textSecondary uppercase tracking-wider font-semibold border-b border-brand-border">
               <tr>
-                <th className="py-3.5 px-4 w-[220px]">Bank Name & Code</th>
-                <th className="py-3.5 px-4 whitespace-nowrap">ROI Range</th>
-                <th className="py-3.5 px-4 whitespace-nowrap">Max Tenure</th>
+                <th className="py-3.5 px-4 w-[200px]">Bank Name & Code</th>
+                <th className="py-3.5 px-4 whitespace-nowrap">Category</th>
+                <th className="py-3.5 px-4 whitespace-nowrap">ROI & Max LTV</th>
+                <th className="py-3.5 px-4 whitespace-nowrap">Tenure & Turnaround</th>
                 <th className="py-3.5 px-4 whitespace-nowrap">Processing Fee</th>
                 <th className="py-3.5 px-4">Contact Officer</th>
                 <th className="py-3.5 px-4 whitespace-nowrap">Status</th>
@@ -283,14 +316,14 @@ export default function BankManagement() {
             <tbody className="divide-y divide-brand-border text-brand-textSecondary">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-brand-textSecondary">
+                  <td colSpan={8} className="py-8 text-center text-brand-textSecondary">
                     <div className="w-6 h-6 border-2 border-brand-red border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                     Loading banking partners...
                   </td>
                 </tr>
               ) : banks.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-brand-textSecondary">
+                  <td colSpan={8} className="py-8 text-center text-brand-textSecondary">
                     No banking partners found matching criteria.
                   </td>
                 </tr>
@@ -319,11 +352,32 @@ export default function BankManagement() {
                         </div>
                       </div>
                     </td>
-                    <td className="py-3.5 px-4 font-semibold text-brand-textPrimary">
-                      {bank.interestRateRange?.min ?? 8.5}% – {bank.interestRateRange?.max ?? 14.0}% p.a.
+                    <td className="py-3.5 px-4 whitespace-nowrap">
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${
+                        bank.category === 'PSU Banks'
+                          ? 'bg-blue-50 text-blue-700 border-blue-200'
+                          : bank.category === 'NBFCs'
+                          ? 'bg-amber-50 text-amber-700 border-amber-200'
+                          : 'bg-purple-50 text-purple-700 border-purple-200'
+                      }`}>
+                        {bank.category || 'Private Banks'}
+                      </span>
                     </td>
-                    <td className="py-3.5 px-4 text-brand-textSecondary">
-                      Up to {Math.round((bank.maxTenureMonths || 360) / 12)} Years ({bank.maxTenureMonths || 360} Mos)
+                    <td className="py-3.5 px-4 whitespace-nowrap">
+                      <div className="font-semibold text-brand-textPrimary">
+                        {bank.roi || `${bank.interestRateRange?.min ?? 8.5}% – ${bank.interestRateRange?.max ?? 14.0}%`}
+                      </div>
+                      <div className="text-[11px] font-medium text-emerald-700">
+                        Max LTV: {bank.maxLTV || '75%'}
+                      </div>
+                    </td>
+                    <td className="py-3.5 px-4 text-brand-textSecondary whitespace-nowrap">
+                      <div className="font-medium text-brand-textPrimary">
+                        {bank.maxTenure || `Up to ${Math.round((bank.maxTenureMonths || 360) / 12)} Years`}
+                      </div>
+                      <div className="text-[11px] text-brand-red font-semibold">
+                        {bank.processingTime || '10-15 days'}
+                      </div>
                     </td>
                     <td className="py-3.5 px-4 text-brand-textSecondary">
                       {bank.processingFeeDetails || 'Standard'}
@@ -439,6 +493,60 @@ export default function BankManagement() {
                     onChange={(e) => setFormData({ ...formData, bankCode: e.target.value })}
                     placeholder="e.g. HDFC"
                     className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs uppercase font-mono focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
+                    Institution Category <span className="text-brand-red">*</span>
+                  </label>
+                  <select
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+                  >
+                    <option value="PSU Banks">PSU Banks (10)</option>
+                    <option value="Private Banks">Private Banks (10)</option>
+                    <option value="NBFCs">NBFCs (17)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
+                    ROI Range Display
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.roi}
+                    onChange={(e) => setFormData({ ...formData, roi: e.target.value })}
+                    placeholder="e.g. 7.25% - 8.00%"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
+                    Max LTV Ratio
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.maxLTV}
+                    onChange={(e) => setFormData({ ...formData, maxLTV: e.target.value })}
+                    placeholder="e.g. 80% or 90%"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-brand-textPrimary mb-1">
+                    Processing Turnaround
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.processingTime}
+                    onChange={(e) => setFormData({ ...formData, processingTime: e.target.value })}
+                    placeholder="e.g. 10-15 days"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-brand-border text-brand-textPrimary text-xs focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red"
                   />
                 </div>
 

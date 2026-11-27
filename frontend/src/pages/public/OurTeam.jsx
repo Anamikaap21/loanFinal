@@ -22,14 +22,7 @@ const teamMembers = [
     image: raghavKumarJhaPhoto,
     bio: "Raghav Kumar Jha brings 10 years of professional experience, with a strong background in Risk Management, RCU (Risk Control Unit), and Fraud Control operations. During his professional journey, including his association with Hindustan Times, he has developed valuable experience in verification processes, risk assessment, fraud prevention, and operational controls. At RealCred, he contributes towards strengthening operational processes, maintaining business integrity, and building a reliable and compliant business ecosystem.",
   },
-  {
-    name: "Khushboo",
-    designation: "HR Manager",
-    education: "Human Resource Management",
-    department: "Human Resources",
-    image: khushbooPhoto,
-    bio: "Khushboo is responsible for supporting and managing key HR functions at RealCred Technology Private Limited. She plays an important role in talent acquisition, employee engagement, team coordination, and HR operations. She focuses on building a positive workplace culture, streamlining HR processes, and ensuring a smooth employee experience. Her contribution supports RealCred's commitment to building a professional, collaborative, and growth-oriented organisation.",
-  },
+
   {
     name: "Ranjeet Kumar Mahto",
     designation: "Co-Founder",
@@ -38,6 +31,14 @@ const teamMembers = [
     experience: "15 Years",
     image: ranjeetKumarMahtoPhoto,
     bio: "Ranjeet Kumar Mahto brings 15 years of extensive experience in the financial services and lending industry. His expertise spans Home Loans, Loan Against Property (LAP), Personal Loans, and Business Loans. Throughout his career, he has been associated with reputed organisations, including PNB Housing Finance, DMI Housing Finance, and UBI Services (100% subsidy company of Union Bank of India). His strong understanding of lending products, financial institutions, business development, and channel partnerships plays a key role in shaping RealCred's business strategy and growth.",
+  },
+  {
+    name: "Khushboo",
+    designation: "HR Manager",
+    education: "Human Resource Management",
+    department: "Human Resources",
+    image: khushbooPhoto,
+    bio: "Khushboo is responsible for supporting and managing key HR functions at RealCred Technology Private Limited. She plays an important role in talent acquisition, employee engagement, team coordination, and HR operations. She focuses on building a positive workplace culture, streamlining HR processes, and ensuring a smooth employee experience. Her contribution supports RealCred's commitment to building a professional, collaborative, and growth-oriented organisation.",
   },
 ];
 

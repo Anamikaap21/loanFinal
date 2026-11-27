@@ -95,11 +95,17 @@ export const createCategory = async (req, res, next) => {
     const {
       name,
       slug,
+      shortName = '',
       tagline = '',
       description,
       features = [],
       eligibility = [],
       requiredDocuments = [],
+      documentChecklist = [],
+      baseInterestRate = '',
+      maximumTenure = '',
+      maximumFacility = '',
+      processingTime = '',
       minAmount = 50000,
       maxAmount = 50000000,
       minInterestRate = 8.5,
@@ -152,11 +158,17 @@ export const createCategory = async (req, res, next) => {
     const newCategory = new LoanCategory({
       name: cleanName,
       slug: cleanSlug,
+      shortName: shortName.trim(),
       tagline: tagline.trim(),
       description: description.trim(),
+      baseInterestRate: baseInterestRate.trim(),
+      maximumTenure: maximumTenure.trim(),
+      maximumFacility: maximumFacility.trim(),
+      processingTime: processingTime.trim(),
       features: parseStringArray(features),
       eligibility: parseStringArray(eligibility),
       requiredDocuments: parseStringArray(requiredDocuments),
+      documentChecklist: parseStringArray(documentChecklist),
       minAmount: Number(minAmount) || 50000,
       maxAmount: Number(maxAmount) || 50000000,
       minInterestRate: parsedMinRate,
@@ -206,11 +218,17 @@ export const updateCategory = async (req, res, next) => {
     const {
       name,
       slug,
+      shortName,
       tagline,
       description,
       features,
       eligibility,
       requiredDocuments,
+      documentChecklist,
+      baseInterestRate,
+      maximumTenure,
+      maximumFacility,
+      processingTime,
       minAmount,
       maxAmount,
       minInterestRate,
@@ -256,10 +274,16 @@ export const updateCategory = async (req, res, next) => {
     }
 
     if (tagline !== undefined) category.tagline = tagline.trim();
+    if (shortName !== undefined) category.shortName = shortName.trim();
+    if (baseInterestRate !== undefined) category.baseInterestRate = baseInterestRate.trim();
+    if (maximumTenure !== undefined) category.maximumTenure = maximumTenure.trim();
+    if (maximumFacility !== undefined) category.maximumFacility = maximumFacility.trim();
+    if (processingTime !== undefined) category.processingTime = processingTime.trim();
     if (description !== undefined && description.trim()) category.description = description.trim();
     if (features !== undefined) category.features = parseStringArray(features);
     if (eligibility !== undefined) category.eligibility = parseStringArray(eligibility);
     if (requiredDocuments !== undefined) category.requiredDocuments = parseStringArray(requiredDocuments);
+    if (documentChecklist !== undefined) category.documentChecklist = parseStringArray(documentChecklist);
     if (minAmount !== undefined) category.minAmount = Number(minAmount);
     if (maxAmount !== undefined) category.maxAmount = Number(maxAmount);
     if (minInterestRate !== undefined) {

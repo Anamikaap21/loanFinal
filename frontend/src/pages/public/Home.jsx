@@ -18,17 +18,25 @@ import {
   ExternalLink,
   Award,
   Sparkles,
-  Landmark
+  Landmark,
+  Percent,
+  Calendar,
+  IndianRupee
 } from 'lucide-react';
 import loanService from '../../services/loanService.js';
 import bankService from '../../services/bankService.js';
 import EMICalculator from '../../components/common/EMICalculator.jsx';
+import DocumentChecklistModal from '../../components/common/DocumentChecklistModal.jsx';
+import HeroVisual from "../../components/common/HeroVisual.jsx";
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('all');
+  const [bankCategoryFilter, setBankCategoryFilter] = useState('all');
+  const [selectedFacilityForChecklist, setSelectedFacilityForChecklist] = useState(null);
+  const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,51 +68,83 @@ export default function Home() {
   return (
     <div className="space-y-24 pb-20">
       {/* 1. Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-20 lg:pt-24 lg:pb-32 border-b border-brand-border bg-gradient-to-b from-brand-redLight/40 via-white to-transparent">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-brand-border text-xs text-brand-textSecondary mb-8 shadow-sm">
-              <Building2 className="w-4 h-4 text-brand-red" />
-              <span className="font-semibold tracking-wide">REALCRED TECHNOLOGY PRIVATE LIMITED</span>
+      <section className="relative overflow-hidden pt-10 pb-16 lg:pt-16 lg:pb-24 border-b border-brand-border bg-gradient-to-b from-brand-redLight/40 via-white to-transparent">
+        {/* Ambient Top Glow */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-redLight/50 rounded-full blur-3xl pointer-events-none -z-0" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+            {/* Left Column: Tagline, Headings, Supporting Copy & CTAs */}
+            <div className="lg:col-span-7 text-left space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-brand-border text-xs text-brand-textSecondary shadow-sm">
+                <Building2 className="w-4 h-4 text-brand-red" />
+                <span className="font-semibold tracking-wide">
+                  REALCRED TECHNOLOGY PRIVATE LIMITED
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-brand-textPrimary tracking-tight leading-[1.12]">
+                Your Loan.{" "}
+                <span className="text-brand-red block sm:inline">One Guided Route.</span>
+              </h1>
+
+              <p className="text-lg sm:text-xl lg:text-2xl text-brand-textSecondary font-semibold leading-relaxed">
+                A Single Point of Contact for Your Loan Requirements.
+              </p>
+
+              <p className="text-sm sm:text-base text-brand-textSecondary max-w-xl leading-relaxed">
+                Corporate loan distribution and financial services connecting
+                individual borrowers and growing enterprises with top Banking &
+                NBFC institutions.
+              </p>
+
+              {/* CTAs (Left-aligned, exact original routes & links) */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                <Link
+                  to="/apply-loan"
+                  className="px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-brand-red/30 transition flex items-center gap-2 hover:-translate-y-0.5"
+                >
+                  <span>Apply for Loan</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/request-callback"
+                  className="px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl bg-white hover:bg-brand-redLight text-brand-textPrimary hover:text-brand-red text-xs font-bold uppercase tracking-wider border border-brand-border transition shadow-sm flex items-center gap-2 hover:-translate-y-0.5"
+                >
+                  <PhoneCall className="w-4 h-4 text-brand-red" />
+                  <span>Request a Callback</span>
+                </Link>
+
+                <Link
+                  to="/partner-registration"
+                  className="px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl bg-white hover:bg-brand-redLight text-brand-textPrimary hover:text-brand-red text-xs font-bold uppercase tracking-wider border border-brand-border transition shadow-sm flex items-center gap-2 hover:-translate-y-0.5"
+                >
+                  <Briefcase className="w-4 h-4 text-brand-red" />
+                  <span>Become a Partner</span>
+                </Link>
+              </div>
+
+              {/* Quick Trust Highlights Strip */}
+              <div className="pt-4 border-t border-brand-border/70 flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-brand-textSecondary">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-brand-red" />
+                  <span className="font-semibold text-brand-textPrimary">37+ Banking Partners</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                  <span className="font-semibold text-brand-textPrimary">Instant Disbursal Route</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-amber-500" />
+                  <span className="font-semibold text-brand-textPrimary">Zero Hidden Fees</span>
+                </div>
+              </div>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-brand-textPrimary tracking-tight leading-tight mb-6">
-              Your Loan. <span className="text-brand-red">One Guided Route.</span>
-            </h1>
-
-            <p className="text-lg sm:text-2xl text-brand-textSecondary font-medium max-w-3xl mx-auto mb-10 leading-relaxed">
-              A Single Point of Contact for Your Loan Requirements.
-            </p>
-
-            <p className="text-sm sm:text-base text-brand-textSecondary max-w-2xl mx-auto mb-12">
-              Corporate loan distribution and financial services connecting individual borrowers and growing enterprises with top Banking & NBFC institutions.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link
-                to="/apply-loan"
-                className="px-7 py-4 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-brand-red/30 transition flex items-center gap-2"
-              >
-                <span>Apply for Loan</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              <Link
-                to="/request-callback"
-                className="px-7 py-4 rounded-xl bg-white hover:bg-brand-redLight text-brand-textPrimary hover:text-brand-red text-xs font-bold uppercase tracking-wider border border-brand-border transition shadow-sm flex items-center gap-2"
-              >
-                <PhoneCall className="w-4 h-4 text-brand-red" />
-                <span>Request a Callback</span>
-              </Link>
-
-              <Link
-                to="/partner-registration"
-                className="px-7 py-4 rounded-xl bg-white hover:bg-brand-redLight text-brand-textPrimary hover:text-brand-red text-xs font-bold uppercase tracking-wider border border-brand-border transition shadow-sm flex items-center gap-2"
-              >
-                <Briefcase className="w-4 h-4 text-brand-red" />
-                <span>Become a Partner</span>
-              </Link>
+            {/* Right Column: Loan Approval & Finance 3D Visual */}
+            <div className="lg:col-span-5 w-full flex items-center justify-center pt-6 lg:pt-0">
+              <HeroVisual />
             </div>
           </div>
         </div>
@@ -183,52 +223,109 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Our Products & Partner Banks (Dynamic from MongoDB) */}
+      {/* 3. Our Products & Partner Banks (Dynamic from MongoDB Atlas) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-xs font-bold uppercase tracking-wider text-brand-red">Credit Solutions & Lending Partners</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-textPrimary mt-1">Our Products</h2>
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-redLight border border-brand-red/20 text-xs text-brand-red font-semibold mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-brand-red" />
+            <span>Institutional Credit Ecosystem</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-textPrimary tracking-tight">
+            Our <span className="text-brand-red">Products</span>
+          </h2>
           <p className="text-xs sm:text-sm text-brand-textSecondary mt-2">
             Active loan facilities and institutional banking partners fetched directly from our live MongoDB database.
           </p>
 
-          {/* Toggle Tab Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
+          {/* Dynamic 3-Tab Filter */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6">
             <button
-              onClick={() => setActiveTab('all')}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition ${
-                activeTab === 'all'
-                  ? 'bg-brand-red text-white shadow-sm'
-                  : 'bg-white text-brand-textSecondary hover:text-brand-red border border-brand-border'
-              }`}
+              type="button"
+              onClick={() => {
+                setActiveTab('all');
+                setBankCategoryFilter('all');
+              }}
+              className={`px-4 sm:px-5 py-2 rounded-xl text-xs font-bold transition shadow-sm ${activeTab === 'all'
+                ? 'bg-brand-red text-white shadow-brand-red/20'
+                : 'bg-white text-brand-textSecondary hover:text-brand-red hover:bg-brand-redLight/30 border border-brand-border'
+                }`}
             >
               All Active Products & Banks ({activeProducts.length + activeCategories.length})
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('banks')}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition ${
-                activeTab === 'banks'
-                  ? 'bg-brand-red text-white shadow-sm'
-                  : 'bg-white text-brand-textSecondary hover:text-brand-red border border-brand-border'
-              }`}
+              className={`px-4 sm:px-5 py-2 rounded-xl text-xs font-bold transition shadow-sm ${activeTab === 'banks'
+                ? 'bg-brand-red text-white shadow-brand-red/20'
+                : 'bg-white text-brand-textSecondary hover:text-brand-red hover:bg-brand-redLight/30 border border-brand-border'
+                }`}
             >
               Banking Partners ({activeProducts.length})
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('categories')}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition ${
-                activeTab === 'categories'
-                  ? 'bg-brand-red text-white shadow-sm'
-                  : 'bg-white text-brand-textSecondary hover:text-brand-red border border-brand-border'
-              }`}
+              className={`px-4 sm:px-5 py-2 rounded-xl text-xs font-bold transition shadow-sm ${activeTab === 'categories'
+                ? 'bg-brand-red text-white shadow-brand-red/20'
+                : 'bg-white text-brand-textSecondary hover:text-brand-red hover:bg-brand-redLight/30 border border-brand-border'
+                }`}
             >
               Loan Facilities ({activeCategories.length})
             </button>
           </div>
+
+          {/* Sub-category Filter for Banking Partners (when banks are visible) */}
+          {(activeTab === 'banks' || activeTab === 'all') && (
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-4 pt-3 border-t border-brand-border/60">
+              <span className="text-[11px] font-semibold text-brand-textSecondary uppercase tracking-wider mr-1">
+                Bank Category:
+              </span>
+              <button
+                type="button"
+                onClick={() => setBankCategoryFilter('all')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${bankCategoryFilter === 'all'
+                  ? 'bg-brand-textPrimary text-white shadow-sm'
+                  : 'bg-white text-brand-textSecondary hover:text-brand-textPrimary border border-brand-border'
+                  }`}
+              >
+                All ({activeProducts.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setBankCategoryFilter('PSU Banks')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${bankCategoryFilter === 'PSU Banks'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'bg-white text-blue-700 hover:bg-blue-50 border border-blue-200'
+                  }`}
+              >
+                PSU Banks ({activeProducts.filter((b) => b.category === 'PSU Banks').length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setBankCategoryFilter('Private Banks')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${bankCategoryFilter === 'Private Banks'
+                  ? 'bg-purple-600 text-white shadow-sm'
+                  : 'bg-white text-purple-700 hover:bg-purple-50 border border-purple-200'
+                  }`}
+              >
+                Private Banks ({activeProducts.filter((b) => b.category === 'Private Banks').length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setBankCategoryFilter('NBFCs')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${bankCategoryFilter === 'NBFCs'
+                  ? 'bg-amber-600 text-white shadow-sm'
+                  : 'bg-white text-amber-700 hover:bg-amber-50 border border-amber-200'
+                  }`}
+              >
+                NBFCs ({activeProducts.filter((b) => b.category === 'NBFCs').length})
+              </button>
+            </div>
+          )}
         </div>
 
         {loading ? (
-          <div className="py-12 text-center text-brand-textSecondary">
+          <div className="py-16 text-center text-brand-textSecondary">
             <div className="w-8 h-8 border-2 border-brand-red border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
             <p className="text-xs">Loading active products and banks from RealCred database...</p>
           </div>
@@ -246,160 +343,230 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-w-0 items-stretch">
-            {/* 1. Active Bank Products (Derived from Admin Bank Management MongoDB collection) */}
-            {(activeTab === 'all' || activeTab === 'banks') &&
-              activeProducts.map((bank) => (
-                <div
-                  key={`bank-${bank.bankId || bank._id}`}
-                  className="bg-white p-6 sm:p-7 rounded-2xl border border-brand-border flex flex-col justify-between hover:border-brand-red/50 hover:shadow-md transition group min-w-0 h-full shadow-sm"
-                >
-                  <div className="min-w-0">
-                    <div className="flex items-center justify-between mb-4 gap-2 min-w-0">
-                      <div className="flex items-center gap-2 min-w-0">
-                        {bank.logoUrl ? (
-                          <img
-                            src={bank.logoUrl}
-                            alt={bank.name || bank.bankName}
-                            className="h-6 max-w-[80px] object-contain rounded shrink-0"
-                            onError={(e) => { e.target.style.display = 'none'; }}
-                          />
-                        ) : (
-                          <Landmark className="w-4 h-4 text-brand-red shrink-0" />
-                        )}
-                        <span className="font-mono text-[10px] text-brand-red bg-brand-redLight border border-brand-red/20 px-2 py-0.5 rounded shrink-0 font-semibold">
-                          {bank.bankCode}
-                        </span>
-                      </div>
-                      {/* Active Product Badge ONLY for active banks */}
-                      {((bank.status || '').toLowerCase() === 'active' && !bank.isDeleted) && (
-                        <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1 shrink-0">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                          <span>Active Product</span>
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="text-lg sm:text-xl font-bold text-brand-textPrimary mb-2 group-hover:text-brand-red transition break-words [overflow-wrap:anywhere] [word-break:break-word]">
-                      {bank.name || bank.bankName}
-                    </h3>
-
-                    <p className="text-xs text-brand-textSecondary line-clamp-3 mb-4 leading-relaxed break-words [overflow-wrap:anywhere] [word-break:break-word]">
-                      {bank.description || 'Premier institutional lending partner providing competitive retail and commercial financing.'}
-                    </p>
-
-                    <div className="space-y-1.5 pt-3 border-t border-brand-border text-[11px] min-w-0">
-                      <div className="flex justify-between text-brand-textSecondary gap-2">
-                        <span className="shrink-0">Interest Rate:</span>
-                        <span className="text-brand-textPrimary font-semibold text-right">
-                          {bank.interestRateRange?.min ?? 8.5}% – {bank.interestRateRange?.max ?? 14.5}% p.a.
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-brand-textSecondary gap-2">
-                        <span className="shrink-0">Max Tenure:</span>
-                        <span className="text-brand-textPrimary font-semibold text-right">
-                          Up to {bank.maxTenureYears || Math.round((bank.maxTenureMonths || 360) / 12)} Years
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-brand-textSecondary gap-2">
-                        <span className="shrink-0">Processing Fee:</span>
-                        <span className="text-emerald-600 font-medium truncate max-w-[150px] text-right">
-                          {bank.processingFeeDetails || 'Up to 1% + GST'}
-                        </span>
-                      </div>
-                    </div>
-
-                    {bank.features && bank.features.length > 0 && (
-                      <div className="space-y-1.5 pt-3 mt-3 border-t border-brand-border min-w-0">
-                        {bank.features.slice(0, 2).map((feat, idx) => (
-                          <div key={idx} className="flex items-center gap-2 text-[11px] text-brand-textSecondary min-w-0">
-                            <CheckCircle2 className="w-3 h-3 text-brand-red shrink-0" />
-                            <span className="truncate min-w-0 flex-1">{feat}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="pt-4 mt-4 border-t border-brand-border flex items-center justify-between gap-3 min-w-0">
-                    <span className="text-[11px] text-brand-textSecondary font-mono shrink-0">
-                      Partner Bank
-                    </span>
-
-                    <Link
-                      to={`/apply-loan?bank=${bank.bankId || bank._id}`}
-                      className="px-4 py-2 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold uppercase tracking-wider transition shadow-sm flex items-center gap-1.5 shrink-0"
-                    >
-                      <span>Apply Now</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-
-            {/* 2. Active Loan Categories (Only displayed if isActive === true) */}
+            {/* 1. Active Loan Facilities (Categories) */}
             {(activeTab === 'all' || activeTab === 'categories') &&
-              activeCategories.map((product) => (
-                <div
-                  key={`cat-${product._id}`}
-                  className="bg-white p-6 sm:p-7 rounded-2xl border border-brand-border flex flex-col justify-between hover:border-brand-red/50 hover:shadow-md transition group min-w-0 h-full shadow-sm"
-                >
-                  <div className="min-w-0">
-                    <div className="flex items-center justify-between mb-4 gap-2 min-w-0">
-                      <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-brand-redLight text-brand-red border border-brand-red/20 truncate">
-                        ₹{(product.minAmount / 100000).toFixed(0)}L - ₹{(product.maxAmount / 10000000).toFixed(0)}Cr
-                      </span>
-                      {product.isActive && (product.status || '').toLowerCase() !== 'inactive' && (
-                        <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1 shrink-0">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                          <span>Active Product</span>
+              activeCategories.map((facility) => {
+                const checklistCount = facility.documentChecklist?.length || facility.requiredDocuments?.length || 6;
+                return (
+                  <div
+                    key={`cat-${facility._id}`}
+                    className="bg-white p-6 sm:p-7 rounded-2xl border border-brand-border flex flex-col justify-between hover:border-brand-red/50 hover:shadow-lg hover:-translate-y-0.5 transition duration-200 group min-w-0 h-full shadow-sm relative overflow-hidden"
+                  >
+                    {/* Facility Header Badge */}
+                    <div className="min-w-0">
+                      <div className="flex items-center justify-between mb-3.5 gap-2 min-w-0 flex-wrap">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="font-mono text-xs font-bold text-white bg-brand-red px-2.5 py-0.5 rounded shadow-sm shrink-0">
+                            {facility.shortName || 'LOAN'}
+                          </span>
+                          <span className="text-[11px] font-semibold text-brand-textSecondary uppercase tracking-wider truncate">
+                            Institutional Facility
+                          </span>
+                        </div>
+                        {facility.isActive && (facility.status || '').toLowerCase() !== 'inactive' && (
+                          <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1 shrink-0 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <span>Active</span>
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className="text-lg sm:text-xl font-bold text-brand-textPrimary mb-1.5 group-hover:text-brand-red transition break-words">
+                        {facility.name}
+                      </h3>
+
+                      <p className="text-xs text-brand-textSecondary line-clamp-2 mb-4 leading-relaxed break-words">
+                        {facility.tagline || facility.description}
+                      </p>
+
+                      {/* 4 Key Metrics Grid */}
+                      <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-brand-bg/70 border border-brand-border text-xs mb-4">
+                        <div>
+                          <span className="text-[10px] text-brand-textSecondary uppercase font-medium block">
+                            Base Interest
+                          </span>
+                          <span className="font-bold text-brand-textPrimary truncate block">
+                            {facility.baseInterestRate || `${facility.minInterestRate || 8.5}% - ${facility.maxInterestRate || 15}%`}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-brand-textSecondary uppercase font-medium block">
+                            Max Facility
+                          </span>
+                          <span className="font-bold text-brand-textPrimary truncate block">
+                            {facility.maximumFacility || (facility.maxAmount ? `₹${(facility.maxAmount / 10000000).toFixed(0)} Cr` : '₹50 Lakhs')}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-brand-textSecondary uppercase font-medium block">
+                            Max Tenure
+                          </span>
+                          <span className="font-bold text-brand-textPrimary truncate block">
+                            {facility.maximumTenure || `${Math.round((facility.maxTenureMonths || 360) / 12)} Years`}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-brand-textSecondary uppercase font-medium block">
+                            Turnaround
+                          </span>
+                          <span className="font-bold text-brand-red truncate block">
+                            {facility.processingTime || '2-7 Days'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Document Checklist Trigger Pill */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedFacilityForChecklist(facility);
+                          setIsChecklistModalOpen(true);
+                        }}
+                        className="w-full py-2 px-3 rounded-xl bg-white hover:bg-brand-redLight/40 border border-brand-border hover:border-brand-red/40 text-brand-textPrimary hover:text-brand-red text-xs font-semibold flex items-center justify-between gap-2 transition shadow-xs group/btn mb-2"
+                      >
+                        <span className="flex items-center gap-1.5 truncate">
+                          <FileText className="w-3.5 h-3.5 text-brand-red shrink-0" />
+                          <span>Required Documents</span>
                         </span>
-                      )}
+                        <span className="text-[10px] font-bold text-brand-red bg-brand-redLight px-2 py-0.5 rounded-full border border-brand-red/20 shrink-0">
+                          {checklistCount} Items
+                        </span>
+                      </button>
                     </div>
 
-                    <h3 className="text-lg sm:text-xl font-bold text-brand-textPrimary mb-2 group-hover:text-brand-red transition break-words [overflow-wrap:anywhere] [word-break:break-word]">
-                      {product.name}
-                    </h3>
+                    {/* Bottom Actions */}
+                    <div className="pt-4 mt-2 border-t border-brand-border flex items-center justify-between gap-2 min-w-0">
+                      <Link
+                        to={`/products/${facility.slug}`}
+                        className="py-2 px-3 rounded-xl bg-white hover:bg-brand-bg text-brand-textSecondary hover:text-brand-red text-xs font-bold border border-brand-border transition flex items-center gap-1 shrink-0"
+                      >
+                        <span>View Details</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </Link>
 
-                    <p className="text-xs text-brand-textSecondary line-clamp-3 mb-6 leading-relaxed break-words [overflow-wrap:anywhere] [word-break:break-word]">
-                      {product.description}
-                    </p>
+                      <Link
+                        to={`/apply-loan?category=${facility._id}`}
+                        className="py-2 px-4 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold uppercase tracking-wider transition shadow-sm flex items-center gap-1.5 shrink-0"
+                      >
+                        <span>Apply Now</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
 
-                    {product.features && product.features.length > 0 && (
-                      <div className="space-y-2 mb-6 pt-4 border-t border-brand-border min-w-0">
-                        <span className="text-[11px] font-bold uppercase text-brand-textPrimary tracking-wider block mb-2">
-                          Key Features:
-                        </span>
-                        {product.features.slice(0, 3).map((feat, idx) => (
-                          <div key={idx} className="flex items-center gap-2 text-xs text-brand-textSecondary min-w-0">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-brand-red shrink-0" />
-                            <span className="truncate min-w-0 flex-1">{feat}</span>
-                          </div>
-                        ))}
+            {/* 2. Active Banking Partners */}
+            {(activeTab === 'all' || activeTab === 'banks') &&
+              (bankCategoryFilter === 'all'
+                ? activeProducts
+                : activeProducts.filter((b) => b.category === bankCategoryFilter)
+              ).map((bank) => {
+                const categoryColorClass =
+                  bank.category === 'PSU Banks'
+                    ? 'bg-blue-50 text-blue-700 border-blue-200'
+                    : bank.category === 'NBFCs'
+                      ? 'bg-amber-50 text-amber-700 border-amber-200'
+                      : 'bg-purple-50 text-purple-700 border-purple-200';
+
+                return (
+                  <div
+                    key={`bank-${bank.bankId || bank._id}`}
+                    className="bg-white p-6 sm:p-7 rounded-2xl border border-brand-border flex flex-col justify-between hover:border-brand-red/50 hover:shadow-lg hover:-translate-y-0.5 transition duration-200 group min-w-0 h-full shadow-sm"
+                  >
+                    <div className="min-w-0">
+                      {/* Bank Header: Badges & Status */}
+                      <div className="flex items-center justify-between mb-3.5 gap-2 min-w-0 flex-wrap">
+                        <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
+                          <span className="font-mono text-[10px] text-brand-red bg-brand-redLight border border-brand-red/20 px-2 py-0.5 rounded font-semibold shrink-0">
+                            {bank.bankCode}
+                          </span>
+                          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border shrink-0 ${categoryColorClass}`}>
+                            {bank.category || 'Private Banks'}
+                          </span>
+                        </div>
+                        {((bank.status || '').toLowerCase() === 'active' && !bank.isDeleted) && (
+                          <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1 shrink-0 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <span>Active</span>
+                          </span>
+                        )}
                       </div>
-                    )}
-                  </div>
 
-                  <div className="pt-4 border-t border-brand-border flex items-center justify-between gap-3 min-w-0">
-                    <Link
-                      to={`/products/${product.slug}`}
-                      className="text-xs font-bold text-brand-textSecondary hover:text-brand-red transition flex items-center gap-1 shrink-0"
-                    >
-                      <span>View Details</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </Link>
+                      <h3 className="text-lg sm:text-xl font-bold text-brand-textPrimary mb-1.5 group-hover:text-brand-red transition break-words">
+                        {bank.name || bank.bankName}
+                      </h3>
 
-                    <Link
-                      to={`/apply-loan?category=${product._id}`}
-                      className="px-4 py-2 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold uppercase tracking-wider transition shadow-sm flex items-center gap-1.5 shrink-0"
-                    >
-                      <span>Apply Now</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                      <p className="text-xs text-brand-textSecondary line-clamp-2 mb-4 leading-relaxed break-words">
+                        {bank.description || 'Premier institutional lending partner providing competitive retail and commercial financing.'}
+                      </p>
+
+                      {/* 4 Key Metrics Grid */}
+                      <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-brand-bg/70 border border-brand-border text-xs mb-4">
+                        <div>
+                          <span className="text-[10px] text-brand-textSecondary uppercase font-medium block">
+                            Interest Rate (ROI)
+                          </span>
+                          <span className="font-bold text-brand-textPrimary truncate block">
+                            {bank.roi || (bank.interestRateRange ? `${bank.interestRateRange.min}% – ${bank.interestRateRange.max}%` : '7.25% - 8.00%')}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-brand-textSecondary uppercase font-medium block">
+                            Max LTV
+                          </span>
+                          <span className="font-bold text-brand-textPrimary truncate block">
+                            {bank.maxLTV || '80%'}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-brand-textSecondary uppercase font-medium block">
+                            Max Tenure
+                          </span>
+                          <span className="font-bold text-brand-textPrimary truncate block">
+                            {bank.maxTenure || (bank.maxTenureMonths ? `Up to ${Math.round(bank.maxTenureMonths / 12)} Years` : '30 Years')}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-brand-textSecondary uppercase font-medium block">
+                            Processing Time
+                          </span>
+                          <span className="font-bold text-brand-red truncate block">
+                            {bank.processingTime || '10-15 days'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom CTA */}
+                    <div className="pt-4 mt-2 border-t border-brand-border flex items-center justify-between gap-3 min-w-0">
+                      <span className="text-[11px] text-brand-textSecondary font-mono shrink-0">
+                        Institutional Partner
+                      </span>
+
+                      <Link
+                        to={`/apply-loan?bank=${bank.bankId || bank._id}`}
+                        className="px-4 py-2 rounded-xl bg-brand-red hover:bg-brand-deepRed text-white text-xs font-bold uppercase tracking-wider transition shadow-sm flex items-center gap-1.5 shrink-0"
+                      >
+                        <span>Apply Now</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
           </div>
         )}
+
+        {/* Reusable Document Checklist Modal */}
+        <DocumentChecklistModal
+          isOpen={isChecklistModalOpen}
+          onClose={() => {
+            setIsChecklistModalOpen(false);
+            setSelectedFacilityForChecklist(null);
+          }}
+          product={selectedFacilityForChecklist}
+        />
       </section>
 
       {/* 4. Interactive Loan EMI Calculator */}

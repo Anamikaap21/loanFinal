@@ -21,6 +21,35 @@ const loanCategorySchema = new mongoose.Schema(
       default: '',
       trim: true,
     },
+    shortName: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    baseInterestRate: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    maximumTenure: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    maximumFacility: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    processingTime: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    documentChecklist: {
+      type: [String],
+      default: [],
+    },
     description: {
       type: String,
       required: [true, 'Description is required'],

@@ -1,68 +1,75 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  PhoneCall, 
-  CheckCircle2, 
-  AlertCircle, 
-  Clock, 
-  MapPin, 
-  Mail, 
-  Phone, 
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  PhoneCall,
+  CheckCircle2,
+  AlertCircle,
+  Clock,
+  MapPin,
+  Mail,
+  Phone,
   ArrowRight,
-  Headphones
-} from 'lucide-react';
-import loanService from '../../services/loanService.js';
+  Headphones,
+} from "lucide-react";
+import loanService from "../../services/loanService.js";
 
 export default function RequestCallback() {
   const [formData, setFormData] = useState({
-    customerName: '',
-    mobileNumber: '',
-    email: '',
-    loanType: 'General Loan Inquiry',
-    preferredContactTime: 'Anytime',
-    message: '',
+    customerName: "",
+    mobileNumber: "",
+    email: "",
+    loanType: "General Loan Inquiry",
+    preferredContactTime: "Anytime",
+    message: "",
   });
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const [submitError, setSubmitError] = useState("");
   const [successData, setSuccessData] = useState(null);
 
   const loanOptions = [
-    'General Loan Inquiry',
-    'Home Loan',
-    'Loan Against Property (LAP)',
-    'Business Loan',
-    'Personal Loan',
-    'OD – Overdraft Facility',
-    'Balance Transfer & Top-Up',
+    "General Loan Inquiry",
+    "Home Loan",
+    "Loan Against Property (LAP)",
+    "Business Loan",
+    "Personal Loan",
+    "OD – Overdraft Facility",
+    "Balance Transfer & Top-Up",
   ];
 
   const timeSlots = [
-    { label: 'Morning (9:00 AM – 12:00 PM)', value: 'Morning (9 AM - 12 PM)' },
-    { label: 'Afternoon (12:00 PM – 4:00 PM)', value: 'Afternoon (12 PM - 4 PM)' },
-    { label: 'Evening (4:00 PM – 8:00 PM)', value: 'Evening (4 PM - 8 PM)' },
-    { label: 'Anytime (Immediate)', value: 'Anytime' },
+    { label: "Morning (9:00 AM – 12:00 PM)", value: "Morning (9 AM - 12 PM)" },
+    {
+      label: "Afternoon (12:00 PM – 4:00 PM)",
+      value: "Afternoon (12 PM - 4 PM)",
+    },
+    { label: "Evening (4:00 PM – 8:00 PM)", value: "Evening (4 PM - 8 PM)" },
+    { label: "Anytime (Immediate)", value: "Anytime" },
   ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (formErrors[name]) {
-      setFormErrors((prev) => ({ ...prev, [name]: '' }));
+      setFormErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const validate = () => {
     const errors = {};
-    if (!formData.customerName.trim()) errors.customerName = 'Please enter your name';
+    if (!formData.customerName.trim())
+      errors.customerName = "Please enter your name";
     if (!formData.mobileNumber.trim()) {
-      errors.mobileNumber = 'Please enter your mobile number';
+      errors.mobileNumber = "Please enter your mobile number";
     } else if (!/^[6-9]\d{9}$/.test(formData.mobileNumber.trim())) {
-      errors.mobileNumber = 'Enter a valid 10-digit Indian mobile number';
+      errors.mobileNumber = "Enter a valid 10-digit Indian mobile number";
     }
-    if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      errors.email = 'Enter a valid email address';
+    if (
+      formData.email.trim() &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
+    ) {
+      errors.email = "Enter a valid email address";
     }
 
     setFormErrors(errors);
@@ -71,7 +78,7 @@ export default function RequestCallback() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitError('');
+    setSubmitError("");
 
     if (!validate()) return;
 
@@ -86,15 +93,16 @@ export default function RequestCallback() {
         message: formData.message.trim(),
       });
 
-      if (res.status === 'success') {
+      if (res.status === "success") {
         setSuccessData(res.data);
       } else {
-        setSubmitError(res.message || 'Unable to submit callback request.');
+        setSubmitError(res.message || "Unable to submit callback request.");
       }
     } catch (err) {
-      console.error('Callback request error:', err);
+      console.error("Callback request error:", err);
       setSubmitError(
-        err.response?.data?.message || 'Failed to register callback request. Please try again.'
+        err.response?.data?.message ||
+          "Failed to register callback request. Please try again.",
       );
     } finally {
       setIsSubmitting(false);
@@ -104,12 +112,12 @@ export default function RequestCallback() {
   const handleReset = () => {
     setSuccessData(null);
     setFormData({
-      customerName: '',
-      mobileNumber: '',
-      email: '',
-      loanType: 'General Loan Inquiry',
-      preferredContactTime: 'Anytime',
-      message: '',
+      customerName: "",
+      mobileNumber: "",
+      email: "",
+      loanType: "General Loan Inquiry",
+      preferredContactTime: "Anytime",
+      message: "",
     });
   };
 
@@ -123,19 +131,32 @@ export default function RequestCallback() {
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
-          <h2 className="text-2xl font-black text-brand-textPrimary mb-2">Callback Registered!</h2>
+          <h2 className="text-2xl font-black text-brand-textPrimary mb-2">
+            Callback Registered!
+          </h2>
           <p className="text-xs text-brand-textSecondary mb-6">
-            Thank you, <span className="text-brand-textPrimary font-semibold">{successData.customerName}</span>. Our loan advisory desk will call you during your preferred time window.
+            Thank you,{" "}
+            <span className="text-brand-textPrimary font-semibold">
+              {successData.customerName}
+            </span>
+            . Our loan advisory desk will call you during your preferred time
+            window.
           </p>
 
           <div className="p-4 rounded-xl bg-brand-bg border border-brand-border text-left mb-6 space-y-2.5 text-xs">
             <div className="flex justify-between items-center border-b border-brand-border pb-2">
-              <span className="text-brand-textSecondary">Request Reference</span>
-              <span className="font-mono font-bold text-brand-red">{successData.requestNumber}</span>
+              <span className="text-brand-textSecondary">
+                Request Reference
+              </span>
+              <span className="font-mono font-bold text-brand-red">
+                {successData.requestNumber}
+              </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-brand-textSecondary">Preferred Window</span>
-              <span className="font-semibold text-brand-textPrimary">{successData.preferredContactTime}</span>
+              <span className="font-semibold text-brand-textPrimary">
+                {successData.preferredContactTime}
+              </span>
             </div>
           </div>
 
@@ -172,7 +193,9 @@ export default function RequestCallback() {
             Request a Free Advisory Callback
           </h1>
           <p className="mt-3 text-base sm:text-lg text-brand-textSecondary max-w-2xl mx-auto">
-            Have questions about loan eligibility, interest rates, or documentation? Leave your contact details and our senior loan specialist will call you.
+            Have questions about loan eligibility, interest rates, or
+            documentation? Leave your contact details and our senior loan
+            specialist will call you.
           </p>
         </div>
 
@@ -198,10 +221,16 @@ export default function RequestCallback() {
                   onChange={handleChange}
                   placeholder="e.g. Alok Verma"
                   className={`w-full px-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${
-                    formErrors.customerName ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
+                    formErrors.customerName
+                      ? "border-brand-red focus:ring-brand-red"
+                      : "border-brand-border focus:ring-brand-red focus:border-brand-red"
                   }`}
                 />
-                {formErrors.customerName && <p className="mt-1 text-[11px] text-brand-red">{formErrors.customerName}</p>}
+                {formErrors.customerName && (
+                  <p className="mt-1 text-[11px] text-brand-red">
+                    {formErrors.customerName}
+                  </p>
+                )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -210,7 +239,9 @@ export default function RequestCallback() {
                     Mobile Number <span className="text-brand-red">*</span>
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-textSecondary font-semibold">+91</span>
+                    <span className="absolute left-3.5 top-2.5 text-xs text-brand-textSecondary font-semibold">
+                      +91
+                    </span>
                     <input
                       type="tel"
                       name="mobileNumber"
@@ -219,16 +250,25 @@ export default function RequestCallback() {
                       onChange={handleChange}
                       placeholder="98765 43210"
                       className={`w-full pl-12 pr-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${
-                        formErrors.mobileNumber ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
+                        formErrors.mobileNumber
+                          ? "border-brand-red focus:ring-brand-red"
+                          : "border-brand-border focus:ring-brand-red focus:border-brand-red"
                       }`}
                     />
                   </div>
-                  {formErrors.mobileNumber && <p className="mt-1 text-[11px] text-brand-red">{formErrors.mobileNumber}</p>}
+                  {formErrors.mobileNumber && (
+                    <p className="mt-1 text-[11px] text-brand-red">
+                      {formErrors.mobileNumber}
+                    </p>
+                  )}
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
-                    Email Address <span className="text-brand-textSecondary font-normal">(Optional)</span>
+                    Email Address{" "}
+                    <span className="text-brand-textSecondary font-normal">
+                      (Optional)
+                    </span>
                   </label>
                   <input
                     type="email"
@@ -237,10 +277,16 @@ export default function RequestCallback() {
                     onChange={handleChange}
                     placeholder="alok.verma@example.com"
                     className={`w-full px-4 py-2.5 rounded-xl bg-white border text-brand-textPrimary text-xs placeholder:text-brand-textSecondary/50 focus:outline-none focus:ring-1 shadow-sm ${
-                      formErrors.email ? 'border-brand-red focus:ring-brand-red' : 'border-brand-border focus:ring-brand-red focus:border-brand-red'
+                      formErrors.email
+                        ? "border-brand-red focus:ring-brand-red"
+                        : "border-brand-border focus:ring-brand-red focus:border-brand-red"
                     }`}
                   />
-                  {formErrors.email && <p className="mt-1 text-[11px] text-brand-red">{formErrors.email}</p>}
+                  {formErrors.email && (
+                    <p className="mt-1 text-[11px] text-brand-red">
+                      {formErrors.email}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -273,8 +319,8 @@ export default function RequestCallback() {
                       key={slot.value}
                       className={`flex items-center gap-2.5 p-3 rounded-xl border cursor-pointer text-xs transition-colors shadow-sm ${
                         formData.preferredContactTime === slot.value
-                          ? 'bg-brand-redLight border-brand-red text-brand-textPrimary font-semibold'
-                          : 'bg-white border-brand-border text-brand-textSecondary hover:text-brand-red hover:bg-brand-bg'
+                          ? "bg-brand-redLight border-brand-red text-brand-textPrimary font-semibold"
+                          : "bg-white border-brand-border text-brand-textSecondary hover:text-brand-red hover:bg-brand-bg"
                       }`}
                     >
                       <input
@@ -293,7 +339,10 @@ export default function RequestCallback() {
 
               <div>
                 <label className="block text-xs font-semibold text-brand-textPrimary mb-1.5">
-                  Specific Query or Requirement <span className="text-brand-textSecondary font-normal">(Optional)</span>
+                  Specific Query or Requirement{" "}
+                  <span className="text-brand-textSecondary font-normal">
+                    (Optional)
+                  </span>
                 </label>
                 <textarea
                   name="message"
@@ -337,41 +386,53 @@ export default function RequestCallback() {
               </p>
               <div className="space-y-3 pt-2">
                 <a
-                  href="tel:+919289223377"
+                  href="tel:+91 8527710939"
                   className="flex items-center gap-3 p-3 rounded-xl bg-brand-bg border border-brand-border hover:border-brand-red/50 transition-colors shadow-sm"
                 >
                   <div className="w-8 h-8 rounded-lg bg-brand-redLight text-brand-red border border-brand-red/20 flex items-center justify-center shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] text-brand-textSecondary">Primary Desk</div>
-                    <div className="text-xs font-bold text-brand-textPrimary">+91 92892 23377</div>
+                    <div className="text-[10px] text-brand-textSecondary">
+                      Primary Desk
+                    </div>
+                    <div className="text-xs font-bold text-brand-textPrimary">
+                      +91 8527710939
+                    </div>
                   </div>
                 </a>
 
                 <a
-                  href="tel:+919289223378"
+                  href="tel:+91 7048976349"
                   className="flex items-center gap-3 p-3 rounded-xl bg-brand-bg border border-brand-border hover:border-brand-red/50 transition-colors shadow-sm"
                 >
                   <div className="w-8 h-8 rounded-lg bg-brand-redLight text-brand-red border border-brand-red/20 flex items-center justify-center shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] text-brand-textSecondary">Secondary Desk</div>
-                    <div className="text-xs font-bold text-brand-textPrimary">+91 92892 23378</div>
+                    <div className="text-[10px] text-brand-textSecondary">
+                      Secondary Desk
+                    </div>
+                    <div className="text-xs font-bold text-brand-textPrimary">
+                      +91 7048976349
+                    </div>
                   </div>
                 </a>
 
                 <a
-                  href="mailto:contact@realcred.in"
+                  href="mailto:customercare@realcred.in"
                   className="flex items-center gap-3 p-3 rounded-xl bg-brand-bg border border-brand-border hover:border-brand-red/50 transition-colors shadow-sm"
                 >
                   <div className="w-8 h-8 rounded-lg bg-brand-redLight text-brand-red border border-brand-red/20 flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] text-brand-textSecondary">Email Inquiry</div>
-                    <div className="text-xs font-bold text-brand-textPrimary">contact@realcred.in</div>
+                    <div className="text-[10px] text-brand-textSecondary">
+                      Email Inquiry
+                    </div>
+                    <div className="text-xs font-bold text-brand-textPrimary">
+                      customercare@realcred.in
+                    </div>
                   </div>
                 </a>
               </div>
@@ -383,8 +444,10 @@ export default function RequestCallback() {
                 Corporate Office
               </h4>
               <p className="text-xs text-brand-textSecondary leading-relaxed">
-                RealCred Technology Private Limited<br />
-                D-9, Ground Floor, Workshala, Vyapar Marg,<br />
+                RealCred Technology Private Limited
+                <br />
+                D-9, Ground Floor, Workshala, Vyapar Marg,
+                <br />
                 Block D, Noida Sector 3, Noida, UP 201301
               </p>
               <div className="pt-2 text-[11px] text-brand-textSecondary">

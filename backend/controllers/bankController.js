@@ -3,10 +3,25 @@ import Bank from '../models/Bank.js';
 
 export const getActiveBanks = async (req, res, next) => {
   try {
-    const banks = await Bank.find({
+    const { category, search } = req.query;
+    const filter = {
       status: { $in: ['active', 'ACTIVE'] },
       isDeleted: { $ne: true },
-    }).sort({ name: 1 });
+    };
+
+    if (category && category !== 'all') {
+      filter.category = category;
+    }
+
+    if (search && search.trim()) {
+      const q = search.trim();
+      filter.$or = [
+        { name: { $regex: q, $options: 'i' } },
+        { bankCode: { $regex: q, $options: 'i' } },
+      ];
+    }
+
+    const banks = await Bank.find(filter).sort({ name: 1 });
 
     return res.status(200).json({
       status: 'success',
@@ -20,11 +35,25 @@ export const getActiveBanks = async (req, res, next) => {
 
 export const getAllBanks = async (req, res, next) => {
   try {
-    // Public endpoint: only return active, non-deleted banks
-    const banks = await Bank.find({
+    const { category, search } = req.query;
+    const filter = {
       status: { $in: ['active', 'ACTIVE'] },
       isDeleted: { $ne: true },
-    }).sort({ name: 1 });
+    };
+
+    if (category && category !== 'all') {
+      filter.category = category;
+    }
+
+    if (search && search.trim()) {
+      const q = search.trim();
+      filter.$or = [
+        { name: { $regex: q, $options: 'i' } },
+        { bankCode: { $regex: q, $options: 'i' } },
+      ];
+    }
+
+    const banks = await Bank.find(filter).sort({ name: 1 });
 
     return res.status(200).json({
       status: 'success',

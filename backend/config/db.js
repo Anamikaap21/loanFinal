@@ -1,5 +1,13 @@
 import mongoose from 'mongoose';
+import dns from 'dns';
 import { ENV } from './environment.js';
+
+// Resolve DNS SRV lookup issues on Windows / certain ISP resolvers
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (e) {
+  // Ignore fallback if custom servers not supported
+}
 
 export const connectDB = async () => {
   try {

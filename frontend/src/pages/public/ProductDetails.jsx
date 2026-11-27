@@ -236,8 +236,9 @@ export default function ProductDetails() {
             </h4>
           </div>
           <ul className="space-y-3 flex-1 min-w-0">
-            {product.requiredDocuments && product.requiredDocuments.length > 0 ? (
-              product.requiredDocuments.map((d, i) => (
+            {((product.documentChecklist && product.documentChecklist.length > 0) ? product.documentChecklist : product.requiredDocuments) &&
+            ((product.documentChecklist && product.documentChecklist.length > 0) ? product.documentChecklist : product.requiredDocuments).length > 0 ? (
+              ((product.documentChecklist && product.documentChecklist.length > 0) ? product.documentChecklist : product.requiredDocuments).map((d, i) => (
                 <li key={i} className="text-xs text-brand-textSecondary flex items-start gap-2.5 leading-relaxed min-w-0">
                   <FileText className="w-3.5 h-3.5 text-brand-red shrink-0 mt-0.5" />
                   <span className="min-w-0 flex-1 break-words [overflow-wrap:anywhere] [word-break:break-word] whitespace-normal">

@@ -34,6 +34,32 @@ const bankSchema = new mongoose.Schema(
       default: 'active',
       index: true,
     },
+    category: {
+      type: String,
+      enum: ['PSU Banks', 'Private Banks', 'NBFCs'],
+      default: 'Private Banks',
+      index: true,
+    },
+    roi: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    maxLTV: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    maxTenure: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    processingTime: {
+      type: String,
+      default: '',
+      trim: true,
+    },
     interestRateRange: {
       min: { type: Number, default: 8.5 },
       max: { type: Number, default: 16.0 },

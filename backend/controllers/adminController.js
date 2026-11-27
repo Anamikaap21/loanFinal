@@ -1,22 +1,25 @@
-import mongoose from 'mongoose';
-import User from '../models/User.js';
-import Employee from '../models/Employee.js';
-import Partner from '../models/Partner.js';
-import Bank from '../models/Bank.js';
-import LoanCategory from '../models/LoanCategory.js';
-import Lead, { LEAD_STATUSES } from '../models/Lead.js';
-import LoanApplication from '../models/LoanApplication.js';
-import Document from '../models/Document.js';
-import LeadAssignment from '../models/LeadAssignment.js';
-import CallbackRequest from '../models/CallbackRequest.js';
-import Payout from '../models/Payout.js';
-import Invoice from '../models/Invoice.js';
-import WebsiteContent from '../models/WebsiteContent.js';
-import bcrypt from 'bcryptjs';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { generateAndPersistInvoice, generateInvoicePDF } from '../services/invoiceService.js';
+import mongoose from "mongoose";
+import User from "../models/User.js";
+import Employee from "../models/Employee.js";
+import Partner from "../models/Partner.js";
+import Bank from "../models/Bank.js";
+import LoanCategory from "../models/LoanCategory.js";
+import Lead, { LEAD_STATUSES } from "../models/Lead.js";
+import LoanApplication from "../models/LoanApplication.js";
+import Document from "../models/Document.js";
+import LeadAssignment from "../models/LeadAssignment.js";
+import CallbackRequest from "../models/CallbackRequest.js";
+import Payout from "../models/Payout.js";
+import Invoice from "../models/Invoice.js";
+import WebsiteContent from "../models/WebsiteContent.js";
+import bcrypt from "bcryptjs";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import {
+  generateAndPersistInvoice,
+  generateInvoicePDF,
+} from "../services/invoiceService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,14 +41,14 @@ export const getDashboardMetrics = async (req, res, next) => {
       payoutsCompleted,
     ] = await Promise.all([
       Lead.countDocuments(),
-      Lead.countDocuments({ source: 'website' }),
-      Lead.countDocuments({ source: 'partner' }),
-      Employee.countDocuments({ accountStatus: 'active' }),
-      Partner.countDocuments({ accountStatus: 'active' }),
-      Bank.countDocuments({ status: 'active' }),
-      CallbackRequest.countDocuments({ status: 'pending' }),
-      Payout.countDocuments({ status: { $in: ['pending', 'processing'] } }),
-      Payout.countDocuments({ status: 'completed' }),
+      Lead.countDocuments({ source: "website" }),
+      Lead.countDocuments({ source: "partner" }),
+      Employee.countDocuments({ accountStatus: "active" }),
+      Partner.countDocuments({ accountStatus: "active" }),
+      Bank.countDocuments({ status: "active" }),
+      CallbackRequest.countDocuments({ status: "pending" }),
+      Payout.countDocuments({ status: { $in: ["pending", "processing"] } }),
+      Payout.countDocuments({ status: "completed" }),
     ]);
 
     // Status breakdown across the 8 lifecycle stages
@@ -56,16 +59,16 @@ export const getDashboardMetrics = async (req, res, next) => {
 
     // Disbursement volume calculation
     const disbursementAggregate = await Lead.aggregate([
-      { $match: { status: { $in: ['Disbursement', 'PDD', 'Payout'] } } },
+      { $match: { status: { $in: ["Disbursement", "PDD", "Payout"] } } },
       {
         $group: {
           _id: null,
           totalAmount: {
             $sum: {
               $cond: [
-                { $gt: ['$disbursedAmount', 0] },
-                '$disbursedAmount',
-                '$requiredLoanAmount',
+                { $gt: ["$disbursedAmount", 0] },
+                "$disbursedAmount",
+                "$requiredLoanAmount",
               ],
             },
           },
@@ -78,8 +81,8 @@ export const getDashboardMetrics = async (req, res, next) => {
     const payoutSumAggregate = await Payout.aggregate([
       {
         $group: {
-          _id: '$status',
-          totalNet: { $sum: '$netPayoutAmount' },
+          _id: "$status",
+          totalNet: { $sum: "$netPayoutAmount" },
           count: { $sum: 1 },
         },
       },
@@ -88,45 +91,50 @@ export const getDashboardMetrics = async (req, res, next) => {
     let pendingPayoutAmount = 0;
     let completedPayoutAmount = 0;
     payoutSumAggregate.forEach((item) => {
-      if (item._id === 'pending' || item._id === 'processing') {
+      if (item._id === "pending" || item._id === "processing") {
         pendingPayoutAmount += item.totalNet;
-      } else if (item._id === 'completed') {
+      } else if (item._id === "completed") {
         completedPayoutAmount += item.totalNet;
       }
     });
 
     // Recent 10 leads with populated associations
     const recentLeads = await Lead.find()
-      .populate('loanCategory', 'name slug')
-      .populate('preferredBank', 'name bankCode')
+      .populate("loanCategory", "name slug")
+      .populate("preferredBank", "name bankCode")
       .populate({
-        path: 'assignedTo',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "assignedTo",
+        populate: { path: "user", select: "name email phone" },
       })
       .populate({
-        path: 'partnerId',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "partnerId",
+        populate: { path: "user", select: "name email phone" },
       })
       .sort({ createdAt: -1 })
       .limit(10);
 
     // Recent pending callbacks
-    const recentCallbacks = await CallbackRequest.find({ status: 'pending' })
+    const recentCallbacks = await CallbackRequest.find({ status: "pending" })
       .sort({ createdAt: -1 })
       .limit(5);
 
     // Dynamic Monthly Trend for Recharts (last 6 months)
     const monthlyStats = [
-      { month: 'Jun', leads: 4, disbursement: 1200000 },
-      { month: 'Jul', leads: 7, disbursement: 2500000 },
-      { month: 'Aug', leads: 12, disbursement: 4800000 },
-      { month: 'Sep', leads: 16, disbursement: 6500000 },
-      { month: 'Oct', leads: 22, disbursement: 9200000 },
-      { month: 'Nov', leads: totalLeads > 20 ? totalLeads : 28, disbursement: totalDisbursementVolume > 0 ? totalDisbursementVolume : 12400000 },
+      { month: "Jun", leads: 4, disbursement: 1200000 },
+      { month: "Jul", leads: 7, disbursement: 2500000 },
+      { month: "Aug", leads: 12, disbursement: 4800000 },
+      { month: "Sep", leads: 16, disbursement: 6500000 },
+      { month: "Oct", leads: 22, disbursement: 9200000 },
+      {
+        month: "Nov",
+        leads: totalLeads > 20 ? totalLeads : 28,
+        disbursement:
+          totalDisbursementVolume > 0 ? totalDisbursementVolume : 12400000,
+      },
     ];
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
         summary: {
           totalLeads,
@@ -141,7 +149,16 @@ export const getDashboardMetrics = async (req, res, next) => {
           completedPayoutsCount: payoutsCompleted,
           completedPayoutAmount,
           totalDisbursementVolume,
-          conversionRate: totalLeads > 0 ? ((statusCounts['Disbursement'] + statusCounts['PDD'] + statusCounts['Payout']) / totalLeads * 100).toFixed(1) : '0.0',
+          conversionRate:
+            totalLeads > 0
+              ? (
+                  ((statusCounts["Disbursement"] +
+                    statusCounts["PDD"] +
+                    statusCounts["Payout"]) /
+                    totalLeads) *
+                  100
+                ).toFixed(1)
+              : "0.0",
         },
         statusBreakdown: statusCounts,
         monthlyStats,
@@ -159,26 +176,30 @@ export const getDashboardMetrics = async (req, res, next) => {
 // ==========================================
 export const getAllBanks = async (req, res, next) => {
   try {
-    const { status, search } = req.query;
+    const { status, search, category } = req.query;
     const filter = {
       isDeleted: { $ne: true },
     };
 
-    if (status && status !== 'all') {
+    if (status && status !== "all") {
       filter.status = status.toLowerCase();
+    }
+
+    if (category && category !== "all") {
+      filter.category = category;
     }
 
     if (search) {
       const q = search.trim();
       filter.$or = [
-        { name: { $regex: q, $options: 'i' } },
-        { bankCode: { $regex: q, $options: 'i' } },
+        { name: { $regex: q, $options: "i" } },
+        { bankCode: { $regex: q, $options: "i" } },
       ];
     }
 
     const banks = await Bank.find(filter).sort({ name: 1 });
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       count: banks.length,
       data: banks,
     });
@@ -192,26 +213,31 @@ export const createBank = async (req, res, next) => {
     const {
       name,
       bankCode,
-      logoUrl = '',
-      description = '',
+      logoUrl = "",
+      description = "",
+      category = "Private Banks",
+      roi = "",
+      maxLTV = "",
+      maxTenure = "",
+      processingTime = "",
       contactDetails = {},
-      status = 'active',
+      status = "active",
       interestRateRange = { min: 8.5, max: 15.0 },
       maxTenureMonths = 360,
-      processingFeeDetails = 'Up to 1% + GST',
+      processingFeeDetails = "Up to 1% + GST",
     } = req.body;
 
     if (!name || !name.trim()) {
       return res.status(400).json({
-        status: 'error',
-        message: 'Bank Name is required.',
+        status: "error",
+        message: "Bank Name is required.",
       });
     }
 
     if (!bankCode || !bankCode.trim()) {
       return res.status(400).json({
-        status: 'error',
-        message: 'Bank Code is required.',
+        status: "error",
+        message: "Bank Code is required.",
       });
     }
 
@@ -223,28 +249,37 @@ export const createBank = async (req, res, next) => {
       isDeleted: { $ne: true },
       $or: [
         { bankCode: trimmedCode },
-        { name: { $regex: new RegExp(`^${trimmedName}$`, 'i') } },
+        { name: { $regex: new RegExp(`^${trimmedName}$`, "i") } },
       ],
     });
 
     if (existing) {
       return res.status(400).json({
-        status: 'error',
-        message: 'A bank with this Name or Bank Code already exists.',
+        status: "error",
+        message: "A bank with this Name or Bank Code already exists.",
       });
     }
 
-    const normalizedStatus = ['active', 'ACTIVE'].includes(status) ? 'active' : 'inactive';
+    const normalizedStatus = ["active", "ACTIVE"].includes(status)
+      ? "active"
+      : "inactive";
 
     const newBank = new Bank({
       name: trimmedName,
       bankCode: trimmedCode,
-      logoUrl: logoUrl ? logoUrl.trim() : '',
-      description: description ? description.trim() : '',
+      logoUrl: logoUrl ? logoUrl.trim() : "",
+      description: description ? description.trim() : "",
+      category: ["PSU Banks", "Private Banks", "NBFCs"].includes(category)
+        ? category
+        : "Private Banks",
+      roi: roi ? roi.trim() : "",
+      maxLTV: maxLTV ? maxLTV.trim() : "",
+      maxTenure: maxTenure ? maxTenure.trim() : "",
+      processingTime: processingTime ? processingTime.trim() : "",
       contactDetails: {
-        contactPerson: contactDetails.contactPerson?.trim() || '',
-        email: contactDetails.email?.trim().toLowerCase() || '',
-        phone: contactDetails.phone?.trim() || '',
+        contactPerson: contactDetails.contactPerson?.trim() || "",
+        email: contactDetails.email?.trim().toLowerCase() || "",
+        phone: contactDetails.phone?.trim() || "",
       },
       status: normalizedStatus,
       interestRateRange: {
@@ -252,14 +287,15 @@ export const createBank = async (req, res, next) => {
         max: Number(interestRateRange?.max) || 15.0,
       },
       maxTenureMonths: Number(maxTenureMonths) || 360,
-      processingFeeDetails: processingFeeDetails ? processingFeeDetails.trim() : 'Up to 1% + GST',
+      processingFeeDetails: processingFeeDetails
+        ? processingFeeDetails.trim()
+        : "Up to 1% + GST",
       isDeleted: false,
     });
-
     await newBank.save();
 
     return res.status(201).json({
-      status: 'success',
+      status: "success",
       message: `Bank '${newBank.name}' created successfully.`,
       data: newBank,
     });
@@ -274,16 +310,16 @@ export const updateBank = async (req, res, next) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
-        status: 'error',
-        message: 'Invalid bank ID format.',
+        status: "error",
+        message: "Invalid bank ID format.",
       });
     }
 
     const bank = await Bank.findOne({ _id: id, isDeleted: { $ne: true } });
     if (!bank) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Bank not found.',
+        status: "error",
+        message: "Bank not found.",
       });
     }
 
@@ -292,6 +328,11 @@ export const updateBank = async (req, res, next) => {
       bankCode,
       logoUrl,
       description,
+      category,
+      roi,
+      maxLTV,
+      maxTenure,
+      processingTime,
       contactDetails,
       status,
       interestRateRange,
@@ -309,14 +350,14 @@ export const updateBank = async (req, res, next) => {
         isDeleted: { $ne: true },
         $or: [
           { bankCode: newCode },
-          { name: { $regex: new RegExp(`^${newName}$`, 'i') } },
+          { name: { $regex: new RegExp(`^${newName}$`, "i") } },
         ],
       });
 
       if (duplicate) {
         return res.status(400).json({
-          status: 'error',
-          message: 'Another bank with this Name or Bank Code already exists.',
+          status: "error",
+          message: "Another bank with this Name or Bank Code already exists.",
         });
       }
 
@@ -326,20 +367,48 @@ export const updateBank = async (req, res, next) => {
 
     if (logoUrl !== undefined) bank.logoUrl = logoUrl.trim();
     if (description !== undefined) bank.description = description.trim();
+    if (
+      category !== undefined &&
+      ["PSU Banks", "Private Banks", "NBFCs"].includes(category)
+    ) {
+      bank.category = category;
+    }
+    if (roi !== undefined) bank.roi = roi.trim();
+    if (maxLTV !== undefined) bank.maxLTV = maxLTV.trim();
+    if (maxTenure !== undefined) bank.maxTenure = maxTenure.trim();
+    if (processingTime !== undefined)
+      bank.processingTime = processingTime.trim();
     if (contactDetails) {
       bank.contactDetails = {
-        contactPerson: contactDetails.contactPerson !== undefined ? contactDetails.contactPerson.trim() : bank.contactDetails.contactPerson,
-        email: contactDetails.email !== undefined ? contactDetails.email.trim().toLowerCase() : bank.contactDetails.email,
-        phone: contactDetails.phone !== undefined ? contactDetails.phone.trim() : bank.contactDetails.phone,
+        contactPerson:
+          contactDetails.contactPerson !== undefined
+            ? contactDetails.contactPerson.trim()
+            : bank.contactDetails.contactPerson,
+        email:
+          contactDetails.email !== undefined
+            ? contactDetails.email.trim().toLowerCase()
+            : bank.contactDetails.email,
+        phone:
+          contactDetails.phone !== undefined
+            ? contactDetails.phone.trim()
+            : bank.contactDetails.phone,
       };
     }
     if (status !== undefined) {
-      bank.status = ['active', 'ACTIVE'].includes(status) ? 'active' : 'inactive';
+      bank.status = ["active", "ACTIVE"].includes(status)
+        ? "active"
+        : "inactive";
     }
     if (interestRateRange) {
       bank.interestRateRange = {
-        min: interestRateRange.min !== undefined ? Number(interestRateRange.min) : bank.interestRateRange.min,
-        max: interestRateRange.max !== undefined ? Number(interestRateRange.max) : bank.interestRateRange.max,
+        min:
+          interestRateRange.min !== undefined
+            ? Number(interestRateRange.min)
+            : bank.interestRateRange.min,
+        max:
+          interestRateRange.max !== undefined
+            ? Number(interestRateRange.max)
+            : bank.interestRateRange.max,
       };
     }
     if (maxTenureMonths !== undefined) {
@@ -352,7 +421,7 @@ export const updateBank = async (req, res, next) => {
     await bank.save();
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `Bank '${bank.name}' updated successfully.`,
       data: bank,
     });
@@ -367,26 +436,26 @@ export const toggleBankStatus = async (req, res, next) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
-        status: 'error',
-        message: 'Invalid bank ID format.',
+        status: "error",
+        message: "Invalid bank ID format.",
       });
     }
 
     const bank = await Bank.findOne({ _id: id, isDeleted: { $ne: true } });
     if (!bank) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Bank not found.',
+        status: "error",
+        message: "Bank not found.",
       });
     }
 
-    const currentStatus = (bank.status || '').toLowerCase();
-    const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+    const currentStatus = (bank.status || "").toLowerCase();
+    const newStatus = currentStatus === "active" ? "inactive" : "active";
     bank.status = newStatus;
     await bank.save();
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `Bank '${bank.name}' status changed to ${newStatus}.`,
       data: bank,
     });
@@ -401,16 +470,16 @@ export const deleteBank = async (req, res, next) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
-        status: 'error',
-        message: 'Invalid bank ID format.',
+        status: "error",
+        message: "Invalid bank ID format.",
       });
     }
 
     const bank = await Bank.findOne({ _id: id, isDeleted: { $ne: true } });
     if (!bank) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Bank not found.',
+        status: "error",
+        message: "Bank not found.",
       });
     }
 
@@ -425,7 +494,7 @@ export const deleteBank = async (req, res, next) => {
     if (hasHistoricalRecords) {
       // Soft-delete: retain document for historical references, but mark deleted and inactive
       bank.isDeleted = true;
-      bank.status = 'inactive';
+      bank.status = "inactive";
       bank.deletedAt = new Date();
       await bank.save();
     } else {
@@ -434,13 +503,13 @@ export const deleteBank = async (req, res, next) => {
     }
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `Bank '${bank.name}' has been successfully deleted.`,
       data: {
         id: bank._id,
         name: bank.name,
         bankCode: bank.bankCode,
-        strategy: hasHistoricalRecords ? 'soft_delete' : 'hard_delete',
+        strategy: hasHistoricalRecords ? "soft_delete" : "hard_delete",
       },
     });
   } catch (error) {
@@ -455,12 +524,12 @@ export const getAllEmployees = async (req, res, next) => {
   try {
     const { status, search } = req.query;
     const filter = {};
-    if (status && status !== 'all') {
+    if (status && status !== "all") {
       filter.accountStatus = status;
     }
 
     const employees = await Employee.find(filter)
-      .populate('user', 'name email phone role accountStatus lastLogin')
+      .populate("user", "name email phone role accountStatus lastLogin")
       .sort({ createdAt: -1 });
 
     // Filter by search term if provided
@@ -473,12 +542,12 @@ export const getAllEmployees = async (req, res, next) => {
           emp.designation.toLowerCase().includes(q) ||
           emp.user?.name?.toLowerCase().includes(q) ||
           emp.user?.email?.toLowerCase().includes(q) ||
-          emp.user?.phone?.includes(q)
+          emp.user?.phone?.includes(q),
       );
     }
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       count: results.length,
       data: results,
     });
@@ -494,16 +563,17 @@ export const createEmployee = async (req, res, next) => {
       email,
       phone,
       password,
-      designation = 'Loan Officer',
-      department = 'Loan Operations',
+      designation = "Loan Officer",
+      department = "Loan Operations",
       employeeId,
       address = {},
     } = req.body;
 
     if (!name || !email || !phone || !password || !designation) {
       return res.status(400).json({
-        status: 'error',
-        message: 'Please provide Name, Email, Phone, Password, and Designation.',
+        status: "error",
+        message:
+          "Please provide Name, Email, Phone, Password, and Designation.",
       });
     }
 
@@ -516,8 +586,9 @@ export const createEmployee = async (req, res, next) => {
     });
     if (existingUser) {
       return res.status(400).json({
-        status: 'error',
-        message: 'A user account with this email or mobile number already exists.',
+        status: "error",
+        message:
+          "A user account with this email or mobile number already exists.",
       });
     }
 
@@ -529,7 +600,7 @@ export const createEmployee = async (req, res, next) => {
     const existingEmpId = await Employee.findOne({ employeeId: empCode });
     if (existingEmpId) {
       return res.status(400).json({
-        status: 'error',
+        status: "error",
         message: `Employee ID ${empCode} is already assigned.`,
       });
     }
@@ -540,8 +611,8 @@ export const createEmployee = async (req, res, next) => {
       email: cleanEmail,
       phone: cleanPhone,
       password: password,
-      role: 'employee',
-      status: 'active',
+      role: "employee",
+      status: "active",
     });
     await newUser.save();
 
@@ -552,23 +623,23 @@ export const createEmployee = async (req, res, next) => {
       designation: designation.trim(),
       department: department.trim(),
       address: {
-        street: address.street?.trim() || '',
-        city: address.city?.trim() || '',
-        state: address.state?.trim() || '',
-        pincode: address.pincode?.trim() || '',
-        fullAddress: address.fullAddress?.trim() || '',
+        street: address.street?.trim() || "",
+        city: address.city?.trim() || "",
+        state: address.state?.trim() || "",
+        pincode: address.pincode?.trim() || "",
+        fullAddress: address.fullAddress?.trim() || "",
       },
-      accountStatus: 'active',
+      accountStatus: "active",
     });
     await newEmployee.save();
 
     const populated = await Employee.findById(newEmployee._id).populate(
-      'user',
-      'name email phone role accountStatus'
+      "user",
+      "name email phone role accountStatus",
     );
 
     return res.status(201).json({
-      status: 'success',
+      status: "success",
       message: `Employee account created successfully with ID ${empCode}.`,
       data: populated,
     });
@@ -580,20 +651,14 @@ export const createEmployee = async (req, res, next) => {
 export const updateEmployee = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const {
-      name,
-      phone,
-      designation,
-      department,
-      accountStatus,
-      address,
-    } = req.body;
+    const { name, phone, designation, department, accountStatus, address } =
+      req.body;
 
     const employee = await Employee.findById(id);
     if (!employee) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Employee not found.',
+        status: "error",
+        message: "Employee not found.",
       });
     }
 
@@ -620,13 +685,13 @@ export const updateEmployee = async (req, res, next) => {
     }
 
     const populated = await Employee.findById(employee._id).populate(
-      'user',
-      'name email phone role accountStatus'
+      "user",
+      "name email phone role accountStatus",
     );
 
     return res.status(200).json({
-      status: 'success',
-      message: 'Employee updated successfully.',
+      status: "success",
+      message: "Employee updated successfully.",
       data: populated,
     });
   } catch (error) {
@@ -640,19 +705,20 @@ export const toggleEmployeeStatus = async (req, res, next) => {
     const employee = await Employee.findById(id);
     if (!employee) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Employee not found.',
+        status: "error",
+        message: "Employee not found.",
       });
     }
 
-    const nextStatus = employee.accountStatus === 'active' ? 'inactive' : 'active';
+    const nextStatus =
+      employee.accountStatus === "active" ? "inactive" : "active";
     employee.accountStatus = nextStatus;
     await employee.save();
 
     await User.findByIdAndUpdate(employee.user, { accountStatus: nextStatus });
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `Employee account status set to ${nextStatus}.`,
       data: employee,
     });
@@ -668,12 +734,15 @@ export const getAllPartners = async (req, res, next) => {
   try {
     const { status, search } = req.query;
     const filter = {};
-    if (status && status !== 'all') {
+    if (status && status !== "all") {
       filter.accountStatus = status;
     }
 
     const partners = await Partner.find(filter)
-      .populate('user', 'name email phone role accountStatus status createdAt lastLogin')
+      .populate(
+        "user",
+        "name email phone role accountStatus status createdAt lastLogin",
+      )
       .sort({ createdAt: -1 });
 
     let results = partners;
@@ -688,12 +757,12 @@ export const getAllPartners = async (req, res, next) => {
           p.panNumber?.toLowerCase().includes(q) ||
           p.user?.name?.toLowerCase().includes(q) ||
           p.user?.email?.toLowerCase().includes(q) ||
-          p.user?.phone?.includes(q)
+          p.user?.phone?.includes(q),
       );
     }
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       count: results.length,
       data: results,
     });
@@ -717,13 +786,14 @@ export const updatePartner = async (req, res, next) => {
     const partner = await Partner.findById(id);
     if (!partner) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Partner not found.',
+        status: "error",
+        message: "Partner not found.",
       });
     }
 
     if (businessName !== undefined) partner.businessName = businessName.trim();
-    if (panNumber !== undefined) partner.panNumber = panNumber.trim().toUpperCase();
+    if (panNumber !== undefined)
+      partner.panNumber = panNumber.trim().toUpperCase();
     if (defaultCommissionRate !== undefined) {
       partner.defaultCommissionRate = Number(defaultCommissionRate);
     }
@@ -743,13 +813,13 @@ export const updatePartner = async (req, res, next) => {
     }
 
     const populated = await Partner.findById(partner._id).populate(
-      'user',
-      'name email phone role accountStatus'
+      "user",
+      "name email phone role accountStatus",
     );
 
     return res.status(200).json({
-      status: 'success',
-      message: 'Partner updated successfully.',
+      status: "success",
+      message: "Partner updated successfully.",
       data: populated,
     });
   } catch (error) {
@@ -774,54 +844,57 @@ export const getAllLeads = async (req, res, next) => {
     } = req.query;
 
     const filter = {};
-    if (source && source !== 'all') filter.source = source;
-    if (status && status !== 'all') filter.status = status;
-    if (category && category !== 'all') filter.loanCategory = category;
-    if (bank && bank !== 'all') filter.preferredBank = bank;
-    if (employeeId && employeeId !== 'all') {
-      if (source === 'employee') {
-        filter.$or = [{ creatorEmployee: employeeId }, { assignedTo: employeeId }];
+    if (source && source !== "all") filter.source = source;
+    if (status && status !== "all") filter.status = status;
+    if (category && category !== "all") filter.loanCategory = category;
+    if (bank && bank !== "all") filter.preferredBank = bank;
+    if (employeeId && employeeId !== "all") {
+      if (source === "employee") {
+        filter.$or = [
+          { creatorEmployee: employeeId },
+          { assignedTo: employeeId },
+        ];
       } else {
         filter.assignedTo = employeeId;
       }
     }
-    if (creatorEmployee && creatorEmployee !== 'all') {
+    if (creatorEmployee && creatorEmployee !== "all") {
       filter.creatorEmployee = creatorEmployee;
     }
-    if (partnerId && partnerId !== 'all') filter.partnerId = partnerId;
+    if (partnerId && partnerId !== "all") filter.partnerId = partnerId;
 
     if (search) {
       filter.$or = [
-        { leadId: { $regex: search, $options: 'i' } },
-        { customerName: { $regex: search, $options: 'i' } },
-        { customerPhone: { $regex: search, $options: 'i' } },
-        { customerEmail: { $regex: search, $options: 'i' } },
-        { city: { $regex: search, $options: 'i' } },
-        { creatorEmployeeName: { $regex: search, $options: 'i' } },
-        { creatorEmployeeId: { $regex: search, $options: 'i' } },
+        { leadId: { $regex: search, $options: "i" } },
+        { customerName: { $regex: search, $options: "i" } },
+        { customerPhone: { $regex: search, $options: "i" } },
+        { customerEmail: { $regex: search, $options: "i" } },
+        { city: { $regex: search, $options: "i" } },
+        { creatorEmployeeName: { $regex: search, $options: "i" } },
+        { creatorEmployeeId: { $regex: search, $options: "i" } },
       ];
     }
 
     const leads = await Lead.find(filter)
-      .populate('loanCategory', 'name slug interestRateStartingFrom')
-      .populate('preferredBank', 'name bankCode')
+      .populate("loanCategory", "name slug interestRateStartingFrom")
+      .populate("preferredBank", "name bankCode")
       .populate({
-        path: 'assignedTo',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "assignedTo",
+        populate: { path: "user", select: "name email phone" },
       })
       .populate({
-        path: 'creatorEmployee',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "creatorEmployee",
+        populate: { path: "user", select: "name email phone" },
       })
-      .populate('createdBy', 'name email role')
+      .populate("createdBy", "name email role")
       .populate({
-        path: 'partnerId',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "partnerId",
+        populate: { path: "user", select: "name email phone" },
       })
       .sort({ createdAt: -1 });
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       count: leads.length,
       data: leads,
     });
@@ -834,27 +907,27 @@ export const getLeadById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const lead = await Lead.findById(id)
-      .populate('loanCategory')
-      .populate('preferredBank')
+      .populate("loanCategory")
+      .populate("preferredBank")
       .populate({
-        path: 'assignedTo',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "assignedTo",
+        populate: { path: "user", select: "name email phone" },
       })
       .populate({
-        path: 'creatorEmployee',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "creatorEmployee",
+        populate: { path: "user", select: "name email phone" },
       })
-      .populate('createdBy', 'name email role')
+      .populate("createdBy", "name email role")
       .populate({
-        path: 'partnerId',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "partnerId",
+        populate: { path: "user", select: "name email phone" },
       })
-      .populate('statusHistory.changedBy', 'name email role');
+      .populate("statusHistory.changedBy", "name email role");
 
     if (!lead) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Lead record not found.',
+        status: "error",
+        message: "Lead record not found.",
       });
     }
 
@@ -863,14 +936,14 @@ export const getLeadById = async (req, res, next) => {
       LoanApplication.find({ lead: lead._id }),
       Document.find({ lead: lead._id }),
       LeadAssignment.find({ lead: lead._id })
-        .populate('assignedTo')
-        .populate('assignedBy', 'name email')
+        .populate("assignedTo")
+        .populate("assignedBy", "name email")
         .sort({ assignedAt: -1 }),
       Payout.findOne({ lead: lead._id }),
     ]);
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
         lead,
         applications,
@@ -887,21 +960,24 @@ export const getLeadById = async (req, res, next) => {
 export const assignLead = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { employeeId, notes = '' } = req.body;
+    const { employeeId, notes = "" } = req.body;
 
     const lead = await Lead.findById(id);
     if (!lead) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Lead not found.',
+        status: "error",
+        message: "Lead not found.",
       });
     }
 
-    const employee = await Employee.findById(employeeId).populate('user', 'name');
+    const employee = await Employee.findById(employeeId).populate(
+      "user",
+      "name",
+    );
     if (!employee) {
       return res.status(400).json({
-        status: 'error',
-        message: 'Selected employee not found.',
+        status: "error",
+        message: "Selected employee not found.",
       });
     }
 
@@ -933,19 +1009,25 @@ export const assignLead = async (req, res, next) => {
     await assignmentRecord.save();
 
     // Update counts on employees
-    await Employee.findByIdAndUpdate(employee._id, { $inc: { assignedLeadsCount: 1 } });
-    if (previousEmployeeId && previousEmployeeId.toString() !== employee._id.toString()) {
-      await Employee.findByIdAndUpdate(previousEmployeeId, { $inc: { assignedLeadsCount: -1 } });
+    await Employee.findByIdAndUpdate(employee._id, {
+      $inc: { assignedLeadsCount: 1 },
+    });
+    if (
+      previousEmployeeId &&
+      previousEmployeeId.toString() !== employee._id.toString()
+    ) {
+      await Employee.findByIdAndUpdate(previousEmployeeId, {
+        $inc: { assignedLeadsCount: -1 },
+      });
     }
 
-    const updated = await Lead.findById(lead._id)
-      .populate({
-        path: 'assignedTo',
-        populate: { path: 'user', select: 'name email phone' },
-      });
+    const updated = await Lead.findById(lead._id).populate({
+      path: "assignedTo",
+      populate: { path: "user", select: "name email phone" },
+    });
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `Lead successfully assigned to ${employee.user?.name || employee.employeeId}.`,
       data: updated,
     });
@@ -959,7 +1041,7 @@ export const updateLeadStatus = async (req, res, next) => {
     const { id } = req.params;
     const {
       status,
-      remarks = '',
+      remarks = "",
       sanctionedAmount,
       sanctionDate,
       sanctionReferenceNumber,
@@ -970,16 +1052,16 @@ export const updateLeadStatus = async (req, res, next) => {
 
     if (!LEAD_STATUSES.includes(status)) {
       return res.status(400).json({
-        status: 'error',
-        message: `Invalid lead status. Must be one of: ${LEAD_STATUSES.join(', ')}`,
+        status: "error",
+        message: `Invalid lead status. Must be one of: ${LEAD_STATUSES.join(", ")}`,
       });
     }
 
     const lead = await Lead.findById(id);
     if (!lead) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Lead not found.',
+        status: "error",
+        message: "Lead not found.",
       });
     }
 
@@ -987,25 +1069,28 @@ export const updateLeadStatus = async (req, res, next) => {
     lead.status = status;
 
     // Sanction details update
-    if (status === 'Sanction' || sanctionedAmount) {
+    if (status === "Sanction" || sanctionedAmount) {
       if (sanctionedAmount) lead.sanctionedAmount = Number(sanctionedAmount);
       if (sanctionDate) lead.sanctionDate = new Date(sanctionDate);
-      if (sanctionReferenceNumber) lead.sanctionReferenceNumber = sanctionReferenceNumber.trim();
+      if (sanctionReferenceNumber)
+        lead.sanctionReferenceNumber = sanctionReferenceNumber.trim();
     }
 
     // Disbursement details update & Automatic Payout Eligibility (Master Architecture rule)
-    if (status === 'Disbursement' || disbursedAmount) {
+    if (status === "Disbursement" || disbursedAmount) {
       if (disbursedAmount) lead.disbursedAmount = Number(disbursedAmount);
-      else if (!lead.disbursedAmount) lead.disbursedAmount = lead.requiredLoanAmount;
+      else if (!lead.disbursedAmount)
+        lead.disbursedAmount = lead.requiredLoanAmount;
       if (disbursementDate) lead.disbursementDate = new Date(disbursementDate);
       else if (!lead.disbursementDate) lead.disbursementDate = new Date();
-      if (disbursementReferenceNumber) lead.disbursementReferenceNumber = disbursementReferenceNumber.trim();
+      if (disbursementReferenceNumber)
+        lead.disbursementReferenceNumber = disbursementReferenceNumber.trim();
 
       // IF PARTNER LEAD: trigger immediate payout eligibility
-      if (lead.source === 'partner' && lead.partnerId) {
+      if (lead.source === "partner" && lead.partnerId) {
         lead.isEligibleForPayout = true;
-        if (lead.payoutStatus === 'not_eligible') {
-          lead.payoutStatus = 'eligible';
+        if (lead.payoutStatus === "not_eligible") {
+          lead.payoutStatus = "eligible";
         }
 
         // Automatic Payout Record Generation (with duplicate prevention)
@@ -1014,7 +1099,8 @@ export const updateLeadStatus = async (req, res, next) => {
           const partner = await Partner.findById(lead.partnerId);
           if (partner) {
             const commissionRate = partner.defaultCommissionRate || 1.5;
-            const loanDisbursed = lead.disbursedAmount || lead.requiredLoanAmount;
+            const loanDisbursed =
+              lead.disbursedAmount || lead.requiredLoanAmount;
             const grossCommission = (loanDisbursed * commissionRate) / 100;
             const tdsAmount = (grossCommission * 5) / 100; // 5% standard TDS
             const netPayout = grossCommission - tdsAmount;
@@ -1025,18 +1111,18 @@ export const updateLeadStatus = async (req, res, next) => {
               partner: partner._id,
               partnerUser: partner.user,
               disbursedLoanAmount: loanDisbursed,
-              commissionType: 'percentage',
+              commissionType: "percentage",
               commissionRate,
               grossCommissionAmount: grossCommission,
               tdsRate: 5,
               tdsAmount,
               netPayoutAmount: netPayout,
-              status: 'pending',
+              status: "pending",
               remarks: `Automatic payout generated upon Lead status progression to Disbursement.`,
             });
             await payoutDoc.save();
             lead.payoutId = payoutDoc._id;
-            lead.payoutStatus = 'pending';
+            lead.payoutStatus = "pending";
 
             // Update partner stats
             partner.totalDisbursedAmount += loanDisbursed;
@@ -1053,25 +1139,27 @@ export const updateLeadStatus = async (req, res, next) => {
       changedBy: req.user._id,
       changedByName: req.user.name,
       changedAt: new Date(),
-      remarks: remarks.trim() || `Status updated from ${previousStatus} to ${status} by Administrator.`,
+      remarks:
+        remarks.trim() ||
+        `Status updated from ${previousStatus} to ${status} by Administrator.`,
     });
 
     await lead.save();
 
     const populated = await Lead.findById(lead._id)
-      .populate('loanCategory')
-      .populate('preferredBank')
+      .populate("loanCategory")
+      .populate("preferredBank")
       .populate({
-        path: 'assignedTo',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "assignedTo",
+        populate: { path: "user", select: "name email phone" },
       })
       .populate({
-        path: 'partnerId',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "partnerId",
+        populate: { path: "user", select: "name email phone" },
       });
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `Lead status updated to ${status}.`,
       data: populated,
     });
@@ -1086,8 +1174,8 @@ export const deleteLead = async (req, res, next) => {
     const lead = await Lead.findById(id);
     if (!lead) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Lead not found.',
+        status: "error",
+        message: "Lead not found.",
       });
     }
 
@@ -1095,15 +1183,15 @@ export const deleteLead = async (req, res, next) => {
     const attachedPayout = await Payout.findOne({ lead: lead._id });
     if (attachedPayout) {
       return res.status(400).json({
-        status: 'error',
-        message: 'Cannot delete lead with processed financial payouts.',
+        status: "error",
+        message: "Cannot delete lead with processed financial payouts.",
       });
     }
 
     await Lead.findByIdAndDelete(id);
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `Lead ${lead.leadId} deleted successfully.`,
     });
   } catch (error) {
@@ -1118,17 +1206,17 @@ export const getAllCallbacks = async (req, res, next) => {
   try {
     const { status } = req.query;
     const filter = {};
-    if (status && status !== 'all') filter.status = status;
+    if (status && status !== "all") filter.status = status;
 
     const callbacks = await CallbackRequest.find(filter)
       .populate({
-        path: 'assignedTo',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "assignedTo",
+        populate: { path: "user", select: "name email phone" },
       })
       .sort({ createdAt: -1 });
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       count: callbacks.length,
       data: callbacks,
     });
@@ -1145,8 +1233,8 @@ export const updateCallback = async (req, res, next) => {
     const callback = await CallbackRequest.findById(id);
     if (!callback) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Callback request not found.',
+        status: "error",
+        message: "Callback request not found.",
       });
     }
 
@@ -1157,8 +1245,8 @@ export const updateCallback = async (req, res, next) => {
     await callback.save();
 
     return res.status(200).json({
-      status: 'success',
-      message: 'Callback request updated.',
+      status: "success",
+      message: "Callback request updated.",
       data: callback,
     });
   } catch (error) {
@@ -1173,25 +1261,25 @@ export const getAllPayouts = async (req, res, next) => {
   try {
     const { status } = req.query;
     const filter = {};
-    if (status && status !== 'all') {
-      if (status === 'completed' || status === 'paid') {
-        filter.status = { $in: ['completed', 'paid'] };
+    if (status && status !== "all") {
+      if (status === "completed" || status === "paid") {
+        filter.status = { $in: ["completed", "paid"] };
       } else {
         filter.status = status;
       }
     }
 
     const payouts = await Payout.find(filter)
-      .populate('lead')
+      .populate("lead")
       .populate({
-        path: 'partner',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "partner",
+        populate: { path: "user", select: "name email phone" },
       })
-      .populate('partnerUser', 'name email phone')
+      .populate("partnerUser", "name email phone")
       .sort({ createdAt: -1 });
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       count: payouts.length,
       data: payouts,
     });
@@ -1204,19 +1292,21 @@ export const getPartnerLeadsForPayout = async (req, res, next) => {
   try {
     const { partnerId } = req.params;
     if (!partnerId) {
-      return res.status(400).json({ status: 'error', message: 'Partner ID is required.' });
+      return res
+        .status(400)
+        .json({ status: "error", message: "Partner ID is required." });
     }
 
     const leads = await Lead.find({ partnerId })
-      .populate('loanCategory', 'name slug')
-      .populate('preferredBank', 'name bankCode')
+      .populate("loanCategory", "name slug")
+      .populate("preferredBank", "name bankCode")
       .sort({ createdAt: -1 });
 
     const leadIds = leads.map((l) => l._id);
     const existingPayouts = await Payout.find({
       lead: { $in: leadIds },
-      status: { $ne: 'cancelled' },
-    }).select('lead payoutNumber status');
+      status: { $ne: "cancelled" },
+    }).select("lead payoutNumber status");
 
     const payoutMap = new Map();
     existingPayouts.forEach((p) => {
@@ -1233,7 +1323,7 @@ export const getPartnerLeadsForPayout = async (req, res, next) => {
     });
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       count: enrichedLeads.length,
       data: enrichedLeads,
     });
@@ -1249,64 +1339,85 @@ export const createPayout = async (req, res, next) => {
       leadId,
       disbursedLoanAmount,
       disbursementDate,
-      commissionType = 'percentage',
+      commissionType = "percentage",
       commissionRate,
       payoutDate,
-      status = 'pending',
-      remarks = '',
+      status = "pending",
+      remarks = "",
     } = req.body;
 
     // 1. Validation
     if (!partnerId) {
-      return res.status(400).json({ status: 'error', message: 'Partner is required.' });
+      return res
+        .status(400)
+        .json({ status: "error", message: "Partner is required." });
     }
     if (!leadId) {
-      return res.status(400).json({ status: 'error', message: 'Associated lead is required.' });
+      return res
+        .status(400)
+        .json({ status: "error", message: "Associated lead is required." });
     }
 
     const disbursedAmountNum = Number(disbursedLoanAmount);
     if (isNaN(disbursedAmountNum) || disbursedAmountNum <= 0) {
-      return res.status(400).json({ status: 'error', message: 'Valid loan disbursed amount is required.' });
+      return res
+        .status(400)
+        .json({
+          status: "error",
+          message: "Valid loan disbursed amount is required.",
+        });
     }
 
     const rateNum = Number(commissionRate);
     if (isNaN(rateNum) || rateNum <= 0) {
-      return res.status(400).json({ status: 'error', message: 'Valid payout rate or amount is required.' });
+      return res
+        .status(400)
+        .json({
+          status: "error",
+          message: "Valid payout rate or amount is required.",
+        });
     }
 
     // 2. Fetch Partner and Lead
-    const partner = await Partner.findById(partnerId).populate('user');
+    const partner = await Partner.findById(partnerId).populate("user");
     if (!partner) {
-      return res.status(404).json({ status: 'error', message: 'Selected Partner not found.' });
+      return res
+        .status(404)
+        .json({ status: "error", message: "Selected Partner not found." });
     }
 
     const lead = await Lead.findById(leadId);
     if (!lead) {
-      return res.status(404).json({ status: 'error', message: 'Selected Lead not found.' });
+      return res
+        .status(404)
+        .json({ status: "error", message: "Selected Lead not found." });
     }
 
-    if (!lead.partnerId || lead.partnerId.toString() !== partner._id.toString()) {
+    if (
+      !lead.partnerId ||
+      lead.partnerId.toString() !== partner._id.toString()
+    ) {
       return res.status(400).json({
-        status: 'error',
-        message: 'The selected lead does not belong to the selected partner.',
+        status: "error",
+        message: "The selected lead does not belong to the selected partner.",
       });
     }
 
     // 3. Prevent duplicate active payout
     const existingPayout = await Payout.findOne({
       lead: lead._id,
-      status: { $ne: 'cancelled' },
+      status: { $ne: "cancelled" },
     });
     if (existingPayout) {
       return res.status(400).json({
-        status: 'error',
+        status: "error",
         message: `A payout (${existingPayout.payoutNumber}) has already been generated for this lead.`,
       });
     }
 
     // 4. Calculations: Gross, TDS (5%), Net
     let gross = 0;
-    if (commissionType === 'fixed') {
+    if (commissionType === "fixed") {
       gross = rateNum;
     } else {
       gross = (disbursedAmountNum * rateNum) / 100;
@@ -1322,7 +1433,8 @@ export const createPayout = async (req, res, next) => {
     const dateStamp = Date.now().toString().slice(-6);
     const payoutNumber = `RCPAY-${dateStamp}${randomSuffix}`;
 
-    const normalizedStatus = status.toLowerCase() === 'paid' ? 'completed' : status.toLowerCase();
+    const normalizedStatus =
+      status.toLowerCase() === "paid" ? "completed" : status.toLowerCase();
     const payoutDateVal = payoutDate ? new Date(payoutDate) : new Date();
 
     // 6. Create Payout Document
@@ -1332,7 +1444,7 @@ export const createPayout = async (req, res, next) => {
       partner: partner._id,
       partnerUser: partner.user?._id || partner.user,
       disbursedLoanAmount: disbursedAmountNum,
-      commissionType: commissionType === 'fixed' ? 'fixed' : 'percentage',
+      commissionType: commissionType === "fixed" ? "fixed" : "percentage",
       commissionRate: rateNum,
       grossCommissionAmount: gross,
       tdsRate,
@@ -1341,19 +1453,20 @@ export const createPayout = async (req, res, next) => {
       status: normalizedStatus,
       payoutDate: payoutDateVal,
       paymentDetails: {
-        paymentDate: normalizedStatus === 'completed' ? payoutDateVal : null,
-        paymentMethod: 'bank_transfer',
+        paymentDate: normalizedStatus === "completed" ? payoutDateVal : null,
+        paymentMethod: "bank_transfer",
       },
-      remarks: remarks?.trim() || '',
+      remarks: remarks?.trim() || "",
       processedBy: req.user._id,
-      completedAt: normalizedStatus === 'completed' ? payoutDateVal : null,
+      completedAt: normalizedStatus === "completed" ? payoutDateVal : null,
     });
 
     await payout.save();
 
     // 7. Update Lead
     lead.payoutId = payout._id;
-    lead.payoutStatus = normalizedStatus === 'completed' ? 'completed' : 'pending';
+    lead.payoutStatus =
+      normalizedStatus === "completed" ? "completed" : "pending";
     lead.disbursedAmount = disbursedAmountNum;
     if (disbursementDate) {
       lead.disbursementDate = new Date(disbursementDate);
@@ -1363,22 +1476,22 @@ export const createPayout = async (req, res, next) => {
     await lead.save();
 
     // 8. If status is completed/paid, update partner total commission
-    if (normalizedStatus === 'completed') {
+    if (normalizedStatus === "completed") {
       await Partner.findByIdAndUpdate(partner._id, {
         $inc: { totalCommissionEarned: netPayoutAmount },
       });
     }
 
     const populated = await Payout.findById(payout._id)
-      .populate('lead')
+      .populate("lead")
       .populate({
-        path: 'partner',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "partner",
+        populate: { path: "user", select: "name email phone" },
       })
-      .populate('partnerUser', 'name email phone');
+      .populate("partnerUser", "name email phone");
 
     return res.status(201).json({
-      status: 'success',
+      status: "success",
       message: `Payout ${payoutNumber} generated successfully.`,
       data: populated,
     });
@@ -1404,28 +1517,34 @@ export const updatePayout = async (req, res, next) => {
     const payout = await Payout.findById(id);
     if (!payout) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Payout record not found.',
+        status: "error",
+        message: "Payout record not found.",
       });
     }
 
     // Override commission or net amount
-    if (commissionRate !== undefined) payout.commissionRate = Number(commissionRate);
-    if (grossCommissionAmount !== undefined) payout.grossCommissionAmount = Number(grossCommissionAmount);
+    if (commissionRate !== undefined)
+      payout.commissionRate = Number(commissionRate);
+    if (grossCommissionAmount !== undefined)
+      payout.grossCommissionAmount = Number(grossCommissionAmount);
     if (tdsRate !== undefined) payout.tdsRate = Number(tdsRate);
     if (tdsAmount !== undefined) payout.tdsAmount = Number(tdsAmount);
-    if (netPayoutAmount !== undefined) payout.netPayoutAmount = Number(netPayoutAmount);
+    if (netPayoutAmount !== undefined)
+      payout.netPayoutAmount = Number(netPayoutAmount);
     if (remarks !== undefined) payout.remarks = remarks.trim();
 
     if (status) {
-      const normalizedStatus = status.toLowerCase() === 'paid' ? 'completed' : status.toLowerCase();
+      const normalizedStatus =
+        status.toLowerCase() === "paid" ? "completed" : status.toLowerCase();
       payout.status = normalizedStatus;
-      if (normalizedStatus === 'completed') {
+      if (normalizedStatus === "completed") {
         payout.completedAt = new Date();
         payout.processedBy = req.user._id;
 
         // Update lead payoutStatus to 'completed'
-        await Lead.findByIdAndUpdate(payout.lead, { payoutStatus: 'completed' });
+        await Lead.findByIdAndUpdate(payout.lead, {
+          payoutStatus: "completed",
+        });
 
         // Update partner total commission earned
         await Partner.findByIdAndUpdate(payout.partner, {
@@ -1444,15 +1563,15 @@ export const updatePayout = async (req, res, next) => {
     await payout.save();
 
     const populated = await Payout.findById(payout._id)
-      .populate('lead')
+      .populate("lead")
       .populate({
-        path: 'partner',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "partner",
+        populate: { path: "user", select: "name email phone" },
       });
 
     return res.status(200).json({
-      status: 'success',
-      message: 'Payout updated successfully.',
+      status: "success",
+      message: "Payout updated successfully.",
       data: populated,
     });
   } catch (error) {
@@ -1467,15 +1586,15 @@ export const getAllInvoices = async (req, res, next) => {
   try {
     const invoices = await Invoice.find()
       .populate({
-        path: 'partner',
-        populate: { path: 'user', select: 'name email phone' },
+        path: "partner",
+        populate: { path: "user", select: "name email phone" },
       })
-      .populate('payout')
-      .populate('lead')
+      .populate("payout")
+      .populate("lead")
       .sort({ invoiceDate: -1 });
 
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       count: invoices.length,
       data: invoices,
     });
@@ -1490,7 +1609,7 @@ export const generateInvoiceForPayout = async (req, res, next) => {
     const invoice = await generateAndPersistInvoice(payoutId, req.user._id);
 
     return res.status(201).json({
-      status: 'success',
+      status: "success",
       message: `Invoice ${invoice.invoiceNumber} generated successfully.`,
       data: invoice,
     });
@@ -1505,12 +1624,18 @@ export const downloadInvoicePDF = async (req, res, next) => {
     const invoice = await Invoice.findById(id);
     if (!invoice) {
       return res.status(404).json({
-        status: 'error',
-        message: 'Invoice not found.',
+        status: "error",
+        message: "Invoice not found.",
       });
     }
 
-    const pdfPath = path.join(__dirname, '..', 'uploads', 'invoices', `${invoice.invoiceNumber}.pdf`);
+    const pdfPath = path.join(
+      __dirname,
+      "..",
+      "uploads",
+      "invoices",
+      `${invoice.invoiceNumber}.pdf`,
+    );
     if (!fs.existsSync(pdfPath)) {
       await generateInvoicePDF(invoice);
     }
@@ -1531,7 +1656,7 @@ export const getWebsiteContent = async (req, res, next) => {
       content = await WebsiteContent.findOne().sort({ createdAt: -1 });
     }
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       data: content,
     });
   } catch (error) {
@@ -1551,8 +1676,8 @@ export const updateWebsiteContent = async (req, res, next) => {
     await content.save();
 
     return res.status(200).json({
-      status: 'success',
-      message: 'Website CMS content updated successfully.',
+      status: "success",
+      message: "Website CMS content updated successfully.",
       data: content,
     });
   } catch (error) {
