@@ -28,6 +28,7 @@ import bankService from '../../services/bankService.js';
 import EMICalculator from '../../components/common/EMICalculator.jsx';
 import DocumentChecklistModal from '../../components/common/DocumentChecklistModal.jsx';
 import HeroVisual from "../../components/common/HeroVisual.jsx";
+import { getVerifiedBankLogo } from '../../utils/bankLogos.js';
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
@@ -493,9 +494,42 @@ export default function Home() {
                         )}
                       </div>
 
-                      <h3 className="text-lg sm:text-xl font-bold text-brand-textPrimary mb-1.5 group-hover:text-brand-red transition break-words">
-                        {bank.name || bank.bankName}
-                      </h3>
+                      {/* Bank Official Logo & Name */}
+                      {(() => {
+                        const verifiedLogo = getVerifiedBankLogo(bank);
+                        return (
+                          <div className="flex items-center gap-3.5 mb-3 min-w-0">
+                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white border border-brand-border p-1.5 flex items-center justify-center shrink-0 shadow-xs group-hover:border-brand-red/40 transition">
+                              {verifiedLogo ? (
+                                <img
+                                  src={verifiedLogo}
+                                  alt={`${bank.name || bank.bankName} Official Logo`}
+                                  className="w-full h-full object-contain"
+                                  loading="lazy"
+                                  onError={(e) => {
+                                    e.currentTarget.style.display = 'none';
+                                    if (e.currentTarget.nextElementSibling) {
+                                      e.currentTarget.nextElementSibling.style.display = 'flex';
+                                    }
+                                  }}
+                                />
+                              ) : null}
+                              <div
+                                style={{ display: verifiedLogo ? 'none' : 'flex' }}
+                                className="w-full h-full items-center justify-center text-brand-red"
+                              >
+                                <Building2 className="w-6 h-6 text-brand-red" />
+                              </div>
+                            </div>
+
+                            <div className="min-w-0 flex-1">
+                              <h3 className="text-base sm:text-lg font-bold text-brand-textPrimary group-hover:text-brand-red transition break-words line-clamp-2 leading-snug">
+                                {bank.name || bank.bankName}
+                              </h3>
+                            </div>
+                          </div>
+                        );
+                      })()}
 
                       <p className="text-xs text-brand-textSecondary line-clamp-2 mb-4 leading-relaxed break-words">
                         {bank.description || 'Premier institutional lending partner providing competitive retail and commercial financing.'}

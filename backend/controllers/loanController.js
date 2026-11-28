@@ -58,6 +58,47 @@ export const getLoanCategoryBySlug = async (req, res, next) => {
   }
 };
 
+// Canonical 37 Verified Authentic Bank Logos
+const VERIFIED_BANK_LOGOS = {
+  BOB: '/assets/banks/bob.svg',
+  BOI: '/assets/banks/boi.png',
+  BOM: '/assets/banks/bom.svg',
+  CANARA: '/assets/banks/canara.svg',
+  IDBI: '/assets/banks/idbi.svg',
+  INDIANBANK: '/assets/banks/indianbank.svg',
+  PNB: '/assets/banks/pnb.svg',
+  SBI: '/assets/banks/sbi.svg',
+  UCO: '/assets/banks/uco.jpg',
+  UNIONBANK: '/assets/banks/unionbank.svg',
+  AUBANK: '/assets/banks/aubank.svg',
+  AXIS: '/assets/banks/axis.svg',
+  DCB: '/assets/banks/dcb.svg',
+  FEDERAL: '/assets/banks/federal.svg',
+  HDFC: '/assets/banks/hdfc.svg',
+  HSBC: '/assets/banks/hsbc.svg',
+  ICICI: '/assets/banks/icici.svg',
+  IDFC: '/assets/banks/idfc.svg',
+  INDUSIND: '/assets/banks/indusind.svg',
+  KOTAK: '/assets/banks/kotak.svg',
+  ABHFL: '/assets/banks/abhfl.svg',
+  AXISFIN: '/assets/banks/axisfin.webp',
+  BAJAJHFL: '/assets/banks/bajajhfl.svg',
+  CHOLA: '/assets/banks/chola.svg',
+  EASYHOME: '/assets/banks/easyhome.svg',
+  GODREJHFL: '/assets/banks/godrejhfl.svg',
+  HINDUJA: '/assets/banks/hinduja.png',
+  ICICIHFC: '/assets/banks/icicihfc.png',
+  IIFL: '/assets/banks/iifl.svg',
+  LTFIN: '/assets/banks/ltfin.svg',
+  LICHFL: '/assets/banks/lichfl.svg',
+  MOTILAL: '/assets/banks/motilal.svg',
+  PIRAMAL: '/assets/banks/piramal.svg',
+  PNBHFL: '/assets/banks/pnbhfl.png',
+  SAMMAN: '/assets/banks/samman.png',
+  TATAHFC: '/assets/banks/tatahfc.svg',
+  VASTU: '/assets/banks/vastu.svg',
+};
+
 export const getHomepageProducts = async (req, res, next) => {
   try {
     // Expected data flow: Admin Panel → Bank Management → MongoDB → Backend API → Public Homepage → Our Products
@@ -72,6 +113,8 @@ export const getHomepageProducts = async (req, res, next) => {
       const maxRate = bank.interestRateRange?.max ?? 14.5;
       const maxYears = Math.round((bank.maxTenureMonths || 360) / 12);
       const fee = bank.processingFeeDetails || 'Up to 1% + GST';
+      const code = (bank.bankCode || '').toUpperCase().trim();
+      const verifiedLogo = VERIFIED_BANK_LOGOS[code] || bank.logoUrl || '';
 
       return {
         _id: bank._id,
@@ -79,7 +122,7 @@ export const getHomepageProducts = async (req, res, next) => {
         name: bank.name,
         bankName: bank.name,
         bankCode: bank.bankCode,
-        logoUrl: bank.logoUrl || '',
+        logoUrl: verifiedLogo,
         description:
           bank.description ||
           'Premier institutional lending partner providing competitive retail and commercial financing.',

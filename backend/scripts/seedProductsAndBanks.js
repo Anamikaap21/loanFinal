@@ -743,12 +743,53 @@ async function seed() {
     // 1. Upsert Banks (Safe idempotent upsert based on bankCode)
     console.log(`\n[RealCred Seeder] Upserting ${BANK_PARTNERS.length} Banking Partners...`);
     let bankUpsertCount = 0;
+    const VERIFIED_LOGOS = {
+      BOB: '/assets/banks/bob.svg',
+      BOI: '/assets/banks/boi.png',
+      BOM: '/assets/banks/bom.svg',
+      CANARA: '/assets/banks/canara.svg',
+      IDBI: '/assets/banks/idbi.svg',
+      INDIANBANK: '/assets/banks/indianbank.svg',
+      PNB: '/assets/banks/pnb.svg',
+      SBI: '/assets/banks/sbi.svg',
+      UCO: '/assets/banks/uco.jpg',
+      UNIONBANK: '/assets/banks/unionbank.svg',
+      AXIS: '/assets/banks/axis.svg',
+      DCB: '/assets/banks/dcb.svg',
+      FEDERAL: '/assets/banks/federal.svg',
+      HDFC: '/assets/banks/hdfc.svg',
+      HSBC: '/assets/banks/hsbc.svg',
+      ICICI: '/assets/banks/icici.svg',
+      INDUSIND: '/assets/banks/indusind.svg',
+      KOTAK: '/assets/banks/kotak.svg',
+      AUBANK: '/assets/banks/aubank.svg',
+      IDFC: '/assets/banks/idfc.svg',
+      ABHFL: '/assets/banks/abhfl.svg',
+      AXISFIN: '/assets/banks/axisfin.webp',
+      BAJAJHFL: '/assets/banks/bajajhfl.svg',
+      CHOLA: '/assets/banks/chola.svg',
+      EASYHOME: '/assets/banks/easyhome.svg',
+      GODREJHFL: '/assets/banks/godrejhfl.svg',
+      HINDUJA: '/assets/banks/hinduja.png',
+      ICICIHFC: '/assets/banks/icicihfc.png',
+      IIFL: '/assets/banks/iifl.svg',
+      LTFIN: '/assets/banks/ltfin.svg',
+      LICHFL: '/assets/banks/lichfl.svg',
+      MOTILAL: '/assets/banks/motilal.svg',
+      PIRAMAL: '/assets/banks/piramal.svg',
+      PNBHFL: '/assets/banks/pnbhfl.png',
+      SAMMAN: '/assets/banks/samman.png',
+      TATAHFC: '/assets/banks/tatahfc.svg',
+      VASTU: '/assets/banks/vastu.svg',
+    };
+
     for (const bankData of BANK_PARTNERS) {
       await Bank.findOneAndUpdate(
         { bankCode: bankData.bankCode },
         {
           $set: {
             ...bankData,
+            logoUrl: bankData.logoUrl || VERIFIED_LOGOS[bankData.bankCode] || `/assets/banks/${bankData.bankCode.toLowerCase()}.svg`,
             isDeleted: false,
           },
         },

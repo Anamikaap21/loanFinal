@@ -213,7 +213,7 @@ export default function HeroVisual() {
               Loan Approved!
             </h4>
             <div className="text-xs font-bold text-emerald-600 font-mono mt-0.5 flex items-center gap-1">
-              <span>₹25,00,000</span>
+              <span>₹1 Cr</span>
               <span className="text-[10px] text-brand-textSecondary font-sans font-normal">Sanctioned</span>
             </div>
           </div>
@@ -231,7 +231,7 @@ export default function HeroVisual() {
               Lending Network
             </span>
             <span className="text-xs font-black text-brand-textPrimary flex items-center gap-1">
-              <span>37 Active Banks</span>
+              <span>50 Active Banks</span>
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
             </span>
           </div>

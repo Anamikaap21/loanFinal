@@ -21,7 +21,13 @@ const MONGO_URI = process.env.MONGO_URI;
 async function verify() {
   try {
     console.log('[Verify] Connecting to MongoDB Atlas...');
-    const conn = await mongoose.connect(MONGO_URI, { serverSelectionTimeoutMS: 15000 });
+    let conn;
+    try {
+      conn = await mongoose.connect(MONGO_URI, { serverSelectionTimeoutMS: 8000 });
+    } catch (e) {
+      const directUri = 'mongodb://anamikacoxfuture_db_user:loanFinal@ac-adjo4fa-shard-00-00.ed8hgbl.mongodb.net:27017,ac-adjo4fa-shard-00-01.ed8hgbl.mongodb.net:27017,ac-adjo4fa-shard-00-02.ed8hgbl.mongodb.net:27017/loanFinal?ssl=true&replicaSet=atlas-2y4f5u-shard-0&authSource=admin&retryWrites=true&w=majority';
+      conn = await mongoose.connect(directUri, { serverSelectionTimeoutMS: 12000 });
+    }
     console.log(`[Verify] Connected to: ${conn.connection.host}/${conn.connection.name}`);
 
     // Query active banks
@@ -42,6 +48,8 @@ async function verify() {
     console.log(`  * PSU Banks: ${psuBanks.length} (Expected: 10)`);
     console.log(`  * Private Banks: ${pvtBanks.length} (Expected: 10)`);
     console.log(`  * NBFCs: ${nbfcs.length} (Expected: 17)`);
+    const banksWithLogo = allActiveBanks.filter(b => !!b.logoUrl);
+    console.log(`  * Banking Partners with valid logoUrl: ${banksWithLogo.length} / ${allActiveBanks.length}`);
     console.log(`Total Active Loan Facilities: ${allActiveCategories.length} (Expected: 4)`);
     console.log(`Total All Active Products & Banks: ${allActiveBanks.length + allActiveCategories.length} (Expected: 41)`);
     console.log('---------------------------------------------------------');

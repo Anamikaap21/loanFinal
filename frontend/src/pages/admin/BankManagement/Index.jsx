@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Landmark, 
-  Plus, 
-  Search, 
-  Edit3, 
-  Trash2, 
-  CheckCircle, 
-  XCircle, 
-  AlertCircle, 
-  Phone, 
-  Mail, 
+import {
+  Landmark,
+  Plus,
+  Search,
+  Edit3,
+  Trash2,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  Phone,
+  Mail,
   X,
   AlertTriangle
 } from 'lucide-react';
 import adminService from '../../../services/adminService.js';
+import { getVerifiedBankLogo } from '../../../utils/bankLogos.js';
 
 export default function BankManagement() {
   const [banks, setBanks] = useState([]);
@@ -332,18 +333,21 @@ export default function BankManagement() {
                   <tr key={bank._id} className="hover:bg-brand-redLight/20 transition-colors">
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2.5">
-                        {bank.logoUrl ? (
-                          <img
-                            src={bank.logoUrl}
-                            alt={bank.name}
-                            className="h-6 w-6 object-contain rounded bg-brand-bg p-0.5 shrink-0 border border-brand-border"
-                            onError={(e) => { e.target.style.display = 'none'; }}
-                          />
-                        ) : (
-                          <div className="w-6 h-6 rounded bg-brand-redLight text-brand-red flex items-center justify-center shrink-0 border border-brand-red/20">
-                            <Landmark className="w-3.5 h-3.5" />
-                          </div>
-                        )}
+                        {(() => {
+                          const logoSrc = getVerifiedBankLogo(bank);
+                          return logoSrc ? (
+                            <img
+                              src={logoSrc}
+                              alt={bank.name}
+                              className="h-6 w-6 object-contain rounded bg-white p-0.5 shrink-0 border border-brand-border"
+                              onError={(e) => { e.target.style.display = 'none'; }}
+                            />
+                          ) : (
+                            <div className="w-6 h-6 rounded bg-brand-redLight text-brand-red flex items-center justify-center shrink-0 border border-brand-red/20">
+                              <Landmark className="w-3.5 h-3.5" />
+                            </div>
+                          );
+                        })()}
                         <div>
                           <div className="font-bold text-brand-textPrimary text-sm">{bank.name}</div>
                           <span className="font-mono text-[10px] text-brand-red bg-brand-redLight px-2 py-0.5 rounded border border-brand-red/20">
@@ -353,13 +357,12 @@ export default function BankManagement() {
                       </div>
                     </td>
                     <td className="py-3.5 px-4 whitespace-nowrap">
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${
-                        bank.category === 'PSU Banks'
-                          ? 'bg-blue-50 text-blue-700 border-blue-200'
-                          : bank.category === 'NBFCs'
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${bank.category === 'PSU Banks'
+                        ? 'bg-blue-50 text-blue-700 border-blue-200'
+                        : bank.category === 'NBFCs'
                           ? 'bg-amber-50 text-amber-700 border-amber-200'
                           : 'bg-purple-50 text-purple-700 border-purple-200'
-                      }`}>
+                        }`}>
                         {bank.category || 'Private Banks'}
                       </span>
                     </td>
@@ -402,11 +405,10 @@ export default function BankManagement() {
                     <td className="py-3.5 px-4">
                       <button
                         onClick={() => toggleStatus(bank)}
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase transition ${
-                          (bank.status || '').toLowerCase() === 'active'
-                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
-                            : 'bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200'
-                        }`}
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase transition ${(bank.status || '').toLowerCase() === 'active'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
+                          : 'bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200'
+                          }`}
                         title="Click to toggle Active / Inactive"
                       >
                         {(bank.status || '').toLowerCase() === 'active' ? (
